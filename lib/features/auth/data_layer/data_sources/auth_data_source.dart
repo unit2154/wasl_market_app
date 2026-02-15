@@ -1,0 +1,15 @@
+import 'package:wasl_market_app/core/message/message.dart';
+import 'package:wasl_market_app/features/auth/data_layer/model/sub_model/token_model.dart';
+import 'package:wasl_market_app/features/auth/data_layer/model/user_model.dart';
+
+abstract class AuthDataSource {
+  Future<Message> sendOtp(String phone);
+  Future<UserModel> verifyOtp(String phone, String otp);
+  Future<void> logout();
+  Future<void> saveUser(UserModel userModel);
+  Future<UserModel> getUser();
+  Future<void> removeUser();
+  Future<void> saveToken(TokenModel tokenModel);
+  Future<TokenModel> getToken();
+  Future<void> removeToken();
+}

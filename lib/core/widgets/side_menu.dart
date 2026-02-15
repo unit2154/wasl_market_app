@@ -1,0 +1,199 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wasl_market_app/core/constants/colors.dart';
+import 'package:wasl_market_app/core/constants/images.dart';
+import 'package:wasl_market_app/core/theme/cubit/theme_cubit.dart';
+import 'package:wasl_market_app/features/auth/presentation_layer/providers/cubit/auth_cubit.dart';
+import 'package:wasl_market_app/features/auth/presentation_layer/screens/user_profile.dart';
+import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
+
+class SideMenu extends StatelessWidget {
+  const SideMenu({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          DrawerHeader(
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage(AppImages.logo),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  (context.read<AuthCubit>().state as VerifyOtpSuccess)
+                      .user
+                      .name,
+                ),
+              ],
+            ),
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                Icon(Icons.person),
+                const SizedBox(width: 10),
+                const Text('حسابي الشخصي'),
+                Spacer(),
+                Icon(Icons.arrow_forward_ios),
+              ],
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserProfileScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                Icon(Icons.notifications),
+                const SizedBox(width: 10),
+                const Text('الاشعارات'),
+                Spacer(),
+                Icon(Icons.arrow_forward_ios),
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          Divider(color: AppColors.cardBorder),
+          ListTile(
+            title: Row(
+              children: [
+                SvgPicture.asset(AppIcons.deals),
+                const SizedBox(width: 10),
+                const Text('التعاملات'),
+                Spacer(),
+                Icon(Icons.arrow_forward_ios),
+              ],
+            ),
+            onTap: () {
+              context.read<DashboardCubit>().changeIndex(4);
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                Icon(Icons.location_on),
+                const SizedBox(width: 10),
+                const Text('فروع الشركة'),
+                Spacer(),
+                Icon(Icons.arrow_forward_ios),
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                Icon(Icons.dark_mode_outlined),
+                const SizedBox(width: 10),
+                const Text('الوضع الليلي'),
+                Spacer(),
+                BlocBuilder<ThemeCubit, ChangedThemeState>(
+                  builder: (context, state) {
+                    return Switch(
+                      value:
+                          context.read<ThemeCubit>().state.themeMode ==
+                          ThemeMode.dark,
+                      onChanged: (value) {
+                        context.read<ThemeCubit>().toggleTheme();
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          Divider(color: AppColors.cardBorder),
+          ListTile(
+            title: Row(
+              children: [
+                Icon(Icons.call),
+                const SizedBox(width: 10),
+                const Text('الدعم والتواصل'),
+                Spacer(),
+                Icon(Icons.arrow_forward_ios),
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                Icon(Icons.logout),
+                const SizedBox(width: 10),
+                const Text('تسجيل الخروج'),
+                Spacer(),
+                Icon(Icons.arrow_forward_ios),
+              ],
+            ),
+            onTap: () => showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                backgroundColor: AppColors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                title: const Text('هل تريد تسجيل الخروج؟'),
+                content: Column(
+                  mainAxisSize: .min,
+                  children: [
+                    OutlinedButton(
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        await context.read<AuthCubit>().logout();
+                      },
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(200, 40),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        side: const BorderSide(color: AppColors.cardBorder),
+                      ),
+                      child: Text(
+                        'نعم',
+                        style: TextStyle(color: AppColors.primary),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    OutlinedButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(200, 40),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        side: const BorderSide(color: AppColors.cardBorder),
+                      ),
+                      child: Text(
+                        'لا',
+                        style: TextStyle(color: AppColors.primary),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

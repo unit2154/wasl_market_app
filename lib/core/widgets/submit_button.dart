@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:wasl_market_app/core/constants/colors.dart';
+
+class SubmitButton extends StatelessWidget {
+  final BoxConstraints constraints;
+  final String text;
+  final VoidCallback onPressed;
+  final bool isLoading;
+  final bool outline;
+  final Widget? prefixIcon;
+  const SubmitButton({
+    super.key,
+    required this.constraints,
+    required this.text,
+    required this.onPressed,
+    this.isLoading = false,
+    this.outline = false,
+    this.prefixIcon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: outline ? Colors.white : AppColors.primary,
+        foregroundColor: outline ? AppColors.primary : Colors.white,
+        side: outline ? BorderSide(color: AppColors.primary) : null,
+        fixedSize: Size(constraints.maxWidth, constraints.maxHeight * 0.056),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+      child: isLoading
+          ? const CircularProgressIndicator(color: Colors.white)
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (prefixIcon != null) ...[prefixIcon!, SizedBox(width: 8)],
+                Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: constraints.maxWidth * .046,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+}
