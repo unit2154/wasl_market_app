@@ -1,5 +1,5 @@
 import 'package:wasl_market_app/features/ordres/domain_layer/entities/sub_entities/order_item_entity.dart';
-import 'package:wasl_market_app/features/products/data_layer/models/product_model.dart';
+import 'package:wasl_market_app/features/home/data_layer/models/product_model.dart';
 
 class OrderItemModel extends OrderItemEntity {
   OrderItemModel({

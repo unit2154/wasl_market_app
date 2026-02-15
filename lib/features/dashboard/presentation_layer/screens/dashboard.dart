@@ -3,17 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/core/dependencies/locator.dart';
+import 'package:wasl_market_app/core/widgets/search_bar.dart';
 import 'package:wasl_market_app/core/widgets/side_menu.dart';
 import 'package:wasl_market_app/features/auth/presentation_layer/providers/cubit/auth_cubit.dart';
 import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
 import 'package:wasl_market_app/features/dashboard/presentation_layer/widgets/custom_bottom_nav_bar.dart';
+import 'package:wasl_market_app/features/home/presentation_layer/screens/home_screen.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/providers/cubit/orders_cubit.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/screens/commission.screen.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/screens/orders_map_screen.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/screens/orders_screen.dart';
-import 'package:wasl_market_app/features/products/presentation_layer/providers/cubit/products_list_cubit.dart';
-import 'package:wasl_market_app/features/products/presentation_layer/screens/add_product_screen.dart';
-import 'package:wasl_market_app/features/products/presentation_layer/screens/products_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -26,9 +25,6 @@ class DashboardScreen extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => DashboardCubit()..changeIndex(2)),
           BlocProvider(create: (context) => getIt<OrdersCubit>()..getOrders()),
-          BlocProvider(
-            create: (context) => getIt<ProductsListCubit>()..getProducts(),
-          ),
         ],
         child: BlocBuilder<DashboardCubit, DashboardInitial>(
           builder: (context, state) {
@@ -64,41 +60,13 @@ class DashboardScreen extends StatelessWidget {
                             (context.read<AuthCubit>().state
                                     as VerifyOtpSuccess)
                                 .user
+                                .profile
                                 .name,
                           ),
                         ],
                       ),
                 automaticallyImplyLeading: false,
                 actions: [
-                  state.currentIndex == 3
-                      ? ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            foregroundColor: AppColors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => BlocProvider.value(
-                                  value: context.read<ProductsListCubit>(),
-                                  child: const AddProductScreen(),
-                                ),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'إضافة منتج',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                      : const SizedBox(),
                   Builder(
                     builder: (context) => IconButton(
                       icon: const Icon(Icons.menu),
@@ -115,8 +83,8 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   const OrdersScreen(),
                   const Center(child: Text('الرئيسية')),
-                  const OrdersMapScreen(),
-                  const ProductsScreen(),
+                  HomeScreen(),
+                  const Center(child: Text('الرئيسية')),
                   const CommissionScreen(),
                 ],
               ),

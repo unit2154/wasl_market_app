@@ -1,6 +1,6 @@
-import 'package:wasl_market_app/features/products/data_layer/models/product_model.dart';
 import 'package:wasl_market_app/core/models/link_model.dart';
-import 'package:wasl_market_app/features/products/domain_layer/entities/products_list_entity.dart';
+import 'package:wasl_market_app/features/home/data_layer/models/product_model.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/products_list_entity.dart';
 
 class ProductsListModel extends ProductsListEntity {
   ProductsListModel({

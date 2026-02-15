@@ -1,5 +1,5 @@
 import 'package:wasl_market_app/features/auth/data_layer/model/sub_model/profile_model.dart';
-import 'package:wasl_market_app/features/products/domain_layer/entities/product_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
 
 class ProductModel extends ProductEntity {
   final String createdAt;
