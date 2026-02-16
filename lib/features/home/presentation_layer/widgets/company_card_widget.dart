@@ -13,7 +13,6 @@ class CompanyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(context.read<HomeCubit>().state.toString());
     return InkWell(
       onTap: () {
         Navigator.push(
