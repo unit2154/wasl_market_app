@@ -2,6 +2,7 @@ class AppImages {
   static const String logo = 'assets/images/logo.png';
   static const String coins = 'assets/images/coins.png';
   static const String income = 'assets/images/income.png';
+  static const String company = 'assets/images/company_cover.jpg';
 }
 
 class AppIcons {

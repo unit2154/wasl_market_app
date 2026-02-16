@@ -4,12 +4,14 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/companies_li
 class CompaniesListModel extends CompaniesListEntity {
   CompaniesListModel({required super.companies});
   factory CompaniesListModel.fromJson(Map<String, dynamic> json) {
-    return CompaniesListModel(
-      companies: (json['data'] as List<dynamic>)
-          .map(
-            (e) => ProfileModel.fromJson(e['customer'] as Map<String, dynamic>),
-          )
-          .toList(),
-    );
+    var companies = (json['data'] as List<dynamic>)
+        .map(
+          (e) => ProfileModel.fromJson(e['customer'] as Map<String, dynamic>),
+        )
+        .toList();
+    companies = {
+      for (var company in companies) company.id: company,
+    }.values.toList();
+    return CompaniesListModel(companies: companies);
   }
 }
