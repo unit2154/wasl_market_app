@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
+import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
+import 'package:wasl_market_app/features/home/presentation_layer/screens/product_details_screen.dart';
 
 class Product extends StatelessWidget {
   final ProductEntity product;
@@ -11,7 +12,14 @@ class Product extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailsScreen(product: product),
+          ),
+        );
+      },
       child: LayoutBuilder(
         builder: (context, cardConstraints) {
           final double cardHeight = cardConstraints.maxHeight;
@@ -38,26 +46,7 @@ class Product extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: Image.asset("assets/images/item.png"),
-                          ),
-                        ),
-                        Positioned(
-                          top: 8,
-                          right: 8,
-                          child: Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(color: AppColors.cardBorder),
-                            ),
-                            child: SvgPicture.asset(
-                              "assets/icons/Edit.svg",
-                              width: 16,
-                              height: 16,
-                            ),
-                          ),
+                          child: Center(child: Image.asset(AppImages.item)),
                         ),
                         product.availabilityStatus == "discontinued"
                             ? Positioned(
@@ -128,7 +117,7 @@ class Product extends StatelessWidget {
                           style: TextStyle(
                             color: product.availabilityStatus == "discontinued"
                                 ? Colors.red
-                                : AppColors.primary,
+                                : AppColors.primaryColor,
                           ),
                         ),
                         SizedBox(height: cardHeight * 0.005),

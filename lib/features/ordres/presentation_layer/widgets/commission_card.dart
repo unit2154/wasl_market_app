@@ -19,7 +19,7 @@ class CommissionCard extends StatelessWidget {
       height: constraints.maxHeight * .25,
       width: constraints.maxWidth * .9,
       decoration: BoxDecoration(
-        color: AppColors.primary,
+        color: AppColors.primaryColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Stack(

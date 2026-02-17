@@ -47,10 +47,10 @@ class CompanyCard extends StatelessWidget {
               child: Icon(
                 Icons.store,
                 size: 50,
-                color: AppColors.primary,
+                color: AppColors.primaryColor,
                 shadows: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.5),
+                    color: AppColors.primaryColor.withValues(alpha: 0.5),
                     blurRadius: 10,
                     offset: const Offset(0, 2),
                   ),
@@ -71,10 +71,10 @@ class CompanyCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18 * MediaQuery.of(context).size.height / 844,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
+                  color: AppColors.primaryColor,
                   shadows: [
                     BoxShadow(
-                      color: AppColors.primary.withValues(alpha: 0.5),
+                      color: AppColors.primaryColor.withValues(alpha: 0.5),
                       blurRadius: 10,
                       offset: const Offset(0, 1),
                     ),

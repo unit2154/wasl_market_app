@@ -23,7 +23,7 @@ class CompanyProductsScreen extends StatelessWidget {
               child: SizedBox(height: MediaQuery.of(context).padding.top),
             ),
             SliverAppBar(
-              expandedHeight: height * 0.3,
+              expandedHeight: height * 0.35,
               pinned: false,
               leading: InkWell(
                 onTap: () => Navigator.pop(context),
@@ -31,7 +31,10 @@ class CompanyProductsScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: CircleAvatar(
                     backgroundColor: AppColors.white.withValues(alpha: 0.6),
-                    child: Icon(Icons.arrow_back, color: AppColors.primary),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: AppColors.primaryColor,
+                    ),
                   ),
                 ),
               ),
@@ -59,9 +62,9 @@ class CompanyProductsScreen extends StatelessWidget {
                     // company name and delivery time and origin
                     Positioned(
                       top: (height * 0.2),
-                      right: width * 0.1,
+                      right: width * 0.05,
                       child: Container(
-                        width: width * 0.8 + 2,
+                        width: width * 0.9,
                         height: height * 0.155 + 2,
                         decoration: ShapeDecoration(
                           color: AppColors.white,
@@ -72,6 +75,7 @@ class CompanyProductsScreen extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
+                            // company name
                             SizedBox(
                               height: height * 0.0775,
                               child: Center(
@@ -88,10 +92,12 @@ class CompanyProductsScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            // delivery time and rate
                             Row(
                               children: [
+                                // delivery time
                                 Container(
-                                  width: width * 0.4,
+                                  width: width * 0.45 - 1,
                                   height: height * 0.0775,
                                   decoration: ShapeDecoration(
                                     shape: Border(
@@ -121,8 +127,9 @@ class CompanyProductsScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                                // rate
                                 Container(
-                                  width: width * 0.4,
+                                  width: width * 0.45 - 1,
                                   height: height * 0.0775,
                                   decoration: ShapeDecoration(
                                     shape: Border(
@@ -159,26 +166,30 @@ class CompanyProductsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SliverGrid.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 0.8,
+            // company products
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              sliver: SliverGrid.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  childAspectRatio: 0.8,
+                ),
+                itemCount: (context.read<HomeCubit>().state as HomeSuccess)
+                    .products
+                    .length,
+                itemBuilder: (context, index) {
+                  return Product(
+                    product: (context.read<HomeCubit>().state as HomeSuccess)
+                        .products[index],
+                    constraints: BoxConstraints(
+                      maxWidth: double.infinity,
+                      maxHeight: MediaQuery.of(context).size.height * 0.807899,
+                    ),
+                  );
+                },
               ),
-              itemCount: (context.read<HomeCubit>().state as HomeSuccess)
-                  .products
-                  .length,
-              itemBuilder: (context, index) {
-                return Product(
-                  product: (context.read<HomeCubit>().state as HomeSuccess)
-                      .products[index],
-                  constraints: BoxConstraints(
-                    maxWidth: double.infinity,
-                    maxHeight: MediaQuery.of(context).size.height * 0.807899,
-                  ),
-                );
-              },
             ),
             SliverToBoxAdapter(
               child: SizedBox(height: MediaQuery.of(context).padding.bottom),

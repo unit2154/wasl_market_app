@@ -37,7 +37,7 @@ class TextInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 2.208, color: AppColors.primary),
+          borderSide: BorderSide(width: 2.208, color: AppColors.primaryColor),
           borderRadius: BorderRadius.circular(12),
         ),
         prefixIcon: prefixIcon != null
@@ -54,14 +54,14 @@ class TextInput extends StatelessWidget {
                   child: SvgPicture.asset(
                     prefixIcon!,
                     colorFilter: const ColorFilter.mode(
-                      AppColors.primary,
+                      AppColors.primaryColor,
                       BlendMode.srcIn,
                     ),
                   ),
                 ),
               )
             : null,
-        prefixIconColor: AppColors.primary,
+        prefixIconColor: AppColors.primaryColor,
         labelText: label,
       ),
     );

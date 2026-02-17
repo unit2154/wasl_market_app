@@ -49,7 +49,7 @@ class OrderCommissionWidget extends StatelessWidget {
                 SizedBox(width: constraints.maxWidth * .05),
                 CircleAvatar(
                   radius: constraints.maxWidth * .07,
-                  backgroundColor: AppColors.primary,
+                  backgroundColor: AppColors.primaryColor,
                   child: Icon(Icons.person, color: AppColors.white),
                 ),
                 SizedBox(width: constraints.maxWidth * .03),

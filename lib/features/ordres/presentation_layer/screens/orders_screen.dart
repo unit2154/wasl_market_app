@@ -115,7 +115,7 @@ class OrdersScreen extends StatelessWidget {
                         context.read<OrdersCubit>().getOrders();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
+                        backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),

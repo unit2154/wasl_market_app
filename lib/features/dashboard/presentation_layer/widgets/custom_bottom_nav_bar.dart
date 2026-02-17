@@ -16,6 +16,7 @@ class CustomBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // gradient background
         Positioned(
           bottom: 0,
           left: 0,
@@ -34,6 +35,7 @@ class CustomBottomNavBar extends StatelessWidget {
             ),
           ),
         ),
+        // nav bar
         Positioned(
           bottom: 0,
           left: 0,
@@ -61,6 +63,7 @@ class CustomBottomNavBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: .spaceAround,
                 children: [
+                  // index 0
                   GestureDetector(
                     onTap: () => changeIndex(0),
                     child: Column(
@@ -103,6 +106,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       ],
                     ),
                   ),
+                  // index 1
                   GestureDetector(
                     onTap: () => changeIndex(1),
                     child: Column(
@@ -145,6 +149,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       ],
                     ),
                   ),
+                  // index 2
                   GestureDetector(
                     onTap: () => changeIndex(2),
                     child: Column(
@@ -187,6 +192,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       ],
                     ),
                   ),
+                  // index 3
                   GestureDetector(
                     onTap: () => changeIndex(3),
                     child: Column(
@@ -231,12 +237,13 @@ class CustomBottomNavBar extends StatelessWidget {
                       ],
                     ),
                   ),
+                  // index 4
                   GestureDetector(
                     onTap: () => changeIndex(4),
                     child: Column(
                       children: [
                         SvgPicture.asset(
-                          AppIcons.deals,
+                          AppIcons.cart,
                           colorFilter: currentIndex == 4
                               ? ColorFilter.mode(
                                   AppColors.white,
@@ -250,7 +257,7 @@ class CustomBottomNavBar extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.025,
                         ),
                         Text(
-                          'التعاملات',
+                          'السلة',
                           style: TextStyle(
                             fontSize:
                                 11 * (MediaQuery.of(context).size.height / 800),

@@ -23,9 +23,9 @@ class SubmitButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: outline ? Colors.white : AppColors.primary,
-        foregroundColor: outline ? AppColors.primary : Colors.white,
-        side: outline ? BorderSide(color: AppColors.primary) : null,
+        backgroundColor: outline ? Colors.white : AppColors.primaryColor,
+        foregroundColor: outline ? AppColors.primaryColor : Colors.white,
+        side: outline ? BorderSide(color: AppColors.primaryColor) : null,
         fixedSize: Size(constraints.maxWidth, constraints.maxHeight * 0.056),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),

@@ -5,4 +5,5 @@ class Endpoints {
   static const String logout = '/end-market/auth/logout';
   static const String products = '/main-market/items';
   static const String orders = '/main-market/orders';
+  static const String createNewOrder = '/main-market/orders';
 }

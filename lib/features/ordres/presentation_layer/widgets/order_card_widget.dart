@@ -201,7 +201,7 @@ class OrderCard extends StatelessWidget {
                         SvgPicture.asset(
                           AppIcons.location,
                           colorFilter: ColorFilter.mode(
-                            AppColors.primary,
+                            AppColors.primaryColor,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -253,7 +253,7 @@ class OrderCard extends StatelessWidget {
                           AppIcons.commission,
                           width: width * 0.05,
                           colorFilter: ColorFilter.mode(
-                            AppColors.primary,
+                            AppColors.primaryColor,
                             BlendMode.srcIn,
                           ),
                         ),

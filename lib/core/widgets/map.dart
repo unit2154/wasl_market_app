@@ -52,7 +52,7 @@ class MapWidget extends StatelessWidget {
           height: 40,
           child: const Icon(
             Icons.location_on,
-            color: AppColors.primary,
+            color: AppColors.primaryColor,
             size: 40,
           ),
         ),
@@ -70,7 +70,7 @@ class MapWidget extends StatelessWidget {
         height: 40,
         child: const Icon(
           Icons.location_on,
-          color: AppColors.primary,
+          color: AppColors.primaryColor,
           size: 40,
         ),
       ),
@@ -99,7 +99,7 @@ class MapWidget extends StatelessWidget {
           polylines: [
             Polyline(
               points: _routePoints,
-              color: AppColors.primary,
+              color: AppColors.primaryColor,
               strokeWidth: 5,
             ),
           ],

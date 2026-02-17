@@ -57,7 +57,7 @@ class OrdersMapScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: RefreshIndicator(
                         displacement: 20,
-                        color: AppColors.primary,
+                        color: AppColors.primaryColor,
                         onRefresh: () async {
                           context.read<OrdersCubit>().getOrders();
                         },
@@ -97,7 +97,7 @@ class OrdersMapScreen extends StatelessWidget {
                         context.read<OrdersCubit>().getOrders();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
+                        backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -139,7 +139,7 @@ class OrdersMapScreen extends StatelessWidget {
                         context.read<OrdersCubit>().getOrders();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
+                        backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),

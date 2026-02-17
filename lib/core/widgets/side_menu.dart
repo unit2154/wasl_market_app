@@ -169,7 +169,7 @@ class SideMenu extends StatelessWidget {
                       ),
                       child: Text(
                         'نعم',
-                        style: TextStyle(color: AppColors.primary),
+                        style: TextStyle(color: AppColors.primaryColor),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -184,7 +184,7 @@ class SideMenu extends StatelessWidget {
                       ),
                       child: Text(
                         'لا',
-                        style: TextStyle(color: AppColors.primary),
+                        style: TextStyle(color: AppColors.primaryColor),
                       ),
                     ),
                   ],

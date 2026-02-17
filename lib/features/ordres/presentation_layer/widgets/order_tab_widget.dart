@@ -32,7 +32,7 @@ class OrderTabWidget extends StatelessWidget {
           Expanded(
             child: RefreshIndicator(
               displacement: 20,
-              color: AppColors.primary,
+              color: AppColors.primaryColor,
               onRefresh: () async {
                 context.read<OrdersCubit>().getOrders();
               },

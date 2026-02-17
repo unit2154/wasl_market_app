@@ -46,7 +46,7 @@ class OrderDialog extends StatelessWidget {
           child: Text(
             "عرض التفاصيل",
             style: TextStyle(
-              color: AppColors.primary,
+              color: AppColors.primaryColor,
               fontSize: height * 0.02,
               fontWeight: FontWeight.bold,
             ),

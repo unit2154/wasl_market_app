@@ -24,10 +24,10 @@ class HomeScreen extends StatelessWidget {
                 TabBar(
                   labelStyle: const TextStyle(
                     fontSize: 16,
-                    color: AppColors.primary,
+                    color: AppColors.primaryColor,
                   ),
                   unselectedLabelStyle: const TextStyle(fontSize: 16),
-                  indicatorColor: AppColors.primary,
+                  indicatorColor: AppColors.primaryColor,
                   dividerColor: Colors.transparent,
                   tabs: const [
                     Tab(text: 'الشركات'),

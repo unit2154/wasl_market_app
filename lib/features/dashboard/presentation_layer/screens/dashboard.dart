@@ -6,6 +6,7 @@ import 'package:wasl_market_app/core/dependencies/locator.dart';
 import 'package:wasl_market_app/core/widgets/search_bar.dart';
 import 'package:wasl_market_app/core/widgets/side_menu.dart';
 import 'package:wasl_market_app/features/auth/presentation_layer/providers/cubit/auth_cubit.dart';
+import 'package:wasl_market_app/features/cart/presentation_layer/screens/cart_screen.dart';
 import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
 import 'package:wasl_market_app/features/dashboard/presentation_layer/widgets/custom_bottom_nav_bar.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/screens/home_screen.dart';
@@ -48,7 +49,7 @@ class DashboardScreen extends StatelessWidget {
                     : state.currentIndex == 3
                     ? Text('المنتجات')
                     : state.currentIndex == 4
-                    ? Text('التعاملات')
+                    ? Text('سلة المشتريات')
                     : Row(
                         children: [
                           CircleAvatar(child: Image.asset(AppImages.logo)),
@@ -84,7 +85,7 @@ class DashboardScreen extends StatelessWidget {
                   const Center(child: Text('الرئيسية')),
                   HomeScreen(),
                   const Center(child: Text('الرئيسية')),
-                  const CommissionScreen(),
+                  const CartScreen(),
                 ],
               ),
             );

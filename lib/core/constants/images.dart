@@ -3,6 +3,7 @@ class AppImages {
   static const String coins = 'assets/images/coins.png';
   static const String income = 'assets/images/income.png';
   static const String company = 'assets/images/company_cover.jpg';
+  static const String item = 'assets/images/item.png';
 }
 
 class AppIcons {
@@ -23,4 +24,7 @@ class AppIcons {
   static const String commission = 'assets/icons/Commission.svg';
   static const String calendar = 'assets/icons/Calendar.svg';
   static const String order = 'assets/icons/Order.svg';
+  static const String edit = 'assets/icons/Edit.svg';
+  static const String cart = 'assets/icons/Cart.svg';
+  static const String cartActive = 'assets/icons/Cart-Active.svg';
 }
