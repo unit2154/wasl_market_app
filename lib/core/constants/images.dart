@@ -27,4 +27,7 @@ class AppIcons {
   static const String edit = 'assets/icons/Edit.svg';
   static const String cart = 'assets/icons/Cart.svg';
   static const String cartActive = 'assets/icons/Cart-Active.svg';
+  static const String delete = 'assets/icons/Delete.svg';
+  static const String plus = 'assets/icons/Plus.svg';
+  static const String minus = 'assets/icons/Minus.svg';
 }

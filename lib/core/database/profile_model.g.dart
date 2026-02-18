@@ -2,7 +2,7 @@ part of '../../features/auth/data_layer/model/sub_model/profile_model.dart';
 
 class ProfileModelAdapter extends TypeAdapter<ProfileModel> {
   @override
-  int get typeId => 2;
+  int get typeId => DbTypeId.profile;
 
   @override
   ProfileModel read(BinaryReader reader) {

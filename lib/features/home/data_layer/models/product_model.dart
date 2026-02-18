@@ -1,27 +1,32 @@
+import 'package:hive/hive.dart';
+import 'package:wasl_market_app/core/database/db_type_id.dart';
 import 'package:wasl_market_app/features/auth/data_layer/model/sub_model/profile_model.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
 
+part 'package:wasl_market_app/core/database/product_model.g.dart';
+
+@HiveType(typeId: DbTypeId.product)
 class ProductModel extends ProductEntity {
   final String createdAt;
   final String updatedAt;
   final String? deletedAt;
   final ProfileModel? profile;
   ProductModel({
-    required super.id,
-    required super.name,
-    required super.description,
-    super.sku,
-    required super.price,
-    required super.stockQuantity,
-    required super.availabilityStatus,
-    super.images,
-    required super.unit,
-    required super.minOrderQuantity,
-    required super.isActive,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.deletedAt,
-    this.profile,
+    @HiveField(0) required super.id,
+    @HiveField(1) required super.name,
+    @HiveField(2) required super.description,
+    @HiveField(3) super.sku,
+    @HiveField(4) required super.price,
+    @HiveField(5) required super.stockQuantity,
+    @HiveField(6) required super.availabilityStatus,
+    @HiveField(7) super.images,
+    @HiveField(8) required super.unit,
+    @HiveField(9) required super.minOrderQuantity,
+    @HiveField(10) required super.isActive,
+    @HiveField(11) required this.createdAt,
+    @HiveField(12) required this.updatedAt,
+    @HiveField(13) required this.deletedAt,
+    @HiveField(14) this.profile,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {

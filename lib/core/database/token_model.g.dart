@@ -2,7 +2,7 @@ part of "../../features/auth/data_layer/model/sub_model/token_model.dart";
 
 class TokenModelAdapter extends TypeAdapter<TokenModel> {
   @override
-  final int typeId = 1;
+  final int typeId = DbTypeId.token;
 
   @override
   TokenModel read(BinaryReader reader) {

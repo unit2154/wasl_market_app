@@ -2,7 +2,7 @@ part of '../../features/auth/data_layer/model/user_model.dart';
 
 class UserModelAdapter extends TypeAdapter<UserModel> {
   @override
-  final int typeId = 0;
+  final int typeId = DbTypeId.user;
 
   @override
   UserModel read(BinaryReader reader) {

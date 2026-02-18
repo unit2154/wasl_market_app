@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/core/dependencies/locator.dart';
-import 'package:wasl_market_app/core/widgets/search_bar.dart';
 import 'package:wasl_market_app/core/widgets/side_menu.dart';
 import 'package:wasl_market_app/features/auth/presentation_layer/providers/cubit/auth_cubit.dart';
 import 'package:wasl_market_app/features/cart/presentation_layer/screens/cart_screen.dart';
@@ -11,7 +10,6 @@ import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/
 import 'package:wasl_market_app/features/dashboard/presentation_layer/widgets/custom_bottom_nav_bar.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/screens/home_screen.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/providers/cubit/orders_cubit.dart';
-import 'package:wasl_market_app/features/ordres/presentation_layer/screens/commission.screen.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/screens/orders_screen.dart';
 
 class DashboardScreen extends StatelessWidget {

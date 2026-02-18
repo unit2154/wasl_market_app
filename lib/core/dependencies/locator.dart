@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wasl_market_app/core/network/dio_api_consumer.dart';
-import 'package:wasl_market_app/features/auth/domain_layer/entities/sub_entities/token_entity.dart';
-import 'package:wasl_market_app/features/auth/domain_layer/entities/user_entity.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/use_cases/get_user.dart';
 import 'package:wasl_market_app/features/home/data_layer/data_sources/home_data_source.dart';
 import 'package:wasl_market_app/features/home/data_layer/data_sources/home_data_source_impl.dart';
@@ -19,7 +17,7 @@ import 'package:wasl_market_app/features/ordres/domain_layer/usecases/get_orders
 import 'package:wasl_market_app/features/ordres/domain_layer/usecases/update_order_state.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/providers/cubit/orders_cubit.dart';
 import 'package:hive/hive.dart';
-import 'package:wasl_market_app/core/constants/app_constants.dart';
+import 'package:wasl_market_app/core/database/db_boxes.dart';
 import 'package:wasl_market_app/core/network/api_consumer.dart';
 import 'package:wasl_market_app/features/auth/data_layer/data_sources/auth_data_source.dart';
 import 'package:wasl_market_app/features/auth/data_layer/data_sources/auth_data_source_impl.dart';
