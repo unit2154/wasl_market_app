@@ -4,6 +4,7 @@ import 'package:wasl_market_app/features/auth/data_layer/model/sub_model/profile
 import 'package:wasl_market_app/features/auth/data_layer/model/sub_model/token_model.dart';
 import 'package:wasl_market_app/features/auth/data_layer/model/user_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/product_model.dart';
+import 'package:wasl_market_app/features/cart/data_layer/models/cart_model.dart';
 
 Future<void> initHive() async {
   await Hive.initFlutter();
@@ -11,8 +12,10 @@ Future<void> initHive() async {
   Hive.registerAdapter(TokenModelAdapter());
   Hive.registerAdapter(ProfileModelAdapter());
   Hive.registerAdapter(ProductModelAdapter());
+  Hive.registerAdapter(CartModelAdapter());
   await Hive.openBox<UserModel>(DBBoxes.userBox);
   await Hive.openBox<TokenModel>(DBBoxes.tokenBox);
   await Hive.openBox<ProfileModel>(DBBoxes.profileBox);
   await Hive.openBox<ProductModel>(DBBoxes.productBox);
+  await Hive.openBox<CartModel>(DBBoxes.cartBox);
 }

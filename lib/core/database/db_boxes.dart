@@ -3,4 +3,5 @@ class DBBoxes {
   static const String userBox = 'user';
   static const String profileBox = 'profile';
   static const String productBox = 'product';
+  static const String cartBox = 'cart';
 }

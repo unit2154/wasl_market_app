@@ -1,3 +1,5 @@
+import 'package:wasl_market_app/features/auth/domain_layer/entities/sub_entities/profile_entity.dart';
+
 class ProductEntity {
   int id;
   String name;
@@ -10,6 +12,7 @@ class ProductEntity {
   String unit;
   String minOrderQuantity;
   bool isActive;
+  ProfileEntity? profile;
 
   ProductEntity({
     required this.id,
@@ -23,19 +26,6 @@ class ProductEntity {
     required this.unit,
     required this.minOrderQuantity,
     required this.isActive,
+    this.profile,
   });
-
-  Map<String, dynamic> toJson() => {
-    'customer_id': "1",
-    'name': name,
-    'description': description,
-    'sku': sku,
-    'price': price,
-    'stock_quantity': stockQuantity,
-    'availability_status': "available",
-    'images': images,
-    'unit': unit,
-    'min_order_quantity': minOrderQuantity,
-    'is_active': isActive ? 1 : 0,
-  };
 }

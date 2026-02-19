@@ -1,8 +1,10 @@
-import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/entities/sub_entity/cart_item_entity.dart';
 
 class CartEntity {
-  final List<ProductEntity> products;
-  final double totalPrice;
+  final List<CartItemEntity> products;
 
-  CartEntity({required this.products, required this.totalPrice});
+  CartEntity({required this.products});
+
+  double get totalPrice =>
+      products.fold(0, (sum, item) => sum + double.parse(item.total));
 }

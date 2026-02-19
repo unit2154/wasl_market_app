@@ -10,7 +10,6 @@ class ProductModel extends ProductEntity {
   final String createdAt;
   final String updatedAt;
   final String? deletedAt;
-  final ProfileModel? profile;
   ProductModel({
     @HiveField(0) required super.id,
     @HiveField(1) required super.name,
@@ -26,7 +25,7 @@ class ProductModel extends ProductEntity {
     @HiveField(11) required this.createdAt,
     @HiveField(12) required this.updatedAt,
     @HiveField(13) required this.deletedAt,
-    @HiveField(14) this.profile,
+    @HiveField(14) super.profile,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -51,7 +50,6 @@ class ProductModel extends ProductEntity {
     );
   }
 
-  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -68,7 +66,7 @@ class ProductModel extends ProductEntity {
       'created_at': createdAt,
       'updated_at': updatedAt,
       'deleted_at': deletedAt,
-      'customer': profile!.toJson(),
+      'customer': (profile! as ProfileModel).toJson(),
     };
   }
 }
