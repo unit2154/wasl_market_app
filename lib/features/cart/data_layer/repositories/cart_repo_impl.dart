@@ -22,10 +22,12 @@ class CartRepoImpl implements CartRepo {
   }
 
   @override
-  Future<Either<Failure, void>> addProductToCart(CartItemEntity product) async {
+  Future<Either<Failure, CartEntity>> addProductToCart(
+    CartItemEntity product,
+  ) async {
     try {
-      await cartDataSource.addToCart(product);
-      return right(null);
+      final cart = await cartDataSource.addToCart(product);
+      return right(cart);
     } catch (e) {
       return left(CacheFailure(message: e.toString()));
     }
@@ -42,25 +44,27 @@ class CartRepoImpl implements CartRepo {
   }
 
   @override
-  Future<Either<Failure, void>> removeProductFromCart(
+  Future<Either<Failure, CartEntity>> removeProductFromCart(
     CartItemEntity product,
   ) async {
     try {
-      await cartDataSource.removeFromCart(product);
-      return right(null);
+      final cart = await cartDataSource.removeFromCart(product);
+      return right(cart);
     } catch (e) {
       return left(ServerFailure(message: e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, void>> updateProductQuantity(
+  Future<Either<Failure, CartEntity>> updateProductQuantity(
     CartItemEntity product,
     int quantity,
   ) async {
     try {
-      await cartDataSource.updateCart(product.copyWith(quantity: quantity));
-      return right(null);
+      final cart = await cartDataSource.updateCart(
+        product.copyWith(quantity: quantity),
+      );
+      return right(cart);
     } catch (e) {
       return left(CacheFailure(message: e.toString()));
     }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
+import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
+import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/screens/product_details_screen.dart';
 
@@ -16,7 +19,13 @@ class Product extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetailsScreen(product: product),
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: context.read<CartCubit>()),
+                BlocProvider.value(value: context.read<DashboardCubit>()),
+              ],
+              child: ProductDetailsScreen(product: product),
+            ),
           ),
         );
       },

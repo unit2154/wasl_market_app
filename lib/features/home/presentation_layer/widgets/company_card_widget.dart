@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/entities/sub_entities/profile_entity.dart';
+import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
+import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/screens/company_products_screen.dart';
 
@@ -18,8 +20,12 @@ class CompanyCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-              value: context.read<HomeCubit>(),
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: context.read<HomeCubit>()),
+                BlocProvider.value(value: context.read<CartCubit>()),
+                BlocProvider.value(value: context.read<DashboardCubit>()),
+              ],
               child: CompanyProductsScreen(company: company),
             ),
           ),

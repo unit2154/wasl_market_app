@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/entities/sub_entity/cart_item_entity.dart';
+import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({super.key});
+  final CartItemEntity item;
+  const CartItem({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    ValueNotifier<int> quantity = ValueNotifier<int>(item.quantity);
     return Container(
       width: width,
       height: height * 0.08,
@@ -34,14 +39,14 @@ class CartItem extends StatelessWidget {
                   crossAxisAlignment: .start,
                   mainAxisSize: .min,
                   children: [
-                    Text("السعر الكلي"),
+                    Text(item.product.name),
                     Row(
                       children: [
                         SvgPicture.asset(AppIcons.location),
-                        Text("data"),
+                        Text(item.product.profile?.name ?? ""),
                       ],
                     ),
-                    Text("500,000 IQD"),
+                    Text("${item.product.price} IQD"),
                   ],
                 ),
                 // delete button
@@ -52,7 +57,7 @@ class CartItem extends StatelessWidget {
                     onTap: () {
                       showDialog(
                         context: context,
-                        builder: (context) {
+                        builder: (_) {
                           return AlertDialog(
                             backgroundColor: AppColors.white,
                             shape: RoundedRectangleBorder(
@@ -69,6 +74,9 @@ class CartItem extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
+                                  context.read<CartCubit>().removeFromCart(
+                                    item,
+                                  );
                                   Navigator.pop(context);
                                 },
                                 child: Text("حذف"),
@@ -94,7 +102,15 @@ class CartItem extends StatelessWidget {
                   child: Row(
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          quantity.value--;
+                          if (quantity.value > 1) {
+                            context.read<CartCubit>().updateCart(
+                              item,
+                              quantity.value,
+                            );
+                          }
+                        },
                         child: SvgPicture.asset(
                           AppIcons.minus,
                           colorFilter: ColorFilter.mode(
@@ -105,19 +121,33 @@ class CartItem extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Text(
-                          "1",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: ValueListenableBuilder(
+                          valueListenable: quantity,
+                          builder: (context, value, child) {
+                            return Text(
+                              "$value",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                          },
                         ),
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          quantity.value++;
+                          context.read<CartCubit>().updateCart(
+                            item,
+                            quantity.value,
+                          );
+                        },
                         child: SvgPicture.asset(
                           AppIcons.plus,
-                          color: AppColors.primaryColor,
+                          colorFilter: ColorFilter.mode(
+                            AppColors.primaryColor,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ],

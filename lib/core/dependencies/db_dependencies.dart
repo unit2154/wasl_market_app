@@ -8,5 +8,8 @@ Future<void> dbDependencies() async {
   getIt.registerLazySingleton<Box<UserModel>>(
     () => Hive.box<UserModel>(DBBoxes.userBox),
   );
+  getIt.registerLazySingleton<Box<CartModel>>(
+    () => Hive.box<CartModel>(DBBoxes.cartBox),
+  );
   // ======================= DB =======================
 }

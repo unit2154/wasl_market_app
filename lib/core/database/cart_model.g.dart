@@ -16,9 +16,6 @@ class CartModelAdapter extends TypeAdapter<CartModel> {
 
   @override
   void write(BinaryWriter writer, CartModel object) {
-    writer.writeList(
-      object.products.map((e) => (e as CartItemModel).toJson()).toList(),
-    );
-    writer.writeDouble(object.totalPrice);
+    writer.writeList(object.products);
   }
 }

@@ -2,6 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wasl_market_app/core/network/dio_api_consumer.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/use_cases/get_user.dart';
+import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source.dart';
+import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source_impl.dart';
+import 'package:wasl_market_app/features/cart/data_layer/models/cart_model.dart';
+import 'package:wasl_market_app/features/cart/data_layer/repositories/cart_repo_impl.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/repositories/cart_repo.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/usecases/add_product_to_cart.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/usecases/get_cart.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/usecases/remove_product_from_cart.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/usecases/update_product_quantitiy.dart';
+import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
 import 'package:wasl_market_app/features/home/data_layer/data_sources/home_data_source.dart';
 import 'package:wasl_market_app/features/home/data_layer/data_sources/home_data_source_impl.dart';
 import 'package:wasl_market_app/features/home/data_layer/repository/home_reop_impl.dart';
@@ -34,6 +44,7 @@ part 'auth_dependencies.dart';
 part 'orders_dependencies.dart';
 part 'db_dependencies.dart';
 part 'home_dependencies.dart';
+part 'cart_dependencies.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -42,4 +53,5 @@ Future<void> setup() async {
   await authDependencies();
   await homeDependencies();
   await ordersDependencies();
+  cartDependencies();
 }

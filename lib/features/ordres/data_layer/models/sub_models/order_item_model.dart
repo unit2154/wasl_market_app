@@ -44,7 +44,7 @@ class OrderItemModel extends OrderItemEntity {
       'notes': notes,
       'created_at': createdAt,
       'updated_at': updatedAt,
-      'item': item?.toJson(),
+      'item': (item as ProductModel?)?.toJson(),
     };
   }
 }

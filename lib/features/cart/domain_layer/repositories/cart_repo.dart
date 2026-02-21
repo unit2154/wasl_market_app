@@ -5,9 +5,11 @@ import 'package:wasl_market_app/features/cart/domain_layer/entities/new_order_en
 import 'package:wasl_market_app/features/cart/domain_layer/entities/sub_entity/cart_item_entity.dart';
 
 abstract class CartRepo {
-  Future<Either<Failure, void>> addProductToCart(CartItemEntity product);
-  Future<Either<Failure, void>> removeProductFromCart(CartItemEntity product);
-  Future<Either<Failure, void>> updateProductQuantity(
+  Future<Either<Failure, CartEntity>> addProductToCart(CartItemEntity product);
+  Future<Either<Failure, CartEntity>> removeProductFromCart(
+    CartItemEntity product,
+  );
+  Future<Either<Failure, CartEntity>> updateProductQuantity(
     CartItemEntity product,
     int quantity,
   );

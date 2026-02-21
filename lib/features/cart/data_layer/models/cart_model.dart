@@ -17,10 +17,7 @@ class CartModel extends CartEntity {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'products': products.map((e) => (e as CartItemModel).toJson()).toList(),
-      'total_price': totalPrice,
-    };
+  CartEntity toEntity() {
+    return this;
   }
 }

@@ -14,6 +14,9 @@ class CompanyProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final products = (context.read<HomeCubit>().state as HomeSuccess).products
+        .where((element) => element.profile!.id == company.id)
+        .toList();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -176,13 +179,10 @@ class CompanyProductsScreen extends StatelessWidget {
                   crossAxisSpacing: 8,
                   childAspectRatio: 0.8,
                 ),
-                itemCount: (context.read<HomeCubit>().state as HomeSuccess)
-                    .products
-                    .length,
+                itemCount: products.length,
                 itemBuilder: (context, index) {
                   return Product(
-                    product: (context.read<HomeCubit>().state as HomeSuccess)
-                        .products[index],
+                    product: products[index],
                     constraints: BoxConstraints(
                       maxWidth: double.infinity,
                       maxHeight: MediaQuery.of(context).size.height * 0.807899,
