@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
+import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final Function(int) changeIndex;
@@ -242,19 +244,61 @@ class CustomBottomNavBar extends StatelessWidget {
                     onTap: () => changeIndex(4),
                     child: Column(
                       children: [
-                        SvgPicture.asset(
-                          AppIcons.cart,
-                          colorFilter: currentIndex == 4
-                              ? ColorFilter.mode(
-                                  AppColors.white,
-                                  BlendMode.srcATop,
-                                )
-                              : ColorFilter.mode(
-                                  AppColors.white,
-                                  BlendMode.dstIn,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.08,
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: SvgPicture.asset(
+                                  AppIcons.cart,
+                                  colorFilter: currentIndex == 4
+                                      ? ColorFilter.mode(
+                                          AppColors.white,
+                                          BlendMode.srcATop,
+                                        )
+                                      : ColorFilter.mode(
+                                          AppColors.white,
+                                          BlendMode.dstIn,
+                                        ),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                  height:
+                                      MediaQuery.of(context).size.height *
+                                      0.025,
                                 ),
-                          width: MediaQuery.of(context).size.width * 0.025,
-                          height: MediaQuery.of(context).size.height * 0.025,
+                              ),
+                              BlocBuilder<CartCubit, CartState>(
+                                builder: (context, state) {
+                                  return state.cart != null &&
+                                          state.cart!.products.isNotEmpty
+                                      ? Positioned(
+                                          top: 0,
+                                          right: 0,
+                                          child: Container(
+                                            width: 14,
+                                            height: 14,
+                                            decoration: BoxDecoration(
+                                              color: Colors.red,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                state.cart!.products.length
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  color: AppColors.white,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : const SizedBox();
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                         Text(
                           'السلة',

@@ -19,7 +19,7 @@ class CartItemModel extends CartItemEntity {
     );
   }
 
-  CartItemEntity toEntity() {
-    return this;
+  Map<String, dynamic> toJson() {
+    return {'item_id': product.id, 'quantity': quantity};
   }
 }

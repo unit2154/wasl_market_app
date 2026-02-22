@@ -3,6 +3,8 @@ import 'package:meta/meta.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/cart_entity.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/sub_entity/cart_item_entity.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/usecases/add_product_to_cart.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/usecases/clear_cart.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/usecases/create_new_order.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/usecases/get_cart.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/usecases/remove_product_from_cart.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/usecases/update_product_quantitiy.dart';
@@ -14,11 +16,15 @@ class CartCubit extends Cubit<CartState> {
   final AddToCart addToCartUseCase;
   final RemoveFromCart removeFromCartUseCase;
   final UpdateCart updateCartUseCase;
+  final CreateNewOrder createNewOrderUseCase;
+  final ClearCart clearCartUseCase;
   CartCubit({
     required this.getCartUseCase,
     required this.addToCartUseCase,
     required this.removeFromCartUseCase,
     required this.updateCartUseCase,
+    required this.createNewOrderUseCase,
+    required this.clearCartUseCase,
   }) : super(CartState());
 
   Future<void> getCart() async {
@@ -45,7 +51,7 @@ class CartCubit extends Cubit<CartState> {
           errorMessage: failure.message,
         ),
       ),
-      (cart) => emit(state.copyWith(status: CartStatus.success, cart: cart)),
+      (cart) => emit(state.copyWith(status: CartStatus.addToCart, cart: cart)),
     );
   }
 
@@ -59,7 +65,8 @@ class CartCubit extends Cubit<CartState> {
           errorMessage: failure.message,
         ),
       ),
-      (cart) => emit(state.copyWith(status: CartStatus.success, cart: cart)),
+      (cart) =>
+          emit(state.copyWith(status: CartStatus.removeFromCart, cart: cart)),
     );
   }
 
@@ -74,6 +81,37 @@ class CartCubit extends Cubit<CartState> {
         ),
       ),
       (cart) => emit(state.copyWith(status: CartStatus.success, cart: cart)),
+    );
+  }
+
+  Future<void> createNewOrder(CartEntity cart) async {
+    emit(state.copyWith(status: CartStatus.loading));
+    final result = await createNewOrderUseCase(cart);
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: CartStatus.failure,
+          errorMessage: failure.message,
+        ),
+      ),
+      (r) {
+        clearCart();
+        emit(state.copyWith(status: CartStatus.orderCreated, cart: null));
+      },
+    );
+  }
+
+  Future<void> clearCart() async {
+    emit(state.copyWith(status: CartStatus.loading));
+    final result = await clearCartUseCase();
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: CartStatus.failure,
+          errorMessage: failure.message,
+        ),
+      ),
+      (r) => getCart(),
     );
   }
 }

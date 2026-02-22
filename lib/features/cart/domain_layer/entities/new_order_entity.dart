@@ -12,13 +12,4 @@ class NewOrderEntity {
     required this.shippingAddress,
     required this.notes,
   });
-
-  Map<String, dynamic> toJson() {
-    return {
-      'mainCustomerId': mainCustomerId,
-      'items': items.map((item) => item.toJson()).toList(),
-      'shippingAddress': shippingAddress,
-      'notes': notes,
-    };
-  }
 }

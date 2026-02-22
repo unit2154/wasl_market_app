@@ -16,5 +16,7 @@ abstract class CartRepo {
 
   Future<Either<Failure, CartEntity>> getCart();
 
+  Future<Either<Failure, void>> clearCart();
+
   Future<Either<Failure, void>> createNewOrder(NewOrderEntity newOrder);
 }

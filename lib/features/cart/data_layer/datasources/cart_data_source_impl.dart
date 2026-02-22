@@ -5,6 +5,7 @@ import 'package:wasl_market_app/core/network/dio_api_consumer.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/entities/sub_entities/token_entity.dart';
 import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source.dart';
 import 'package:wasl_market_app/features/cart/data_layer/models/cart_model.dart';
+import 'package:wasl_market_app/features/cart/data_layer/models/new_order_model.dart';
 import 'package:wasl_market_app/features/cart/data_layer/models/sub_model/cart_item_model.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/cart_entity.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/new_order_entity.dart';
@@ -25,8 +26,12 @@ class CartDataSourceImpl implements CartDataSource {
     try {
       await apiService.post(
         Endpoints.createNewOrder,
-        headers: {"Authorization": "Bearer ${tokenBox.getAt(0)?.token}"},
-        data: order.toJson(),
+        headers: {
+          "Authorization": "Bearer ${tokenBox.getAt(0)?.token}",
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        data: NewOrderModel.fromEntity(order).toJson(),
       );
     } on DioException catch (e) {
       throw ServerException(
@@ -69,7 +74,7 @@ class CartDataSourceImpl implements CartDataSource {
   @override
   Future<CartEntity> clearCart() {
     try {
-      cartBox.deleteAt(0);
+      cartBox.delete('cart');
       return Future.value(CartEntity(products: []));
     } catch (e) {
       throw CacheException(message: e.toString());

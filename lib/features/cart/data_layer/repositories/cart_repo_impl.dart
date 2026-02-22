@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:wasl_market_app/core/error/failure.dart';
 import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source.dart';
-import 'package:wasl_market_app/features/cart/data_layer/models/new_order_model.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/cart_entity.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/new_order_entity.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/sub_entity/cart_item_entity.dart';
@@ -14,7 +13,7 @@ class CartRepoImpl implements CartRepo {
   @override
   Future<Either<Failure, void>> createNewOrder(NewOrderEntity newOrder) async {
     try {
-      await cartDataSource.createNewOrder(newOrder as NewOrderModel);
+      await cartDataSource.createNewOrder(newOrder);
       return right(null);
     } catch (e) {
       return left(ServerFailure(message: e.toString()));
@@ -67,6 +66,16 @@ class CartRepoImpl implements CartRepo {
       return right(cart);
     } catch (e) {
       return left(CacheFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> clearCart() async {
+    try {
+      await cartDataSource.clearCart();
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(message: e.toString()));
     }
   }
 }

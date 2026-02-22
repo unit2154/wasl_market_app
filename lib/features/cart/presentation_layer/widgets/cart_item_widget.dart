@@ -103,19 +103,23 @@ class CartItem extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          quantity.value--;
                           if (quantity.value > 1) {
+                            quantity.value--;
                             context.read<CartCubit>().updateCart(
                               item,
                               quantity.value,
                             );
                           }
                         },
-                        child: SvgPicture.asset(
-                          AppIcons.minus,
-                          colorFilter: ColorFilter.mode(
-                            AppColors.primaryColor,
-                            BlendMode.srcIn,
+                        child: CircleAvatar(
+                          radius: 12,
+                          backgroundColor: Colors.transparent,
+                          child: SvgPicture.asset(
+                            AppIcons.minus,
+                            colorFilter: ColorFilter.mode(
+                              AppColors.primaryColor,
+                              BlendMode.srcIn,
+                            ),
                           ),
                         ),
                       ),
@@ -142,11 +146,15 @@ class CartItem extends StatelessWidget {
                             quantity.value,
                           );
                         },
-                        child: SvgPicture.asset(
-                          AppIcons.plus,
-                          colorFilter: ColorFilter.mode(
-                            AppColors.primaryColor,
-                            BlendMode.srcIn,
+                        child: CircleAvatar(
+                          radius: 12,
+                          backgroundColor: Colors.transparent,
+                          child: SvgPicture.asset(
+                            AppIcons.plus,
+                            colorFilter: ColorFilter.mode(
+                              AppColors.primaryColor,
+                              BlendMode.srcIn,
+                            ),
                           ),
                         ),
                       ),

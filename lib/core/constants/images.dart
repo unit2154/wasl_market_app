@@ -4,6 +4,7 @@ class AppImages {
   static const String income = 'assets/images/income.png';
   static const String company = 'assets/images/company_cover.jpg';
   static const String item = 'assets/images/item.png';
+  static const String orderCreated = 'assets/images/order_creation_success.png';
 }
 
 class AppIcons {

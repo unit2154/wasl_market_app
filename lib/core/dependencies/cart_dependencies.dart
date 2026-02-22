@@ -7,6 +7,8 @@ void cartDependencies() {
       addToCartUseCase: getIt<AddToCart>(),
       removeFromCartUseCase: getIt<RemoveFromCart>(),
       updateCartUseCase: getIt<UpdateCart>(),
+      createNewOrderUseCase: getIt<CreateNewOrder>(),
+      clearCartUseCase: getIt<ClearCart>(),
     ),
   );
   getIt.registerLazySingleton<GetCart>(() => GetCart(getIt<CartRepo>()));
@@ -15,6 +17,12 @@ void cartDependencies() {
     () => RemoveFromCart(getIt<CartRepo>()),
   );
   getIt.registerLazySingleton<UpdateCart>(() => UpdateCart(getIt<CartRepo>()));
+  getIt.registerLazySingleton<CreateNewOrder>(
+    () => CreateNewOrder(cartRepo: getIt<CartRepo>()),
+  );
+  getIt.registerLazySingleton<ClearCart>(
+    () => ClearCart(cartRepo: getIt<CartRepo>()),
+  );
   getIt.registerLazySingleton<CartRepo>(
     () => CartRepoImpl(cartDataSource: getIt<CartDataSource>()),
   );

@@ -8,6 +8,7 @@ enum CartStatus {
   clearCart,
   addToCart,
   removeFromCart,
+  orderCreated,
 }
 
 @immutable

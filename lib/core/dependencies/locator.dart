@@ -8,6 +8,8 @@ import 'package:wasl_market_app/features/cart/data_layer/models/cart_model.dart'
 import 'package:wasl_market_app/features/cart/data_layer/repositories/cart_repo_impl.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/repositories/cart_repo.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/usecases/add_product_to_cart.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/usecases/clear_cart.dart';
+import 'package:wasl_market_app/features/cart/domain_layer/usecases/create_new_order.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/usecases/get_cart.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/usecases/remove_product_from_cart.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/usecases/update_product_quantitiy.dart';

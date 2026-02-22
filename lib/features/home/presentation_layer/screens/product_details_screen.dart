@@ -89,7 +89,7 @@ class ProductDetailsScreen extends StatelessWidget {
         ),
         body: BlocListener<CartCubit, CartState>(
           listenWhen: (previous, current) {
-            return current.status == CartStatus.success;
+            return current.status == CartStatus.addToCart;
           },
           listener: (context, state) {
             inCartQuantityNotifier.value =
