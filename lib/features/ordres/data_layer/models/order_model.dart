@@ -20,7 +20,7 @@ class OrderModel extends OrderEntity {
     super.confirmedAt,
     super.shippedAt,
     super.deliveredAt,
-    super.endCustomer,
+    super.mainCustomer,
     super.orderItems,
     super.commission,
   });
@@ -43,8 +43,8 @@ class OrderModel extends OrderEntity {
       deliveredAt: json['delivered_at'],
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
-      endCustomer: json['end_customer'] != null
-          ? CustomerModel.fromJson(json['end_customer'])
+      mainCustomer: json['main_customer'] != null
+          ? CustomerModel.fromJson(json['main_customer'])
           : null,
       orderItems: (json['order_items'] as List)
           .map((e) => OrderItemModel.fromJson(e))

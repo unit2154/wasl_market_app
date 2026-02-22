@@ -166,7 +166,7 @@ class NewMapOrderWidget extends StatelessWidget {
                   SizedBox(
                     width: width * 0.8,
                     child: Text(
-                      order.endCustomer!.name,
+                      order.mainCustomer?.name ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textDirection: TextDirection.rtl,
@@ -216,7 +216,7 @@ class NewMapOrderWidget extends StatelessWidget {
                   SizedBox(
                     width: width * 0.2,
                     child: Text(
-                      order.endCustomer!.address,
+                      order.mainCustomer?.address ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textDirection: TextDirection.rtl,

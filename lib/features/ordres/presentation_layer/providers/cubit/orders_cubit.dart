@@ -63,7 +63,7 @@ class OrdersCubit extends Cubit<OrdersState> {
                   .last
                   .toLowerCase()
                   .contains(query.toLowerCase()) ||
-              order.endCustomer!.name.toLowerCase().contains(
+              order.mainCustomer!.name.toLowerCase().contains(
                 query.toLowerCase(),
               ),
         )

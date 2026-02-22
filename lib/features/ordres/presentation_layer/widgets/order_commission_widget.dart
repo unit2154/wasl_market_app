@@ -58,7 +58,7 @@ class OrderCommissionWidget extends StatelessWidget {
                   crossAxisAlignment: .start,
                   children: [
                     Text(
-                      order.endCustomer!.name,
+                      order.mainCustomer?.name ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

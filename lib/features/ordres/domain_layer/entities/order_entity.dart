@@ -19,7 +19,7 @@ class OrderEntity {
   final String? deliveredAt;
   final String createdAt;
   final String? updatedAt;
-  final CustomerEntity? endCustomer;
+  final CustomerEntity? mainCustomer;
   List<OrderItemEntity>? orderItems;
   final CommissionEntity? commission;
 
@@ -40,7 +40,7 @@ class OrderEntity {
     this.deliveredAt,
     required this.createdAt,
     this.updatedAt,
-    this.endCustomer,
+    this.mainCustomer,
     this.orderItems,
     this.commission,
   });

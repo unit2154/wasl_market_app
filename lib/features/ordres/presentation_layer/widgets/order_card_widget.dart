@@ -135,7 +135,9 @@ class OrderCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          DateTime.parse(order.createdAt).toLocal().toString(),
+                          DateTime.parse(
+                            order.createdAt,
+                          ).toLocal().toString().substring(0, 16),
                           textDirection: TextDirection.ltr,
                           style: TextStyle(
                             color: const Color(0xFF646464),
@@ -167,7 +169,7 @@ class OrderCard extends StatelessWidget {
                           SizedBox(
                             width: width * .5,
                             child: Text(
-                              order.endCustomer!.name,
+                              order.mainCustomer?.name ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textDirection: TextDirection.rtl,
@@ -241,37 +243,6 @@ class OrderCard extends StatelessWidget {
                           style: TextStyle(
                             color: AppColors.textPrimary,
                             fontSize: 14 * (height / 650),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                    // Commission
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          AppIcons.commission,
-                          width: width * 0.05,
-                          colorFilter: ColorFilter.mode(
-                            AppColors.primaryColor,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        SizedBox(width: width * 0.01),
-                        Text(
-                          "العمولة",
-                          style: TextStyle(
-                            color: AppColors.textSecondary,
-                            fontSize: 10 * (height / 650),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(width: width * 0.05),
-                        Text(
-                          "${order.commissionAmount} دينار",
-                          style: TextStyle(
-                            color: AppColors.textSecondary,
-                            fontSize: 10 * (height / 650),
                             fontWeight: FontWeight.w700,
                           ),
                         ),

@@ -34,7 +34,8 @@ class VerifyOtpScreen extends StatelessWidget {
                       label: 'ادخل الكود',
                       prefixIcon: AppIcons.lock,
                       keyboardType: TextInputType.number,
-                      controller: context.read<AuthCubit>().otpController,
+                      controller: context.read<AuthCubit>().otpController
+                        ..text = "1111",
                       constraints: constraints,
                     ),
 

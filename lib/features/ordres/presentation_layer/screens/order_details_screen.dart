@@ -113,7 +113,7 @@ class OrderDetailsScreen extends StatelessWidget {
                             Text(
                               DateTime.parse(
                                 order.createdAt,
-                              ).toLocal().toString(),
+                              ).toLocal().toString().substring(0, 16),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textDirection: TextDirection.ltr,
@@ -149,7 +149,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               SizedBox(
                                 width: width * .5,
                                 child: Text(
-                                  order.endCustomer!.name,
+                                  order.mainCustomer!.name,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textDirection: TextDirection.rtl,

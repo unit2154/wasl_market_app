@@ -19,17 +19,6 @@ class OrderDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String status = "", action = "";
-    if (order.status == "pending") {
-      status = "reviewing";
-      action = "قبول الطلب";
-    } else if (order.status == "reviewing") {
-      status = "processing";
-      action = "تجهيز الطلب";
-    } else if (order.status == "processing") {
-      status = "delivering";
-      action = "تسليم الطلب";
-    }
     return Column(
       mainAxisSize: .min,
       children: [
@@ -52,40 +41,6 @@ class OrderDialog extends StatelessWidget {
             ),
           ),
         ),
-        order.status != "delivered" &&
-                order.status != "cancelled" &&
-                order.status != "shipped" &&
-                order.status != "awaiting_confirmation"
-            ? Column(
-                mainAxisSize: .min,
-                children: [
-                  Divider(
-                    color: AppColors.cardBorder,
-                    thickness: 1,
-                    height: 1,
-                    indent: width * 0.03,
-                    endIndent: width * 0.03,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      context.read<OrdersCubit>().updateOrderStatus(
-                        order.id,
-                        status,
-                      );
-                    },
-                    child: Text(
-                      action,
-                      style: TextStyle(
-                        color: AppColors.orderStatePending,
-                        fontSize: height * 0.02,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            : SizedBox(),
         order.status != "cancelled" &&
                 order.status != "shipped" &&
                 order.status != "delivered" &&
