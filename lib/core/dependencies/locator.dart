@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wasl_market_app/core/network/dio_api_consumer.dart';
+import 'package:wasl_market_app/features/auth/domain_layer/entities/sub_entities/token_entity.dart';
+import 'package:wasl_market_app/features/auth/domain_layer/entities/user_entity.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/use_cases/get_user.dart';
 import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source.dart';
 import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source_impl.dart';
@@ -42,11 +44,18 @@ import 'package:wasl_market_app/features/auth/domain_layer/use_cases/logout.dart
 import 'package:wasl_market_app/features/auth/domain_layer/use_cases/send_otp.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/use_cases/verify_otp.dart';
 import 'package:wasl_market_app/features/auth/presentation_layer/providers/cubit/auth_cubit.dart';
+import 'package:wasl_market_app/features/products/data_layer/data_sources/store_products_data_source.dart';
+import 'package:wasl_market_app/features/products/data_layer/data_sources/store_products_data_source_impl.dart';
+import 'package:wasl_market_app/features/products/data_layer/repository/store_products_reop_impl.dart';
+import 'package:wasl_market_app/features/products/domain_layer/repository/store_products_repo.dart';
+import 'package:wasl_market_app/features/products/domain_layer/usecases/get_store_products.dart';
+import 'package:wasl_market_app/features/products/presentation_layer/providers/cubit/store_products_list_cubit.dart';
 part 'auth_dependencies.dart';
 part 'orders_dependencies.dart';
 part 'db_dependencies.dart';
 part 'home_dependencies.dart';
 part 'cart_dependencies.dart';
+part 'products_dependencies.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -55,5 +64,6 @@ Future<void> setup() async {
   await authDependencies();
   await homeDependencies();
   await ordersDependencies();
+  await productsDependencies();
   cartDependencies();
 }

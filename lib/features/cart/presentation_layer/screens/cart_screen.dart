@@ -47,7 +47,7 @@ class CartScreen extends StatelessWidget {
         if (state.status == CartStatus.failure) {
           return Center(
             child: Text(
-              state.errorMessage ?? "حدث خطأ",
+              state.errorMessage,
               style: TextStyle(color: Colors.red),
             ),
           );

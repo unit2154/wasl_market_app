@@ -12,6 +12,8 @@ import 'package:wasl_market_app/features/dashboard/presentation_layer/widgets/cu
 import 'package:wasl_market_app/features/home/presentation_layer/screens/home_screen.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/providers/cubit/orders_cubit.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/screens/orders_screen.dart';
+import 'package:wasl_market_app/features/products/presentation_layer/providers/cubit/store_products_list_cubit.dart';
+import 'package:wasl_market_app/features/products/presentation_layer/screens/store_products_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -25,6 +27,9 @@ class DashboardScreen extends StatelessWidget {
           BlocProvider(create: (context) => DashboardCubit()..changeIndex(2)),
           BlocProvider(create: (context) => getIt<OrdersCubit>()..getOrders()),
           BlocProvider(create: (context) => getIt<CartCubit>()..getCart()),
+          BlocProvider(
+            create: (context) => getIt<StoreProductsListCubit>()..getProducts(),
+          ),
         ],
         child: BlocBuilder<DashboardCubit, DashboardInitial>(
           builder: (context, state) {
@@ -84,7 +89,7 @@ class DashboardScreen extends StatelessWidget {
                   const OrdersScreen(),
                   const Center(child: Text('الرئيسية')),
                   HomeScreen(),
-                  const Center(child: Text('الرئيسية')),
+                  const StoreProductsScreen(),
                   const CartScreen(),
                 ],
               ),
