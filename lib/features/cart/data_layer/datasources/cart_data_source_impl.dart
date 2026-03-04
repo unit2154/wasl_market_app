@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:wasl_market_app/core/exceptions/exceptions.dart';
 import 'package:wasl_market_app/core/network/dio_api_consumer.dart';
@@ -24,7 +25,7 @@ class CartDataSourceImpl implements CartDataSource {
   @override
   Future<void> createNewOrder(NewOrderEntity order) async {
     try {
-      await apiService.post(
+      var res = await apiService.post(
         Endpoints.createNewOrder,
         headers: {
           "Authorization": "Bearer ${tokenBox.getAt(0)?.token}",
@@ -33,7 +34,9 @@ class CartDataSourceImpl implements CartDataSource {
         },
         data: NewOrderModel.fromEntity(order).toJson(),
       );
+      print(res.data);
     } on DioException catch (e) {
+      debugPrint(e.response?.data.toString());
       throw ServerException(
         message:
             e.response?.data['message'] ??

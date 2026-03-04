@@ -18,6 +18,7 @@ class CartItem extends StatelessWidget {
     return Container(
       width: width,
       height: height * 0.08,
+      margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         border: Border.fromBorderSide(BorderSide(color: AppColors.cardBorder)),
         borderRadius: BorderRadius.circular(10),

@@ -20,7 +20,7 @@ class NewOrderModel extends NewOrderEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'main_customer_id': mainCustomerId,
+      'company_id': mainCustomerId,
       'items': items
           .map((item) => NewOrderItemModel.fromEntity(item).toJson())
           .toList(),

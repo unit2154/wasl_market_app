@@ -3,10 +3,10 @@ class ProfileEntity {
   final int userId;
   final String type;
   final String name;
-  final String description;
-  final String address;
-  final String city;
-  final String country;
+  final String? description;
+  final String? address;
+  final String? city;
+  final String? country;
   final String phone;
   final String email;
 

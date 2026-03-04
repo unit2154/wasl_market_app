@@ -4,6 +4,7 @@ import 'package:wasl_market_app/features/ordres/domain_layer/entities/sub_entiti
 
 class OrderEntity {
   final int id;
+  final int? masterOrderId;
   final String orderNumber;
   final int endCustomerId;
   final int mainCustomerId;
@@ -25,6 +26,7 @@ class OrderEntity {
 
   OrderEntity({
     required this.id,
+    required this.masterOrderId,
     required this.orderNumber,
     required this.endCustomerId,
     required this.mainCustomerId,

@@ -5,6 +5,7 @@ import 'package:wasl_market_app/features/ordres/domain_layer/entities/order_enti
 class OrderModel extends OrderEntity {
   OrderModel({
     required super.id,
+    required super.masterOrderId,
     required super.endCustomerId,
     required super.mainCustomerId,
     required super.status,
@@ -26,11 +27,13 @@ class OrderModel extends OrderEntity {
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
+    // json.forEach((key, value) => print(value));
     return OrderModel(
       id: json['id'],
+      masterOrderId: json['master_order_id'],
       orderNumber: json['order_number'],
-      endCustomerId: json['end_customer_id'],
-      mainCustomerId: json['main_customer_id'],
+      endCustomerId: json['company_id'],
+      mainCustomerId: json['customer_id'],
       status: json['status'],
       subtotal: json['subtotal'],
       totalAmount: json['total_amount'],
@@ -43,8 +46,8 @@ class OrderModel extends OrderEntity {
       deliveredAt: json['delivered_at'],
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
-      mainCustomer: json['main_customer'] != null
-          ? CustomerModel.fromJson(json['main_customer'])
+      mainCustomer: json['company'] != null
+          ? CustomerModel.fromJson(json['company'])
           : null,
       orderItems: (json['order_items'] as List)
           .map((e) => OrderItemModel.fromJson(e))

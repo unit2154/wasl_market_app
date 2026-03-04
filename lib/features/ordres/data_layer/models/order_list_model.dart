@@ -32,7 +32,7 @@ class OrdersListModel extends OrdersListEntity {
       links: (json['links']! as List)
           .map((e) => LinkModel.fromJson(e))
           .toList(),
-      nextPageUrl: json['next_page_url'],
+      nextPageUrl: json['next_page_url'] ?? "",
       path: json['path'],
       perPage: json['per_page'],
       prevPageUrl: json['prev_page_url'] ?? "",

@@ -1,10 +1,10 @@
 class Endpoints {
   static const String baseUrl = 'https://www.vorhex.com/api';
-  static const String sendOtp = '/end-market/auth/send-otp';
-  static const String verifyOtp = '/end-market/auth/verify-otp';
-  static const String logout = '/end-market/auth/logout';
-  static const String products = '/main-market/items';
-  static const String endMarketProducts = '/end-market/items';
-  static const String orders = '/main-market/orders';
-  static const String createNewOrder = '/end-market/orders';
+  static const String sendOtp = '/customer/auth/send-otp';
+  static const String verifyOtp = '/customer/auth/verify-otp';
+  static const String logout = '/customer/auth/logout';
+  static const String products = '/company/items';
+  static const String endMarketProducts = '/customer/items';
+  static const String orders = '/company/orders';
+  static const String createNewOrder = '/customer/orders';
 }
