@@ -34,64 +34,184 @@ class DashboardScreen extends StatelessWidget {
         child: BlocBuilder<DashboardCubit, DashboardInitial>(
           builder: (context, state) {
             context.read<OrdersCubit>().refreshOrders();
-            return Scaffold(
-              backgroundColor: AppColors.white,
-              resizeToAvoidBottomInset: true,
-              extendBody: true,
-              bottomNavigationBar: CustomBottomNavBar(
-                currentIndex: state.currentIndex,
-                changeIndex: (index) {
-                  context.read<DashboardCubit>().changeIndex(index);
-                },
-              ),
-              appBar: AppBar(
+            return DefaultTabController(
+              length: 6,
+              child: Scaffold(
                 backgroundColor: AppColors.white,
-                surfaceTintColor: AppColors.white,
-                title: state.currentIndex == 0
-                    ? Text('الطلبات')
-                    : state.currentIndex == 1
-                    ? Text('العروض')
-                    : state.currentIndex == 3
-                    ? Text('المنتجات')
-                    : state.currentIndex == 4
-                    ? Text('سلة المشتريات')
-                    : Row(
-                        children: [
-                          CircleAvatar(child: Image.asset(AppImages.logo)),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02,
-                          ),
-                          Text(
-                            (context.read<AuthCubit>().state
-                                    as VerifyOtpSuccess)
-                                .user
-                                .profile
-                                .name,
-                          ),
-                        ],
+                resizeToAvoidBottomInset: true,
+                extendBody: true,
+                bottomNavigationBar: CustomBottomNavBar(
+                  currentIndex: state.currentIndex,
+                  changeIndex: (index) {
+                    context.read<DashboardCubit>().changeIndex(index);
+                  },
+                ),
+                appBar: AppBar(
+                  backgroundColor: AppColors.white,
+                  surfaceTintColor: AppColors.white,
+                  title: state.currentIndex == 0
+                      ? Text('الطلبات')
+                      : state.currentIndex == 1
+                      ? Text('العروض')
+                      : state.currentIndex == 3
+                      ? Text('المنتجات')
+                      : state.currentIndex == 4
+                      ? Text('سلة المشتريات')
+                      : Row(
+                          children: [
+                            CircleAvatar(child: Image.asset(AppImages.logo)),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.02,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: Text(
+                                (context.read<AuthCubit>().state
+                                        as VerifyOtpSuccess)
+                                    .user
+                                    .profile
+                                    .name,
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          ],
+                        ),
+                  automaticallyImplyLeading: false,
+                  actions: [
+                    Builder(
+                      builder: (context) => IconButton(
+                        icon: const Icon(Icons.menu),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
                       ),
-                automaticallyImplyLeading: false,
-                actions: [
-                  Builder(
-                    builder: (context) => IconButton(
-                      icon: const Icon(Icons.menu),
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
                     ),
-                  ),
-                ],
-              ),
-              drawer: const SideMenu(),
-              body: IndexedStack(
-                index: state.currentIndex,
-                children: [
-                  const OrdersScreen(),
-                  const Center(child: Text('الرئيسية')),
-                  HomeScreen(),
-                  const StoreProductsScreen(),
-                  const CartScreen(),
-                ],
+                  ],
+                  bottom: state.currentIndex == 0
+                      ? TabBar(
+                          tabAlignment: TabAlignment.start,
+                          indicatorColor: AppColors.primaryColor,
+                          isScrollable: true,
+                          labelColor: AppColors.primaryColor,
+                          unselectedLabelColor: AppColors.textSecondary,
+                          dividerColor: Colors.transparent,
+                          tabs: [
+                            Tab(text: 'الكل'),
+                            Tab(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.brightness_1,
+                                    color: AppColors.primaryColor,
+                                    size:
+                                        (MediaQuery.of(context).size.height *
+                                            .808799) *
+                                        0.015,
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.01,
+                                  ),
+                                  Text("جديدة"),
+                                ],
+                              ),
+                            ),
+                            Tab(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.brightness_1,
+                                    color: AppColors.orderStatePending,
+                                    size:
+                                        (MediaQuery.of(context).size.height *
+                                            .808799) *
+                                        0.015,
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.01,
+                                  ),
+                                  Text("قيد المراجعة"),
+                                ],
+                              ),
+                            ),
+                            Tab(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.brightness_1,
+                                    color: AppColors.orderStatePending,
+                                    size:
+                                        (MediaQuery.of(context).size.height *
+                                            .808799) *
+                                        0.015,
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.01,
+                                  ),
+                                  Text("قيد المعالجة"),
+                                ],
+                              ),
+                            ),
+                            Tab(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.brightness_1,
+                                    color: AppColors.orderStatePending,
+                                    size:
+                                        (MediaQuery.of(context).size.height *
+                                            .808799) *
+                                        0.015,
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.01,
+                                  ),
+                                  Text("بانتضار التاكيد"),
+                                ],
+                              ),
+                            ),
+                            Tab(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.brightness_1,
+                                    color: AppColors.orderStateRejected,
+                                    size:
+                                        (MediaQuery.of(context).size.height *
+                                            .808799) *
+                                        0.015,
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.01,
+                                  ),
+                                  Text("مرفوضة"),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      : null,
+                ),
+                drawer: const SideMenu(),
+                body: IndexedStack(
+                  index: state.currentIndex,
+                  children: [
+                    const OrdersScreen(),
+                    const Center(child: Text('الرئيسية')),
+                    HomeScreen(),
+                    const StoreProductsScreen(),
+                    const CartScreen(),
+                  ],
+                ),
               ),
             );
           },

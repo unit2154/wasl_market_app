@@ -7,4 +7,5 @@ class Endpoints {
   static const String endMarketProducts = '/customer/items';
   static const String orders = '/company/orders';
   static const String createNewOrder = '/customer/orders';
+  static const String masterOrders = '/customer/master-orders';
 }
