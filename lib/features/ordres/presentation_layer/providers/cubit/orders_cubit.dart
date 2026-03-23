@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:wasl_market_app/features/master_orders/domain_layer/entities/master_order_entity.dart';
 import 'package:wasl_market_app/features/ordres/domain_layer/entities/order_entity.dart';
 import 'package:wasl_market_app/features/ordres/domain_layer/usecases/find_order_by_item.dart';
 import 'package:wasl_market_app/features/ordres/domain_layer/usecases/get_orders.dart';
@@ -13,6 +14,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   final FindOrderByItemUseCase findOrderByItemUseCase;
 
   List<OrderEntity> ordersList = [];
+  List<MasterOrderEntity> masterOrdersList = [];
 
   OrdersCubit({
     required this.getOrdersUseCase,

@@ -10,6 +10,7 @@ import 'package:wasl_market_app/features/cart/presentation_layer/screens/cart_sc
 import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
 import 'package:wasl_market_app/features/dashboard/presentation_layer/widgets/custom_bottom_nav_bar.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/screens/home_screen.dart';
+import 'package:wasl_market_app/features/master_orders/presentation_layer/providers/cubit/master_orders_cubit.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/providers/cubit/orders_cubit.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/screens/orders_screen.dart';
 import 'package:wasl_market_app/features/products/presentation_layer/providers/cubit/store_products_list_cubit.dart';
@@ -26,6 +27,9 @@ class DashboardScreen extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => DashboardCubit()..changeIndex(2)),
           BlocProvider(create: (context) => getIt<OrdersCubit>()..getOrders()),
+          BlocProvider(
+            create: (context) => getIt<MasterOrdersCubit>()..getMasterOrders(),
+          ),
           BlocProvider(create: (context) => getIt<CartCubit>()..getCart()),
           BlocProvider(
             create: (context) => getIt<StoreProductsListCubit>()..getProducts(),

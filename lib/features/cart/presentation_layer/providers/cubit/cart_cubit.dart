@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/cart_entity.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/sub_entity/cart_item_entity.dart';
@@ -85,20 +86,32 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> createNewOrder(CartEntity cart) async {
-    emit(state.copyWith(status: CartStatus.loading));
-    final result = await createNewOrderUseCase(cart);
-    result.fold(
-      (failure) => emit(
-        state.copyWith(
-          status: CartStatus.failure,
-          errorMessage: failure.message,
-        ),
-      ),
-      (r) {
-        clearCart();
-        emit(state.copyWith(status: CartStatus.orderCreated, cart: null));
-      },
-    );
+    checkMasterOrder();
+    // emit(state.copyWith(status: CartStatus.loading));
+    // final result = await createNewOrderUseCase(cart);
+    // result.fold(
+    //   (failure) => emit(
+    //     state.copyWith(
+    //       status: CartStatus.failure,
+    //       errorMessage: failure.message,
+    //     ),
+    //   ),
+    //   (r) {
+    //     clearCart();
+    //     emit(state.copyWith(status: CartStatus.orderCreated, cart: null));
+    //   },
+    // );
+  }
+
+  void checkMasterOrder() async {
+    var cart = await getCartUseCase();
+    cart.fold((failure) => null, (cart) {
+      var companies = {
+        for (var item in cart.products)
+          item.product.profile!.id: item.product.profile,
+      }.values.toList();
+      debugPrint("companies: ${companies.length}");
+    });
   }
 
   Future<void> clearCart() async {

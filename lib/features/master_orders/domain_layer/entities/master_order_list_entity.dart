@@ -1,5 +1,5 @@
 import 'package:wasl_market_app/core/entites/link_entity.dart';
-import 'package:wasl_market_app/features/ordres/domain_layer/entities/master_order_entity.dart';
+import 'package:wasl_market_app/features/master_orders/domain_layer/entities/master_order_entity.dart';
 
 class MasterOrdersListEntity {
   final int currentPage;

@@ -37,7 +37,7 @@ class SendOtpScreen extends StatelessWidget {
                   prefixIcon: AppIcons.phone,
                   keyboardType: TextInputType.phone,
                   controller: context.read<AuthCubit>().phoneController
-                    ..text = '58655275689',
+                    ..text = '36961298778',
                   constraints: constraints,
                 ),
 

@@ -8,9 +8,10 @@ final class OrdersInitial extends OrdersState {}
 final class OrdersLoading extends OrdersState {}
 
 final class OrdersLoaded extends OrdersState {
-  final List<OrderEntity> orderList;
+  final List<OrderEntity>? orderList;
+  final List<MasterOrderEntity>? masterOrderList;
 
-  OrdersLoaded({required this.orderList});
+  OrdersLoaded({this.orderList, this.masterOrderList});
 }
 
 final class OrderUpdated extends OrdersState {}

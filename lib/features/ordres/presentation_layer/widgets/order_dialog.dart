@@ -28,7 +28,11 @@ class OrderDialog extends StatelessWidget {
             MaterialPageRoute(
               builder: (_) => BlocProvider.value(
                 value: context.read<OrdersCubit>(),
-                child: OrderDetailsScreen(order: order),
+                child: OrderDetailsScreen(
+                  order: (context.read<OrdersCubit>().state as OrdersLoaded)
+                      .orderList!
+                      .firstWhere((element) => element.id == order.id),
+                ),
               ),
             ),
           ),

@@ -229,6 +229,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                       if (order.orderItems![index].item ==
                                           null) {
+                                        debugPrint(
+                                          "order: ${order.orderItems![index].item}",
+                                        );
                                         return const SizedBox.shrink();
                                       }
                                       return OrderItemWidget(

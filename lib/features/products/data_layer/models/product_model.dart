@@ -5,7 +5,6 @@ class ProductModel extends ProductEntity {
   final String createdAt;
   final String updatedAt;
   final String? deletedAt;
-  final ProfileModel? profile;
   ProductModel({
     required super.id,
     required super.name,
@@ -21,7 +20,7 @@ class ProductModel extends ProductEntity {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
-    this.profile,
+    super.profile,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -44,26 +43,5 @@ class ProductModel extends ProductEntity {
           ? ProfileModel.fromJson(json['customer'])
           : null,
     );
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'description': description,
-      'sku': sku,
-      'price': price,
-      'stock_quantity': stockQuantity,
-      'availability_status': availabilityStatus,
-      'images': images,
-      'unit': unit,
-      'min_order_quantity': minOrderQuantity,
-      'is_active': isActive,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
-      'deleted_at': deletedAt,
-      'customer': profile!.toJson(),
-    };
   }
 }

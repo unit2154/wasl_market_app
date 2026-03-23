@@ -20,13 +20,15 @@ class CommissionScreen extends StatelessWidget {
         child: BlocBuilder<OrdersCubit, OrdersState>(
           builder: (context, state) {
             if (state is OrdersLoaded) {
-              final shippedOrders = state.orderList
-                  .where(
-                    (order) =>
-                        order.status == 'shipped' ||
-                        order.status == 'delivered',
-                  )
-                  .toList();
+              final shippedOrders = state.orderList != null
+                  ? state.orderList!
+                        .where(
+                          (order) =>
+                              order.status == 'shipped' ||
+                              order.status == 'delivered',
+                        )
+                        .toList()
+                  : [];
               double total = 0;
               for (var order in shippedOrders) {
                 total += double.parse(order.commissionAmount);

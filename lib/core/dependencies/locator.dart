@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wasl_market_app/core/network/dio_api_consumer.dart';
-import 'package:wasl_market_app/features/auth/domain_layer/entities/sub_entities/token_entity.dart';
-import 'package:wasl_market_app/features/auth/domain_layer/entities/user_entity.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/use_cases/get_user.dart';
 import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source.dart';
 import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source_impl.dart';
@@ -23,10 +21,15 @@ import 'package:wasl_market_app/features/home/domain_layer/repository/home_repo.
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_companies.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_products.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
+import 'package:wasl_market_app/features/master_orders/data_layer/datasources/orders_data_source.dart';
+import 'package:wasl_market_app/features/master_orders/data_layer/repositories/master_orders_repo_impl.dart';
+import 'package:wasl_market_app/features/master_orders/domain_layer/repositories/master_orders_repo.dart';
+import 'package:wasl_market_app/features/master_orders/presentation_layer/providers/cubit/master_orders_cubit.dart';
 import 'package:wasl_market_app/features/ordres/data_layer/data_sources/orders_data_source.dart';
 import 'package:wasl_market_app/features/ordres/data_layer/repository/orders_repo_impl.dart';
 import 'package:wasl_market_app/features/ordres/domain_layer/repository/orders_repo.dart';
 import 'package:wasl_market_app/features/ordres/domain_layer/usecases/find_order_by_item.dart';
+import 'package:wasl_market_app/features/master_orders/domain_layer/usecases/get_master_orders.dart';
 import 'package:wasl_market_app/features/ordres/domain_layer/usecases/get_orders.dart';
 import 'package:wasl_market_app/features/ordres/domain_layer/usecases/update_order_state.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/providers/cubit/orders_cubit.dart';
@@ -56,6 +59,7 @@ part 'db_dependencies.dart';
 part 'home_dependencies.dart';
 part 'cart_dependencies.dart';
 part 'products_dependencies.dart';
+part 'master_orders_dependencies.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -64,6 +68,7 @@ Future<void> setup() async {
   await authDependencies();
   await homeDependencies();
   await ordersDependencies();
+  await masterOrdersDependencies();
   await productsDependencies();
   cartDependencies();
 }

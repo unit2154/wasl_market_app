@@ -64,12 +64,14 @@ class OrdersMapScreen extends StatelessWidget {
                         child: ListView.builder(
                           physics: const AlwaysScrollableScrollPhysics(),
                           padding: const EdgeInsets.only(bottom: 100),
-                          itemCount: state.orderList.length,
+                          itemCount: state.orderList != null
+                              ? state.orderList!.length
+                              : 0,
                           itemBuilder: (context, index) {
                             return NewMapOrderWidget(
                               width: constraints.maxWidth,
                               height: constraints.maxHeight,
-                              order: state.orderList[index],
+                              order: state.orderList![index],
                             );
                           },
                         ),

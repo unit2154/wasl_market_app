@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/providers/cubit/orders_cubit.dart';
+import 'package:wasl_market_app/features/master_orders/presentation_layer/widgets/master_order_tab_widget.dart';
 import 'package:wasl_market_app/features/ordres/presentation_layer/widgets/order_tab_widget.dart';
 
 class OrdersScreen extends StatelessWidget {
@@ -141,38 +142,48 @@ class OrdersScreen extends StatelessWidget {
           if (state is OrdersLoaded) {
             return TabBarView(
               children: [
+                MasterOrderTabWidget(constraints: constraints),
                 OrderTabWidget(
-                  orders: state.orderList,
+                  orders: state.orderList != null
+                      ? state.orderList!
+                            .where((order) => order.status == "pending")
+                            .toList()
+                      : [],
                   constraints: constraints,
                 ),
                 OrderTabWidget(
-                  orders: state.orderList
-                      .where((order) => order.status == "pending")
-                      .toList(),
+                  orders: state.orderList != null
+                      ? state.orderList!
+                            .where((order) => order.status == "reviewing")
+                            .toList()
+                      : [],
                   constraints: constraints,
                 ),
                 OrderTabWidget(
-                  orders: state.orderList
-                      .where((order) => order.status == "reviewing")
-                      .toList(),
+                  orders: state.orderList != null
+                      ? state.orderList!
+                            .where((order) => order.status == "processing")
+                            .toList()
+                      : [],
                   constraints: constraints,
                 ),
                 OrderTabWidget(
-                  orders: state.orderList
-                      .where((order) => order.status == "processing")
-                      .toList(),
+                  orders: state.orderList != null
+                      ? state.orderList!
+                            .where(
+                              (order) =>
+                                  order.status == "awaiting_confirmation",
+                            )
+                            .toList()
+                      : [],
                   constraints: constraints,
                 ),
                 OrderTabWidget(
-                  orders: state.orderList
-                      .where((order) => order.status == "awaiting_confirmation")
-                      .toList(),
-                  constraints: constraints,
-                ),
-                OrderTabWidget(
-                  orders: state.orderList
-                      .where((order) => order.status == "cancelled")
-                      .toList(),
+                  orders: state.orderList != null
+                      ? state.orderList!
+                            .where((order) => order.status == "cancelled")
+                            .toList()
+                      : [],
                   constraints: constraints,
                 ),
               ],

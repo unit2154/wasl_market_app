@@ -1,4 +1,5 @@
-import 'package:wasl_market_app/features/ordres/domain_layer/entities/master_order_entity.dart';
+import 'package:wasl_market_app/features/ordres/data_layer/models/order_model.dart';
+import 'package:wasl_market_app/features/master_orders/domain_layer/entities/master_order_entity.dart';
 
 class MasterOrderModel extends MasterOrderEntity {
   MasterOrderModel({
@@ -29,7 +30,9 @@ class MasterOrderModel extends MasterOrderEntity {
       subtotal: json['subtotal'],
       notes: json['notes'],
       deletedAt: json['deleted_at'],
-      companyOrders: json['company_orders'],
+      companyOrders: (json['company_orders'] as List)
+          .map((e) => OrderModel.fromJson(e))
+          .toList(),
     );
   }
 }

@@ -31,4 +31,5 @@ class AppIcons {
   static const String delete = 'assets/icons/Delete.svg';
   static const String plus = 'assets/icons/Plus.svg';
   static const String minus = 'assets/icons/Minus.svg';
+  static const String listTree = 'assets/icons/List-Tree.svg';
 }
