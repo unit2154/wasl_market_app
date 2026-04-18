@@ -10,7 +10,12 @@ final class HomeLoading extends HomeState {}
 final class HomeSuccess extends HomeState {
   final List<ProductEntity> products;
   final CompaniesListEntity companies;
-  HomeSuccess({required this.products, required this.companies});
+  final CategoriesListEntity categories;
+  HomeSuccess({
+    required this.products,
+    required this.companies,
+    required this.categories,
+  });
 }
 
 final class HomeFailure extends HomeState {

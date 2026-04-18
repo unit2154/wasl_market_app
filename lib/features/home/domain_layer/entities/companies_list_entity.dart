@@ -1,6 +1,7 @@
-import 'package:wasl_market_app/features/auth/domain_layer/entities/sub_entities/profile_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/company_entity.dart';
 
 class CompaniesListEntity {
-  final List<ProfileEntity> companies;
-  CompaniesListEntity({required this.companies});
+  final List<CompanyEntity> companies;
+  final String? nextPageUrl;
+  CompaniesListEntity({required this.companies, required this.nextPageUrl});
 }

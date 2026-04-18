@@ -211,7 +211,7 @@ class DashboardScreen extends StatelessWidget {
                   children: [
                     const OrdersScreen(),
                     const Center(child: Text('الرئيسية')),
-                    HomeScreen(),
+                    const HomeScreen(),
                     const StoreProductsScreen(),
                     const CartScreen(),
                   ],

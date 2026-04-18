@@ -5,6 +5,7 @@ Future<void> homeDependencies() async {
     () => HomeCubit(
       getProductsUseCase: getIt<GetProductsUseCase>(),
       getCompaniesUseCase: getIt<GetCompaniesUseCase>(),
+      getCategoriesUseCase: getIt<GetCategoriesUseCase>(),
     ),
   );
   getIt.registerLazySingleton<GetProductsUseCase>(
@@ -12,6 +13,9 @@ Future<void> homeDependencies() async {
   );
   getIt.registerLazySingleton<GetCompaniesUseCase>(
     () => GetCompaniesUseCase(homeRepo: getIt<HomeRepo>()),
+  );
+  getIt.registerLazySingleton<GetCategoriesUseCase>(
+    () => GetCategoriesUseCase(homeRepo: getIt<HomeRepo>()),
   );
   getIt.registerLazySingleton<HomeRepo>(
     () => HomeRepoImpl(

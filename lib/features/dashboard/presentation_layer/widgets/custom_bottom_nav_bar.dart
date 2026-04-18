@@ -109,49 +109,49 @@ class CustomBottomNavBar extends StatelessWidget {
                     ),
                   ),
                   // index 1
-                  GestureDetector(
-                    onTap: () => changeIndex(1),
-                    child: Column(
-                      children: [
-                        SvgPicture.asset(
-                          AppIcons.offers,
-                          colorFilter: currentIndex == 1
-                              ? ColorFilter.mode(
-                                  AppColors.white,
-                                  BlendMode.srcATop,
-                                )
-                              : ColorFilter.mode(
-                                  AppColors.white,
-                                  BlendMode.dstIn,
-                                ),
-                          width: MediaQuery.of(context).size.width * 0.025,
-                          height: MediaQuery.of(context).size.height * 0.025,
-                        ),
-                        Text(
-                          'العروض',
-                          style: TextStyle(
-                            fontSize:
-                                11 * (MediaQuery.of(context).size.height / 800),
-                            fontWeight: FontWeight.w700,
-                            color: currentIndex == 1
-                                ? AppColors.white
-                                : AppColors.textSecondary,
-                          ),
-                        ),
-                        currentIndex == 1
-                            ? Container(
-                                margin: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.width * 0.01,
-                                ),
-                                height: 2,
-                                width: MediaQuery.of(context).size.width * 0.11,
-                                color: AppColors.white,
-                              )
-                            : const SizedBox(),
-                      ],
-                    ),
-                  ),
-                  // index 2
+                  // GestureDetector(
+                  //   onTap: () => changeIndex(1),
+                  //   child: Column(
+                  //     children: [
+                  //       SvgPicture.asset(
+                  //         AppIcons.offers,
+                  //         colorFilter: currentIndex == 1
+                  //             ? ColorFilter.mode(
+                  //                 AppColors.white,
+                  //                 BlendMode.srcATop,
+                  //               )
+                  //             : ColorFilter.mode(
+                  //                 AppColors.white,
+                  //                 BlendMode.dstIn,
+                  //               ),
+                  //         width: MediaQuery.of(context).size.width * 0.025,
+                  //         height: MediaQuery.of(context).size.height * 0.025,
+                  //       ),
+                  //       Text(
+                  //         'العروض',
+                  //         style: TextStyle(
+                  //           fontSize:
+                  //               11 * (MediaQuery.of(context).size.height / 800),
+                  //           fontWeight: FontWeight.w700,
+                  //           color: currentIndex == 1
+                  //               ? AppColors.white
+                  //               : AppColors.textSecondary,
+                  //         ),
+                  //       ),
+                  //       currentIndex == 1
+                  //           ? Container(
+                  //               margin: EdgeInsets.only(
+                  //                 top: MediaQuery.of(context).size.width * 0.01,
+                  //               ),
+                  //               height: 2,
+                  //               width: MediaQuery.of(context).size.width * 0.11,
+                  //               color: AppColors.white,
+                  //             )
+                  //           : const SizedBox(),
+                  //     ],
+                  //   ),
+                  // ),
+                  // // index 2
                   GestureDetector(
                     onTap: () => changeIndex(2),
                     child: Column(

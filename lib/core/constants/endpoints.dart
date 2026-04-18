@@ -8,4 +8,6 @@ class Endpoints {
   static const String orders = '/company/orders';
   static const String createNewOrder = '/customer/orders';
   static const String masterOrders = '/customer/master-orders';
+  static const String categories = '/customer/categories';
+  static const String companies = '/customer/companies';
 }
