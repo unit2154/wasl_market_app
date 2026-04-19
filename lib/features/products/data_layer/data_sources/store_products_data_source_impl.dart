@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:wasl_market_app/core/constants/endpoints.dart';
 import 'package:wasl_market_app/core/error/failure.dart';
@@ -33,6 +34,7 @@ class StoreProductsDataSourceImpl implements StoreProductsDataSource {
       );
       return ProductsListModel.fromJson(response.data);
     } on DioException catch (e) {
+      debugPrint(e.toString());
       throw ServerFailure(
         message:
             e.response?.data['message'] ??

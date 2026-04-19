@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
-import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/company_entity.dart';
 
 class CompanyWidget extends StatelessWidget {
@@ -11,6 +11,9 @@ class CompanyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final image = company.image != null
+        ? 'https://vorhex.com${company.image!}'
+        : '';
     return Container(
       width: 130,
       height: height * .2,
@@ -24,9 +27,14 @@ class CompanyWidget extends StatelessWidget {
           SizedBox(
             height: height * .16,
             width: 130,
-            child: company.image != null
-                ? Image.network('https://vorhex.com${company.image!}')
-                : Image.asset(AppImages.logo),
+            child: CachedNetworkImage(
+              imageUrl: image,
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) =>
+                  const Center(child: Icon(Icons.error)),
+            ),
           ),
           Container(
             height: height * .037,

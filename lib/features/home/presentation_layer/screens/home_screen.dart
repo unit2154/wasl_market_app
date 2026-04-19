@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wasl_market_app/core/constants/colors.dart';
-import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/core/dependencies/locator.dart';
 import 'package:wasl_market_app/core/widgets/search_bar.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/screens/categories_screen.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/category_widget.dart';
-import 'package:wasl_market_app/features/home/presentation_layer/widgets/company_card_widget.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/company_widget.dart';
-import 'package:wasl_market_app/features/home/presentation_layer/widgets/product_widget.dart';
-import 'package:wasl_market_app/features/home/presentation_layer/widgets/category_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -89,7 +84,8 @@ class HomeScreen extends StatelessWidget {
                                 ? CategoryWidget(
                                     title:
                                         state.categories.categories[index].name,
-                                    image: null,
+                                    image:
+                                        state.categories.categories[index].icon,
                                     index: index,
                                     isSelected: index == 0 ? true : false,
                                   )
