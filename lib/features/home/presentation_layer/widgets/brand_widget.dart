@@ -1,39 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
-import 'package:wasl_market_app/features/auth/domain_layer/entities/sub_entities/profile_entity.dart';
-import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
-import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
-import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
-import 'package:wasl_market_app/features/home/presentation_layer/screens/company_products_screen.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/brand_entity.dart';
 
-class CompanyCard extends StatelessWidget {
-  const CompanyCard({super.key, required this.company});
+class BrandWidget extends StatelessWidget {
+  const BrandWidget({super.key, required this.brand});
 
-  final ProfileEntity company;
+  final BrandEntity brand;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => MultiBlocProvider(
-              providers: [
-                BlocProvider.value(value: context.read<HomeCubit>()),
-                BlocProvider.value(value: context.read<CartCubit>()),
-                BlocProvider.value(value: context.read<DashboardCubit>()),
-              ],
-              child: CompanyProductsScreen(company: company),
-            ),
-          ),
-        );
-      },
+      // onTap: () {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (_) => MultiBlocProvider(
+      //         providers: [
+      //           BlocProvider.value(value: context.read<HomeCubit>()),
+      //           BlocProvider.value(value: context.read<CartCubit>()),
+      //           BlocProvider.value(value: context.read<DashboardCubit>()),
+      //         ],
+      //         child: CompanyProductsScreen(company: company),
+      //       ),
+      //     ),
+      //   );
+      // },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        height: 170,
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        height: 50,
+        width: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: AppColors.cardBorder),
@@ -70,7 +66,7 @@ class CompanyCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                company.name,
+                brand.name,
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,

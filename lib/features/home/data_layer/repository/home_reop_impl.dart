@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wasl_market_app/core/error/failure.dart';
 import 'package:wasl_market_app/core/network/dio_api_consumer.dart';
 import 'package:wasl_market_app/features/home/data_layer/data_sources/home_data_source.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/brands_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/categories_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/companies_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
@@ -53,6 +54,17 @@ class HomeRepoImpl implements HomeRepo {
     try {
       final categories = await homeDataSource.getCategories();
       return Right(categories);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, BrandsListEntity>> getBrands() async {
+    try {
+      final brands = await homeDataSource.getBrands();
+      return Right(brands);
     } catch (e) {
       debugPrint(e.toString());
       return Left(ServerFailure(message: e.toString()));

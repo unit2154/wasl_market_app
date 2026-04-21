@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
+import 'package:wasl_market_app/core/constants/images.dart';
 
 class CategoryWidget extends StatelessWidget {
   final String title;
@@ -42,8 +43,7 @@ class CategoryWidget extends StatelessWidget {
               imageUrl: image ?? '',
               placeholder: (context, url) =>
                   const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) =>
-                  const Center(child: Icon(Icons.error)),
+              errorWidget: (context, url, error) => Image.asset(AppImages.logo),
             ),
           ),
           SizedBox(

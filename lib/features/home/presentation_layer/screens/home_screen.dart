@@ -5,6 +5,7 @@ import 'package:wasl_market_app/core/widgets/search_bar.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/screens/categories_screen.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/category_widget.dart';
+import 'package:wasl_market_app/features/home/presentation_layer/widgets/brand_widget.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/company_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -140,6 +141,54 @@ class HomeScreen extends StatelessWidget {
                                     height: height,
                                     company: state.companies.companies[index],
                                   )
+                                : SizedBox.shrink();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // brands
+              SliverAppBar(
+                pinned: true,
+                floating: true,
+                snap: true,
+                automaticallyImplyLeading: false,
+                expandedHeight: height * 0.22,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      SizedBox(
+                        width: width,
+                        height: 40,
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10),
+                            Text(
+                              "الماركات",
+                              style: TextStyle(fontSize: 16, fontWeight: .bold),
+                            ),
+                            Spacer(),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text("مشاهدة الكل"),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: width,
+                        height: height * 0.13,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state is HomeSuccess
+                              ? state.brands.brands.length
+                              : 0,
+                          itemBuilder: (context, index) {
+                            return state is HomeSuccess
+                                ? BrandWidget(brand: state.brands.brands[index])
                                 : SizedBox.shrink();
                           },
                         ),

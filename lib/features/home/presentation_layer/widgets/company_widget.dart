@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
+import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/company_entity.dart';
 
 class CompanyWidget extends StatelessWidget {
@@ -32,8 +33,7 @@ class CompanyWidget extends StatelessWidget {
               fit: BoxFit.cover,
               placeholder: (context, url) =>
                   const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) =>
-                  const Center(child: Icon(Icons.error)),
+              errorWidget: (context, url, error) => Image.asset(AppImages.logo),
             ),
           ),
           Container(

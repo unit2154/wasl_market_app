@@ -9,6 +9,7 @@ import 'package:wasl_market_app/core/network/dio_api_consumer.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/entities/sub_entities/token_entity.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/entities/user_entity.dart';
 import 'package:wasl_market_app/features/home/data_layer/data_sources/home_data_source.dart';
+import 'package:wasl_market_app/features/home/data_layer/models/brands_list_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/categories_list_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/companies_list_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/product_model.dart';
@@ -107,6 +108,31 @@ class HomeDataSourceImpl implements HomeDataSource {
       );
       debugPrint(response.data.toString());
       return CategoriesListModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw ServerFailure(
+        message:
+            e.response?.data['message'] ??
+            e.response?.data['error'] ??
+            e.response?.data.toString() ??
+            e.toString(),
+      );
+    }
+  }
+
+  @override
+  Future<BrandsListModel> getBrands() async {
+    try {
+      final response = await dio.get(
+        Endpoints.brands,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
+        },
+        data: {'page': 1, 'per_page': 100},
+      );
+      debugPrint(response.data.toString());
+      return BrandsListModel.fromJson(response.data);
     } on DioException catch (e) {
       throw ServerFailure(
         message:

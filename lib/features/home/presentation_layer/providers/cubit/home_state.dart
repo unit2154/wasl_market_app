@@ -11,10 +11,12 @@ final class HomeSuccess extends HomeState {
   final List<ProductEntity> products;
   final CompaniesListEntity companies;
   final CategoriesListEntity categories;
+  final BrandsListEntity brands;
   HomeSuccess({
     required this.products,
     required this.companies,
     required this.categories,
+    required this.brands,
   });
 }
 
