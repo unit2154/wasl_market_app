@@ -5,6 +5,8 @@ class BrandEntity {
   final String slug;
   final String status;
   final String? image;
+  final String? icon;
+  final String? cover;
   final int itemsCount;
 
   BrandEntity({
@@ -14,6 +16,8 @@ class BrandEntity {
     required this.slug,
     required this.status,
     required this.image,
+    required this.icon,
+    required this.cover,
     required this.itemsCount,
   });
 }

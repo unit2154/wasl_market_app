@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
@@ -35,7 +36,7 @@ class BrandWidget extends StatelessWidget {
           border: Border.all(color: AppColors.cardBorder),
           color: AppColors.cardBackground,
           image: DecorationImage(
-            image: AssetImage(AppImages.company),
+            image: CachedNetworkImageProvider(brand.cover!),
             fit: BoxFit.cover,
           ),
         ),
@@ -46,17 +47,12 @@ class BrandWidget extends StatelessWidget {
             CircleAvatar(
               radius: 30,
               backgroundColor: AppColors.white.withValues(alpha: 0.6),
-              child: Icon(
-                Icons.store,
-                size: 50,
-                color: AppColors.primaryColor,
-                shadows: [
-                  BoxShadow(
-                    color: AppColors.primaryColor.withValues(alpha: 0.5),
-                    blurRadius: 10,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+              child: CachedNetworkImage(
+                imageUrl: brand.icon!,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
             Container(

@@ -8,6 +8,8 @@ class BrandModel extends BrandEntity {
     required super.slug,
     required super.status,
     required super.image,
+    required super.icon,
+    required super.cover,
     required super.itemsCount,
   });
 
@@ -19,6 +21,8 @@ class BrandModel extends BrandEntity {
       slug: json['slug'],
       status: json['status'],
       image: json['image'],
+      icon: json['icon'],
+      cover: json['cover'],
       itemsCount: json['items_count'],
     );
   }

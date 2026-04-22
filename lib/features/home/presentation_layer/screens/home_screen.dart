@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
               ),
               // categories
               SliverAppBar(
-                pinned: true,
+                // pinned: true,
                 floating: true,
                 snap: true,
                 automaticallyImplyLeading: false,
@@ -100,7 +100,7 @@ class HomeScreen extends StatelessWidget {
               ),
               // companies
               SliverAppBar(
-                pinned: true,
+                // pinned: true,
                 floating: true,
                 snap: true,
                 automaticallyImplyLeading: false,
@@ -151,7 +151,7 @@ class HomeScreen extends StatelessWidget {
               ),
               // brands
               SliverAppBar(
-                pinned: true,
+                // pinned: true,
                 floating: true,
                 snap: true,
                 automaticallyImplyLeading: false,
