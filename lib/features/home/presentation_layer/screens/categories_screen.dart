@@ -20,12 +20,7 @@ class CategoriesScreen extends StatelessWidget {
         ),
         itemCount: categories.length,
         itemBuilder: (context, index) {
-          return CategoryWidget(
-            title: categories[index].name,
-            image: categories[index].icon,
-            index: index,
-            isSelected: index == 0 ? true : false,
-          );
+          return CategoryWidget(category: categories[index]);
         },
       ),
     );

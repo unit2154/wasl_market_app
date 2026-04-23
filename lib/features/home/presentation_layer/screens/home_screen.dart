@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/dependencies/locator.dart';
 import 'package:wasl_market_app/core/widgets/search_bar.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
@@ -27,9 +28,29 @@ class HomeScreen extends StatelessWidget {
                 floating: true,
                 snap: true,
                 automaticallyImplyLeading: false,
-                expandedHeight: 80,
+                expandedHeight: 50,
                 flexibleSpace: FlexibleSpaceBar(
-                  background: SearchInput(height: 50),
+                  background: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: SearchAnchor.bar(
+                      barHintText: "ابحث",
+                      barElevation: WidgetStatePropertyAll(0),
+                      barBackgroundColor: WidgetStatePropertyAll(
+                        AppColors.cardBackground,
+                      ),
+                      barSide: WidgetStatePropertyAll(
+                        BorderSide(color: AppColors.cardBorder),
+                      ),
+                      barShape: WidgetStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      suggestionsBuilder: (context, controller) {
+                        return [SearchInput(height: 50)];
+                      },
+                    ),
+                  ),
                 ),
               ),
               // categories
@@ -60,9 +81,7 @@ class HomeScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => CategoriesScreen(
-                                      categories: state is HomeSuccess
-                                          ? state.categories.categories
-                                          : [],
+                                      categories: state.categories.categories,
                                     ),
                                   ),
                                 );
@@ -77,20 +96,11 @@ class HomeScreen extends StatelessWidget {
                         height: height * 0.13,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: state is HomeSuccess
-                              ? state.categories.categories.length
-                              : 0,
+                          itemCount: state.categories.categories.length,
                           itemBuilder: (context, index) {
-                            return state is HomeSuccess
-                                ? CategoryWidget(
-                                    title:
-                                        state.categories.categories[index].name,
-                                    image:
-                                        state.categories.categories[index].icon,
-                                    index: index,
-                                    isSelected: index == 0 ? true : false,
-                                  )
-                                : SizedBox.shrink();
+                            return CategoryWidget(
+                              category: state.categories.categories[index],
+                            );
                           },
                         ),
                       ),
@@ -132,16 +142,12 @@ class HomeScreen extends StatelessWidget {
                         height: height * 0.20,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: state is HomeSuccess
-                              ? state.companies.companies.length
-                              : 0,
+                          itemCount: state.companies.companies.length,
                           itemBuilder: (context, index) {
-                            return state is HomeSuccess
-                                ? CompanyWidget(
-                                    height: height,
-                                    company: state.companies.companies[index],
-                                  )
-                                : SizedBox.shrink();
+                            return CompanyWidget(
+                              height: height,
+                              company: state.companies.companies[index],
+                            );
                           },
                         ),
                       ),
@@ -183,13 +189,11 @@ class HomeScreen extends StatelessWidget {
                         height: height * 0.13,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: state is HomeSuccess
-                              ? state.brands.brands.length
-                              : 0,
+                          itemCount: state.brands.brands.length,
                           itemBuilder: (context, index) {
-                            return state is HomeSuccess
-                                ? BrandWidget(brand: state.brands.brands[index])
-                                : SizedBox.shrink();
+                            return BrandWidget(
+                              brand: state.brands.brands[index],
+                            );
                           },
                         ),
                       ),

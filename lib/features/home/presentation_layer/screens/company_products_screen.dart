@@ -14,7 +14,10 @@ class CompanyProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final products = (context.read<HomeCubit>().state as HomeSuccess).products
+    final products = context
+        .read<HomeCubit>()
+        .state
+        .products
         .where((element) => element.profile!.id == company.id)
         .toList();
     return Directionality(

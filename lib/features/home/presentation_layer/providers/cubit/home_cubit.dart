@@ -21,35 +21,55 @@ class HomeCubit extends Cubit<HomeState> {
     required this.getCompaniesUseCase,
     required this.getCategoriesUseCase,
     required this.getBrandsUseCase,
-  }) : super(HomeInitial());
+  }) : super(
+         HomeState(
+           products: [],
+           companies: CompaniesListEntity(companies: []),
+           categories: CategoriesListEntity(categories: []),
+           brands: BrandsListEntity(brands: []),
+         ),
+       );
 
   Future<void> getCategoriesAndCompanies() async {
-    emit(HomeLoading());
+    emit(state.copyWith(stateType: StateType.loading));
     try {
       final categories = await getCategoriesUseCase();
       categories.fold(
         (l) {
           debugPrint('categoriesssss: $l');
-          emit(HomeFailure(message: l.message));
+          emit(
+            state.copyWith(stateType: StateType.failure, message: l.message),
+          );
         },
         (cats) async {
           final companies = await getCompaniesUseCase();
           companies.fold(
             (l) {
               debugPrint('companies: $l');
-              emit(HomeFailure(message: l.message));
+              emit(
+                state.copyWith(
+                  stateType: StateType.failure,
+                  message: l.message,
+                ),
+              );
             },
             (comps) async {
               final brands = await getBrandsUseCase();
               brands.fold(
                 (l) {
                   debugPrint('brands: $l');
-                  emit(HomeFailure(message: l.message));
+                  emit(
+                    state.copyWith(
+                      stateType: StateType.failure,
+                      message: l.message,
+                    ),
+                  );
                 },
                 (brands) {
                   debugPrint('brands: ${brands.brands.length}');
                   emit(
-                    HomeSuccess(
+                    state.copyWith(
+                      stateType: StateType.success,
                       products: [],
                       companies: comps,
                       categories: cats,
@@ -63,7 +83,34 @@ class HomeCubit extends Cubit<HomeState> {
         },
       );
     } catch (e) {
-      emit(HomeFailure(message: e.toString()));
+      emit(state.copyWith(stateType: StateType.failure, message: e.toString()));
+    }
+  }
+
+  Future<void> filterProducts({required FilterModel filter}) async {
+    emit(state.copyWith(stateType: StateType.loading));
+    try {
+      // final products = await getProductsUseCase();
+      // products.fold(
+      //   (l) {
+      //     debugPrint('products: $l');
+      //     emit(state.copyWith(stateType: StateType.failure, message: l.message));
+      //   },
+      //   (products) {
+      //     emit(
+      //       state.copyWith(
+      //         stateType: StateType.success,
+      //         products: products,
+      //         companies: state.companies,
+      //         categories: state.categories,
+      //         brands: state.brands,
+      //       ),
+      //     );
+      //   },
+      // );
+      emit(state.copyWith(stateType: StateType.success, filter: filter));
+    } catch (e) {
+      emit(state.copyWith(stateType: StateType.failure, message: e.toString()));
     }
   }
 }

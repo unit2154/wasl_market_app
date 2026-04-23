@@ -11,4 +11,5 @@ class Endpoints {
   static const String categories = '/customer/categories';
   static const String companies = '/customer/companies';
   static const String brands = '/customer/brands';
+  static const String searchSuggestions = '/customer/search/suggest';
 }

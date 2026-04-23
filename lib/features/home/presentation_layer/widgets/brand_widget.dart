@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
-import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/brand_entity.dart';
 
 class BrandWidget extends StatelessWidget {
