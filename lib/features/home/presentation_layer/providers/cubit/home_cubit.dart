@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/brands_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/categories_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/companies_list_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/items_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/usecases/filter_items.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_brands.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_categories.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_companies.dart';
@@ -16,14 +18,17 @@ class HomeCubit extends Cubit<HomeState> {
   final GetCompaniesUseCase getCompaniesUseCase;
   final GetCategoriesUseCase getCategoriesUseCase;
   final GetBrandsUseCase getBrandsUseCase;
+  final FilterItemsUseCase filterItemsUseCase;
   HomeCubit({
     required this.getProductsUseCase,
     required this.getCompaniesUseCase,
     required this.getCategoriesUseCase,
     required this.getBrandsUseCase,
+    required this.filterItemsUseCase,
   }) : super(
          HomeState(
            products: [],
+           items: ItemsListEntity(items: []),
            companies: CompaniesListEntity(companies: []),
            categories: CategoriesListEntity(categories: []),
            brands: BrandsListEntity(brands: []),
@@ -90,25 +95,23 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> filterProducts({required FilterModel filter}) async {
     emit(state.copyWith(stateType: StateType.loading));
     try {
-      // final products = await getProductsUseCase();
-      // products.fold(
-      //   (l) {
-      //     debugPrint('products: $l');
-      //     emit(state.copyWith(stateType: StateType.failure, message: l.message));
-      //   },
-      //   (products) {
-      //     emit(
-      //       state.copyWith(
-      //         stateType: StateType.success,
-      //         products: products,
-      //         companies: state.companies,
-      //         categories: state.categories,
-      //         brands: state.brands,
-      //       ),
-      //     );
-      //   },
-      // );
-      emit(state.copyWith(stateType: StateType.success, filter: filter));
+      final items = await filterItemsUseCase(new FilterParams(category: filter.category, company: filter.company, brand: filter.brand));
+      items.fold(
+        (l) {
+          debugPrint('items: $l');
+          emit(state.copyWith(stateType: StateType.failure, message: l.message));
+        },
+        (items) {
+          debugPrint('items: ${items.items.length}');
+          emit(
+            state.copyWith(
+              stateType: StateType.success,
+              items: items,
+              filter: filter,
+            ),
+          );
+        },
+      );
     } catch (e) {
       emit(state.copyWith(stateType: StateType.failure, message: e.toString()));
     }

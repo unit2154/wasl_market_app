@@ -34,18 +34,21 @@ class CompanyWidget extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: height * .16,
+              height: height * .2,
               width: 130,
-              child: CachedNetworkImage(
-                imageUrl: company.image!,
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) =>
-                    Image.asset(AppImages.logo),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CachedNetworkImage(
+                  imageUrl: company.image!,
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) =>
+                      Image.asset(AppImages.logo),
+                ),
               ),
             ),
             Container(
-              height: height * .037,
+              height: height * .0471,
               width: 130,
               decoration: BoxDecoration(
                 border: Border(top: BorderSide(color: AppColors.primaryColor)),

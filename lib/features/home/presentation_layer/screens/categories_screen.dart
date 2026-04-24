@@ -20,7 +20,8 @@ class CategoriesScreen extends StatelessWidget {
         ),
         itemCount: categories.length,
         itemBuilder: (context, index) {
-          return CategoryWidget(category: categories[index]);
+          final height = MediaQuery.of(context).size.height;
+          return CategoryWidget(category: categories[index], height: height);
         },
       ),
     );

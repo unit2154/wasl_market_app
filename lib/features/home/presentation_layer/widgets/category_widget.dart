@@ -8,7 +8,8 @@ import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit
 
 class CategoryWidget extends StatelessWidget {
   final CategoryEntity category;
-  const CategoryWidget({super.key, required this.category});
+  final double height;
+  const CategoryWidget({super.key, required this.category, required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class CategoryWidget extends StatelessWidget {
       },
       child: Container(
         width: 75,
-        height: 60,
+        height: height * 0.1,
         margin: EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
@@ -46,12 +47,15 @@ class CategoryWidget extends StatelessWidget {
                 color: AppColors.cardBackground,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: CachedNetworkImage(
-                imageUrl: finalImage!,
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) =>
-                    Image.asset(AppImages.logo),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: CachedNetworkImage(
+                  imageUrl: finalImage!,
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) =>
+                      Image.asset(AppImages.logo),
+                ),
               ),
             ),
             SizedBox(

@@ -6,6 +6,7 @@ import 'package:wasl_market_app/features/home/data_layer/data_sources/home_data_
 import 'package:wasl_market_app/features/home/domain_layer/entities/brands_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/categories_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/companies_list_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/items_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/products_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/repository/home_repo.dart';
@@ -65,6 +66,17 @@ class HomeRepoImpl implements HomeRepo {
     try {
       final brands = await homeDataSource.getBrands();
       return Right(brands);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemsListEntity>> filterItems({int? category, int? company, int? brand, String? search}) async {
+    try {
+      final items = await homeDataSource.filterItems(category: category, company: company, brand: brand, search: search);
+      return Right(items);
     } catch (e) {
       debugPrint(e.toString());
       return Left(ServerFailure(message: e.toString()));

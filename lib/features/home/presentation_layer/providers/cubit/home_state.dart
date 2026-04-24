@@ -13,6 +13,7 @@ class HomeState {
   final StateType stateType;
   final FilterModel? filter;
   final List<ProductEntity> products;
+  final ItemsListEntity items;
   final CompaniesListEntity companies;
   final CategoriesListEntity categories;
   final BrandsListEntity brands;
@@ -21,6 +22,7 @@ class HomeState {
     this.stateType = StateType.initial,
     this.filter,
     required this.products,
+    required this.items,
     required this.companies,
     required this.categories,
     required this.brands,
@@ -31,6 +33,7 @@ class HomeState {
     StateType? stateType,
     FilterModel? filter,
     List<ProductEntity>? products,
+    ItemsListEntity? items,
     CompaniesListEntity? companies,
     CategoriesListEntity? categories,
     BrandsListEntity? brands,
@@ -40,6 +43,7 @@ class HomeState {
       stateType: stateType ?? this.stateType,
       filter: filter ?? this.filter,
       products: products ?? this.products,
+      items: items ?? this.items,
       companies: companies ?? this.companies,
       categories: categories ?? this.categories,
       brands: brands ?? this.brands,

@@ -7,7 +7,7 @@ class BrandEntity {
   final String? image;
   final String? icon;
   final String? cover;
-  final int itemsCount;
+  final int? itemsCount;
 
   BrandEntity({
     required this.type,
@@ -18,6 +18,6 @@ class BrandEntity {
     required this.image,
     required this.icon,
     required this.cover,
-    required this.itemsCount,
+    this.itemsCount,
   });
 }

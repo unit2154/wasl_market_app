@@ -8,6 +8,7 @@ import 'package:wasl_market_app/features/home/presentation_layer/screens/categor
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/category_widget.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/brand_widget.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/company_widget.dart';
+import 'package:wasl_market_app/features/home/presentation_layer/widgets/product_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.of(context).size.height * 0.808799;
     return BlocProvider(
       create: (context) => getIt<HomeCubit>()..getCategoriesAndCompanies(),
       child: BlocBuilder<HomeCubit, HomeState>(
@@ -59,14 +60,14 @@ class HomeScreen extends StatelessWidget {
                 floating: true,
                 snap: true,
                 automaticallyImplyLeading: false,
-                expandedHeight: height * 0.18,
+                expandedHeight: height * 0.24,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Column(
                     children: [
                       SizedBox(height: 5),
                       SizedBox(
                         width: width,
-                        height: 40,
+                        height: height * 0.05,
                         child: Row(
                           children: [
                             SizedBox(width: 10),
@@ -93,12 +94,13 @@ class HomeScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: width,
-                        height: height * 0.13,
+                        height: height * 0.18,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: state.categories.categories.length,
                           itemBuilder: (context, index) {
                             return CategoryWidget(
+                              height: height,
                               category: state.categories.categories[index],
                             );
                           },
@@ -114,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                 floating: true,
                 snap: true,
                 automaticallyImplyLeading: false,
-                expandedHeight: height * 0.28,
+                expandedHeight: height * 0.35,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Column(
                     children: [
@@ -139,7 +141,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: width,
-                        height: height * 0.20,
+                        height: height * 0.25,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: state.companies.companies.length,
@@ -200,6 +202,24 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+              // items
+              SliverGrid.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                ),
+                itemCount: state.items.items.length,
+                itemBuilder: (context, index) {
+                  return Product(
+                    product: state.items.items[index],
+                    constraints: BoxConstraints(
+                      maxWidth: width,
+                      maxHeight: height * 0.25,
+                    ),
+                  );
+                },
               ),
             ],
           );
