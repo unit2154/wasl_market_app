@@ -1,7 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
+import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
+import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/item_entity.dart';
+import 'package:wasl_market_app/features/home/presentation_layer/screens/product_details_screen.dart';
 
 class Product extends StatelessWidget {
   final ItemEntity product;
@@ -11,20 +15,20 @@ class Product extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: () {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (_) => MultiBlocProvider(
-      //         providers: [
-      //           BlocProvider.value(value: context.read<CartCubit>()),
-      //           BlocProvider.value(value: context.read<DashboardCubit>()),
-      //         ],
-      //         child: ProductDetailsScreen(product: product),
-      //       ),
-      //     ),
-      //   );
-      // },
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: context.read<CartCubit>()),
+                BlocProvider.value(value: context.read<DashboardCubit>()),
+              ],
+              child: ProductDetailsScreen(item: product),
+            ),
+          ),
+        );
+      },
       child: LayoutBuilder(
         builder: (context, cardConstraints) {
           final double cardHeight = cardConstraints.maxHeight;
@@ -101,6 +105,7 @@ class Product extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        // item name
                         Text(
                           product.catalogItem.name,
                           maxLines: 1,
@@ -113,6 +118,7 @@ class Product extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: cardHeight * 0.005),
+                        // item description
                         Text(
                           product.catalogItem.description,
                           maxLines: 1,
@@ -125,27 +131,26 @@ class Product extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: cardHeight * 0.005),
+                        // item price
                         Text(
                           "${product.price} IQD",
                           style: TextStyle(
-                            color: product.availabilityStatus == "discontinued"
-                                ? Colors.red
-                                : AppColors.primaryColor,
+                            color: AppColors.primaryColor,
                           ),
                         ),
-                        SizedBox(height: cardHeight * 0.005),
-                        Text(
-                                (product.price -
-                                        (product.price * (20 / 100)))
-                                    .ceil()
-                                    .toString(),
-                                style: TextStyle(
-                                  color: const Color(0xFFFF0000),
-                                  fontSize: (cardHeight / 208) * 14,
-                                  fontWeight: FontWeight.w500,
-                                  height: cardHeight * 0.007,
-                                ),
-                              )
+                        // SizedBox(height: cardHeight * 0.005),
+                        // Text(
+                        //         (product.price -
+                        //                 (product.price * (20 / 100)))
+                        //             .ceil()
+                        //             .toString(),
+                        //         style: TextStyle(
+                        //           color: const Color(0xFFFF0000),
+                        //           fontSize: (cardHeight / 208) * 14,
+                        //           fontWeight: FontWeight.w500,
+                        //           height: cardHeight * 0.007,
+                        //         ),
+                        //       )
                       ],
                     ),
                   ),

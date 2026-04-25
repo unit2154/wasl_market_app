@@ -11,5 +11,17 @@ Future<void> dbDependencies() async {
   getIt.registerLazySingleton<Box<CartModel>>(
     () => Hive.box<CartModel>(DBBoxes.cartBox),
   );
+  getIt.registerLazySingleton<Box<CatalogItemModel>>(
+    () => Hive.box<CatalogItemModel>(DBBoxes.catalogItemBox),
+  );
+  getIt.registerLazySingleton<Box<BrandModel>>(
+    () => Hive.box<BrandModel>(DBBoxes.brandBox),
+  );
+  getIt.registerLazySingleton<Box<CompanyModel>>(
+    () => Hive.box<CompanyModel>(DBBoxes.companyBox),
+  );
+  getIt.registerLazySingleton<Box<ItemModel>>(
+    () => Hive.box<ItemModel>(DBBoxes.itemBox),
+  );
   // ======================= DB =======================
 }

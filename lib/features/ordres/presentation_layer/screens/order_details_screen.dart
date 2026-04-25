@@ -216,8 +216,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               if (element.item == null) {
                                 continue;
                               }
-                              totalAmount +=
-                                  double.parse(element.item!.price) *
+                              totalAmount += element.item!.price *
                                   element.orderedQuantity;
                             }
                             return Column(

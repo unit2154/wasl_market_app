@@ -9,7 +9,7 @@ class CatalogItemEntity {
   final List<String> searchSynonyms;
   final String image;
   final BrandEntity? brand;
-  final List<CategoryEntity> categories;
+  final List<CategoryEntity>? categories;
 
   CatalogItemEntity({
     required this.id,
@@ -19,6 +19,6 @@ class CatalogItemEntity {
     required this.searchSynonyms,
     required this.image,
     this.brand,
-    required this.categories,
+    this.categories,
   });
 }

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/brand_entity.dart';
+import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
 
 class BrandWidget extends StatelessWidget {
   const BrandWidget({super.key, required this.brand});
@@ -11,25 +13,19 @@ class BrandWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: () {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (_) => MultiBlocProvider(
-      //         providers: [
-      //           BlocProvider.value(value: context.read<HomeCubit>()),
-      //           BlocProvider.value(value: context.read<CartCubit>()),
-      //           BlocProvider.value(value: context.read<DashboardCubit>()),
-      //         ],
-      //         child: CompanyProductsScreen(company: company),
-      //       ),
-      //     ),
-      //   );
-      // },
+      onTap: () {
+       context.read<HomeCubit>().filterProducts(
+          filter: FilterModel(
+            category: null,
+            company: null,
+            brand: brand.id,
+          ),
+        );
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
         height: 50,
-        width: 250,
+        width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: AppColors.cardBorder),

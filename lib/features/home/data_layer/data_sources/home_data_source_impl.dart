@@ -13,8 +13,6 @@ import 'package:wasl_market_app/features/home/data_layer/models/brands_list_mode
 import 'package:wasl_market_app/features/home/data_layer/models/categories_list_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/companies_list_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/items_list_model.dart';
-import 'package:wasl_market_app/features/home/data_layer/models/product_model.dart';
-import 'package:wasl_market_app/features/home/data_layer/models/products_list_model.dart';
 
 class HomeDataSourceImpl implements HomeDataSource {
   final DioApiConsumer dio;
@@ -25,53 +23,7 @@ class HomeDataSourceImpl implements HomeDataSource {
     required this.tokenBox,
     required this.userBox,
   });
-  @override
-  Future<ProductsListModel> getProducts() async {
-    try {
-      final response = await dio.get(
-        Endpoints.products,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
-        },
-        data: {'page': 1, 'per_page': 100},
-      );
-      return ProductsListModel.fromJson(response.data);
-    } on DioException catch (e) {
-      throw ServerFailure(
-        message:
-            e.response?.data['message'] ??
-            e.response?.data['error'] ??
-            e.response?.data.toString() ??
-            e.toString(),
-      );
-    }
-  }
-
-  @override
-  Future<ProductModel> getProductById(int id) async {
-    try {
-      final response = await dio.get(
-        '${Endpoints.products}/$id',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
-        },
-      );
-      return ProductModel.fromJson(response.data);
-    } on DioException catch (e) {
-      throw ServerFailure(
-        message:
-            e.response?.data['message'] ??
-            e.response?.data['error'] ??
-            e.response?.data.toString() ??
-            e.toString(),
-      );
-    }
-  }
-
+  
   @override
   Future<CompaniesListModel> getCompanies() async {
     try {
@@ -165,6 +117,7 @@ class HomeDataSourceImpl implements HomeDataSource {
       );
       return ItemsListModel.fromJson(response.data);
     } on DioException catch (e) {
+      debugPrint(e.response?.data.toString());
       throw ServerFailure(
         message:
             e.response?.data['message'] ??

@@ -108,7 +108,7 @@ class CartCubit extends Cubit<CartState> {
     cart.fold((failure) => null, (cart) {
       var companies = {
         for (var item in cart.products)
-          item.product.profile!.id: item.product.profile,
+          item.product.company.id: item.product.company,
       }.values.toList();
       debugPrint("companies: ${companies.length}");
     });

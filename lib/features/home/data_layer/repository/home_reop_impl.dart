@@ -7,8 +7,6 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/brands_list_
 import 'package:wasl_market_app/features/home/domain_layer/entities/categories_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/companies_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/items_list_entity.dart';
-import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
-import 'package:wasl_market_app/features/home/domain_layer/entities/products_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/repository/home_repo.dart';
 
 class HomeRepoImpl implements HomeRepo {
@@ -18,26 +16,6 @@ class HomeRepoImpl implements HomeRepo {
     required this.homeDataSource,
     required DioApiConsumer apiConsumer,
   });
-
-  @override
-  Future<Either<Failure, ProductsListEntity>> getProducts() async {
-    try {
-      final products = await homeDataSource.getProducts();
-      return Right(products);
-    } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, ProductEntity>> getProductById(int id) async {
-    try {
-      final product = await homeDataSource.getProductById(id);
-      return Right(product);
-    } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
-    }
-  }
 
   @override
   Future<Either<Failure, CompaniesListEntity>> getCompanies() async {

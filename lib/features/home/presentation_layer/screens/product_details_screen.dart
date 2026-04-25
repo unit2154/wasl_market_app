@@ -7,13 +7,13 @@ import 'package:wasl_market_app/core/widgets/submit_button.dart';
 import 'package:wasl_market_app/features/cart/domain_layer/entities/sub_entity/cart_item_entity.dart';
 import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
 import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
-import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/item_entity.dart';
 
 // ignore: must_be_immutable
 class ProductDetailsScreen extends StatelessWidget {
-  ProductDetailsScreen({super.key, required this.product});
+  ProductDetailsScreen({super.key, required this.item});
 
-  final ProductEntity product;
+  final ItemEntity item;
   ValueNotifier<int> quantityNotifier = ValueNotifier<int>(1);
 
   @override
@@ -26,7 +26,7 @@ class ProductDetailsScreen extends StatelessWidget {
               .state
               .cart
               ?.products
-              .where((element) => element.product.id == product.id)
+              .where((element) => element.product.id == item.id)
               .firstOrNull
               ?.quantity ??
           0,
@@ -44,7 +44,7 @@ class ProductDetailsScreen extends StatelessWidget {
           title: Row(
             children: [
               // product name
-              Text(product.name),
+              
               Spacer(),
               // cart count
               ElevatedButton(
@@ -94,7 +94,7 @@ class ProductDetailsScreen extends StatelessWidget {
           listener: (context, state) {
             inCartQuantityNotifier.value =
                 state.cart?.products
-                    .firstWhere((element) => element.product.id == product.id)
+                    .firstWhere((element) => element.product.id == item.id)
                     .quantity ??
                 0;
             cartTotalItemsNotifier.value = state.cart?.products.length ?? 0;
@@ -132,7 +132,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       children: [
                         // product name
                         Text(
-                          product.name,
+                          item.catalogItem.name,
                           style: TextStyle(
                             color: AppColors.textPrimary,
                             fontSize: 18,
@@ -142,7 +142,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                         // product availability status
                         Text(
-                          product.availabilityStatus,
+                          item.availabilityStatus,
                           style: TextStyle(
                             color: AppColors.textSecondary,
                             fontSize: 16,
@@ -153,7 +153,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                         // product price
                         Text(
-                          "${product.price} IQD",
+                          "${item.price} IQD",
                           style: TextStyle(
                             color: AppColors.primaryColor,
                             fontSize: 16,
@@ -175,7 +175,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                         // product description
                         Text(
-                          product.description,
+                          item.catalogItem.description,
                           textAlign: TextAlign.justify,
                           style: TextStyle(
                             color: AppColors.textSecondary,
@@ -246,7 +246,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           text: "اضافة الى السلة",
                           onPressed: () => context.read<CartCubit>().addToCart(
                             CartItemEntity(
-                              product: product,
+                              product: item,
                               quantity: quantityNotifier.value,
                             ),
                           ),

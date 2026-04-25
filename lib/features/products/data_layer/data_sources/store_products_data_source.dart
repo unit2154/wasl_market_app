@@ -1,11 +1,5 @@
-import 'package:wasl_market_app/features/products/data_layer/models/product_model.dart';
-import 'package:wasl_market_app/features/products/data_layer/models/products_list_model.dart';
-import 'package:wasl_market_app/features/products/domain_layer/entities/product_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/items_list_entity.dart';
 
 abstract class StoreProductsDataSource {
-  Future<ProductsListModel> getProducts();
-  Future<ProductModel> getProductById(int id);
-  Future<ProductModel> addProduct(ProductEntity product);
-  Future<ProductModel> updateProduct(ProductEntity product);
-  Future<void> deleteProduct(int id);
+  Future<ItemsListEntity> getProducts();
 }

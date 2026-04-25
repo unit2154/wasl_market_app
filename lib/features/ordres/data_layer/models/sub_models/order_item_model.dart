@@ -1,5 +1,5 @@
 import 'package:wasl_market_app/features/ordres/domain_layer/entities/sub_entities/order_item_entity.dart';
-import 'package:wasl_market_app/features/home/data_layer/models/product_model.dart';
+import 'package:wasl_market_app/features/home/data_layer/models/sub_models/item_model.dart';
 
 class OrderItemModel extends OrderItemEntity {
   OrderItemModel({
@@ -28,7 +28,7 @@ class OrderItemModel extends OrderItemEntity {
       notes: json['notes'] ?? "",
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
-      item: json['item'] != null ? ProductModel.fromJson(json['item']) : null,
+      item: json['item'] != null ? ItemModel.fromJson(json['item']) : null,
     );
   }
 
@@ -44,7 +44,7 @@ class OrderItemModel extends OrderItemEntity {
       'notes': notes,
       'created_at': createdAt,
       'updated_at': updatedAt,
-      'item': (item as ProductModel?)?.toJson(),
+      // 'item': (item as ItemModel?)?.toJson(),
     };
   }
 }

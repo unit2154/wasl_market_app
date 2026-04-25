@@ -3,15 +3,11 @@ part of 'locator.dart';
 Future<void> homeDependencies() async {
   getIt.registerFactory<HomeCubit>(
     () => HomeCubit(
-      getProductsUseCase: getIt<GetProductsUseCase>(),
       getCompaniesUseCase: getIt<GetCompaniesUseCase>(),
       getCategoriesUseCase: getIt<GetCategoriesUseCase>(),
       getBrandsUseCase: getIt<GetBrandsUseCase>(),
       filterItemsUseCase: getIt<FilterItemsUseCase>(),
     ),
-  );
-  getIt.registerLazySingleton<GetProductsUseCase>(
-    () => GetProductsUseCase(getIt<HomeRepo>()),
   );
   getIt.registerLazySingleton<GetCompaniesUseCase>(
     () => GetCompaniesUseCase(homeRepo: getIt<HomeRepo>()),

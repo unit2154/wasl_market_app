@@ -67,7 +67,7 @@ class CartDataSourceImpl implements CartDataSource {
         cart.products.add(cartItem);
       }
       cart.products.sort(
-        (a, b) => a.product.profile!.id.compareTo(b.product.profile!.id),
+        (a, b) => a.product.company.id.compareTo(b.product.company.id),
       );
       cartBox.putAt(0, cart);
       return Future.value(cart);
@@ -95,7 +95,7 @@ class CartDataSourceImpl implements CartDataSource {
         cartBox.put('cart', cart);
       }
       cart.products.sort(
-        (a, b) => a.product.profile!.id.compareTo(b.product.profile!.id),
+        (a, b) => a.product.company.id.compareTo(b.product.company.id),
       );
       return Future.value(cart);
     } catch (e) {
@@ -111,7 +111,7 @@ class CartDataSourceImpl implements CartDataSource {
         (element) => element.product.id == item.product.id,
       );
       cart.products.sort(
-        (a, b) => a.product.profile!.id.compareTo(b.product.profile!.id),
+        (a, b) => a.product.company.id.compareTo(b.product.company.id),
       );
       cartBox.putAt(0, cart);
       return Future.value(cart);
@@ -130,7 +130,7 @@ class CartDataSourceImpl implements CartDataSource {
           )] =
           cartItem;
       cart.products.sort(
-        (a, b) => a.product.profile!.id.compareTo(b.product.profile!.id),
+        (a, b) => a.product.company.id.compareTo(b.product.company.id),
       );
       cartBox.putAt(0, cart);
       return Future.value(cart);

@@ -12,7 +12,6 @@ enum StateType { initial, loading, success, failure }
 class HomeState {
   final StateType stateType;
   final FilterModel? filter;
-  final List<ProductEntity> products;
   final ItemsListEntity items;
   final CompaniesListEntity companies;
   final CategoriesListEntity categories;
@@ -21,7 +20,6 @@ class HomeState {
   HomeState({
     this.stateType = StateType.initial,
     this.filter,
-    required this.products,
     required this.items,
     required this.companies,
     required this.categories,
@@ -32,7 +30,6 @@ class HomeState {
   HomeState copyWith({
     StateType? stateType,
     FilterModel? filter,
-    List<ProductEntity>? products,
     ItemsListEntity? items,
     CompaniesListEntity? companies,
     CategoriesListEntity? categories,
@@ -42,7 +39,6 @@ class HomeState {
     return HomeState(
       stateType: stateType ?? this.stateType,
       filter: filter ?? this.filter,
-      products: products ?? this.products,
       items: items ?? this.items,
       companies: companies ?? this.companies,
       categories: categories ?? this.categories,

@@ -40,11 +40,11 @@ class CartItem extends StatelessWidget {
                   crossAxisAlignment: .start,
                   mainAxisSize: .min,
                   children: [
-                    Text(item.product.name),
+                    Text(item.product.catalogItem.name),
                     Row(
                       children: [
                         SvgPicture.asset(AppIcons.location),
-                        Text(item.product.profile?.name ?? ""),
+                        Text(item.product.company.name),
                       ],
                     ),
                     Text("${item.product.price} IQD"),

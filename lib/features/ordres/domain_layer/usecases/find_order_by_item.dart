@@ -9,7 +9,7 @@ class FindOrderByItemUseCase {
     for (var order in orders) {
       for (var itemm in order.orderItems!) {
         if (itemm.item != null &&
-            itemm.item!.name.toLowerCase().contains(itemName.toLowerCase())) {
+            itemm.item!.catalogItem.name.toLowerCase().contains(itemName.toLowerCase())) {
           foundOrders.add(order);
         }
       }

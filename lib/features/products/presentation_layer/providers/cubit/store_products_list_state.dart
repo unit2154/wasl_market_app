@@ -8,7 +8,7 @@ final class ProductsListInitial extends StoreProductsListState {}
 final class ProductsListLoading extends StoreProductsListState {}
 
 final class ProductsListLoaded extends StoreProductsListState {
-  final List<ProductEntity> productsList;
+  final List<ItemEntity> productsList;
   ProductsListLoaded(this.productsList);
 }
 
@@ -18,7 +18,7 @@ final class ProductsListError extends StoreProductsListState {
 }
 
 final class ProductsListUpdate extends StoreProductsListState {
-  final List<ProductEntity> productsList;
+  final List<ItemEntity> productsList;
   ProductsListUpdate(this.productsList);
 }
 

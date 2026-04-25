@@ -13,14 +13,14 @@ class CreateNewOrder {
     var products = cart.products;
     var companies = {
       for (var product in products)
-        {product.product.profile?.id: product}.values.toList(),
+        {product.product.company.id: product}.values.toList(),
     };
 
     String mainCustomerId = '';
     List<NewOrderItemEntity> items = [];
 
     for (var company in companies) {
-      mainCustomerId = company.first.product.profile!.id.toString();
+      mainCustomerId = company.first.product.company.id.toString();
       for (var product in company) {
         items.add(
           NewOrderItemEntity(

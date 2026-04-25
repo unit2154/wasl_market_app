@@ -4,30 +4,25 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/brands_list_
 import 'package:wasl_market_app/features/home/domain_layer/entities/categories_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/companies_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/items_list_entity.dart';
-import 'package:wasl_market_app/features/home/domain_layer/entities/product_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/filter_items.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_brands.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_categories.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_companies.dart';
-import 'package:wasl_market_app/features/home/domain_layer/usecases/get_products.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final GetProductsUseCase getProductsUseCase;
   final GetCompaniesUseCase getCompaniesUseCase;
   final GetCategoriesUseCase getCategoriesUseCase;
   final GetBrandsUseCase getBrandsUseCase;
   final FilterItemsUseCase filterItemsUseCase;
   HomeCubit({
-    required this.getProductsUseCase,
     required this.getCompaniesUseCase,
     required this.getCategoriesUseCase,
     required this.getBrandsUseCase,
     required this.filterItemsUseCase,
   }) : super(
          HomeState(
-           products: [],
            items: ItemsListEntity(items: []),
            companies: CompaniesListEntity(companies: []),
            categories: CategoriesListEntity(categories: []),
@@ -75,7 +70,6 @@ class HomeCubit extends Cubit<HomeState> {
                   emit(
                     state.copyWith(
                       stateType: StateType.success,
-                      products: [],
                       companies: comps,
                       categories: cats,
                       brands: brands,

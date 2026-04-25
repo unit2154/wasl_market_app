@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
-import 'package:wasl_market_app/core/constants/images.dart';
-import 'package:wasl_market_app/features/products/domain_layer/entities/product_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/item_entity.dart';
 
 class Product extends StatelessWidget {
-  final ProductEntity product;
+  final ItemEntity product;
   final BoxConstraints constraints;
   final BuildContext cubitContext;
   const Product({
@@ -42,7 +42,15 @@ class Product extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Center(child: Image.asset(AppImages.item)),
+                        child: Center(
+                          child: CachedNetworkImage(
+                            imageUrl: product.catalogItem.image,
+                            placeholder: (context, url) =>
+                                const Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                          ),
+                        ),
                       ),
                       product.availabilityStatus == "discontinued"
                           ? Positioned(
@@ -85,7 +93,7 @@ class Product extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        product.name,
+                        product.catalogItem.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -97,7 +105,7 @@ class Product extends StatelessWidget {
                       ),
                       SizedBox(height: cardHeight * 0.005),
                       Text(
-                        product.description,
+                        product.catalogItem.description,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -117,20 +125,6 @@ class Product extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: cardHeight * 0.005),
-                      product.images!.isNotEmpty
-                          ? Text(
-                              (int.parse(product.price) -
-                                      (int.parse(product.price) * (20 / 100)))
-                                  .ceil()
-                                  .toString(),
-                              style: TextStyle(
-                                color: const Color(0xFFFF0000),
-                                fontSize: (cardHeight / 208) * 14,
-                                fontWeight: FontWeight.w500,
-                                height: cardHeight * 0.007,
-                              ),
-                            )
-                          : SizedBox.shrink(),
                     ],
                   ),
                 ),
