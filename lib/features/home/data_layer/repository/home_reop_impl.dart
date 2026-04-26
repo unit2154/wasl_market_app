@@ -18,9 +18,9 @@ class HomeRepoImpl implements HomeRepo {
   });
 
   @override
-  Future<Either<Failure, CompaniesListEntity>> getCompanies() async {
+  Future<Either<Failure, CompaniesListEntity>> getCompanies(int page) async {
     try {
-      final companies = await homeDataSource.getCompanies();
+      final companies = await homeDataSource.getCompanies(page);
       return Right(companies);
     } catch (e) {
       debugPrint(e.toString());
@@ -29,9 +29,9 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, CategoriesListEntity>> getCategories() async {
+  Future<Either<Failure, CategoriesListEntity>> getCategories(int page) async {
     try {
-      final categories = await homeDataSource.getCategories();
+      final categories = await homeDataSource.getCategories(page);
       return Right(categories);
     } catch (e) {
       debugPrint(e.toString());
@@ -40,9 +40,9 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, BrandsListEntity>> getBrands() async {
+  Future<Either<Failure, BrandsListEntity>> getBrands(int page) async {
     try {
-      final brands = await homeDataSource.getBrands();
+      final brands = await homeDataSource.getBrands(page);
       return Right(brands);
     } catch (e) {
       debugPrint(e.toString());
@@ -51,9 +51,19 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, ItemsListEntity>> filterItems({int? category, int? company, int? brand, String? search}) async {
+  Future<Either<Failure, ItemsListEntity>> filterItems({
+    int? category,
+    int? company,
+    int? brand,
+    String? search,
+  }) async {
     try {
-      final items = await homeDataSource.filterItems(category: category, company: company, brand: brand, search: search);
+      final items = await homeDataSource.filterItems(
+        category: category,
+        company: company,
+        brand: brand,
+        search: search,
+      );
       return Right(items);
     } catch (e) {
       debugPrint(e.toString());

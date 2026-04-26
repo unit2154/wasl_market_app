@@ -6,6 +6,7 @@ class CompanyEntity {
   final String? city;
   final String? country;
   final String? image;
+  final String? logo;
   final bool? isActive;
 
   CompanyEntity({
@@ -17,5 +18,6 @@ class CompanyEntity {
     this.country,
     this.image,
     this.isActive,
+    this.logo,
   });
 }

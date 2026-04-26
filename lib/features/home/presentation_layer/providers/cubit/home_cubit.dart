@@ -33,7 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getCategoriesAndCompanies() async {
     emit(state.copyWith(stateType: StateType.loading));
     try {
-      final categories = await getCategoriesUseCase();
+      final categories = await getCategoriesUseCase(1);
       categories.fold(
         (l) {
           debugPrint('categoriesssss: $l');
@@ -42,7 +42,7 @@ class HomeCubit extends Cubit<HomeState> {
           );
         },
         (cats) async {
-          final companies = await getCompaniesUseCase();
+          final companies = await getCompaniesUseCase(1);
           companies.fold(
             (l) {
               debugPrint('companies: $l');
@@ -54,7 +54,7 @@ class HomeCubit extends Cubit<HomeState> {
               );
             },
             (comps) async {
-              final brands = await getBrandsUseCase();
+              final brands = await getBrandsUseCase(1);
               brands.fold(
                 (l) {
                   debugPrint('brands: $l');
@@ -66,7 +66,11 @@ class HomeCubit extends Cubit<HomeState> {
                   );
                 },
                 (brands) {
-                  debugPrint('brands: ${brands.brands.length}');
+                  debugPrint('from cubit brands: ${brands.brands.length}');
+                  debugPrint(
+                    'from cubit categories: ${cats.categories.length}',
+                  );
+                  debugPrint('from cubit companies: ${comps.companies.length}');
                   emit(
                     state.copyWith(
                       stateType: StateType.success,
@@ -89,11 +93,19 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> filterProducts({required FilterModel filter}) async {
     emit(state.copyWith(stateType: StateType.loading));
     try {
-      final items = await filterItemsUseCase(new FilterParams(category: filter.category, company: filter.company, brand: filter.brand));
+      final items = await filterItemsUseCase(
+        FilterParams(
+          category: filter.category,
+          company: filter.company,
+          brand: filter.brand,
+        ),
+      );
       items.fold(
         (l) {
           debugPrint('items: $l');
-          emit(state.copyWith(stateType: StateType.failure, message: l.message));
+          emit(
+            state.copyWith(stateType: StateType.failure, message: l.message),
+          );
         },
         (items) {
           debugPrint('items: ${items.items.length}');
@@ -106,6 +118,91 @@ class HomeCubit extends Cubit<HomeState> {
           );
         },
       );
+    } catch (e) {
+      emit(state.copyWith(stateType: StateType.failure, message: e.toString()));
+    }
+  }
+
+  Future<void> getNextPage({required NextPageModel nextPageModel}) async {
+    emit(state.copyWith(stateType: StateType.loading));
+    try {
+      if (nextPageModel.companiesPage != null) {
+        final companies = await getCompaniesUseCase(
+          nextPageModel.companiesPage!,
+        );
+        companies.fold(
+          (l) {
+            debugPrint('companies: $l');
+            emit(
+              state.copyWith(stateType: StateType.failure, message: l.message),
+            );
+          },
+          (companies) {
+            emit(
+              state.copyWith(
+                stateType: StateType.success,
+                companies: CompaniesListEntity(
+                  companies: [
+                    ...state.companies.companies,
+                    ...companies.companies,
+                  ],
+                  nextPageUrl: companies.nextPageUrl,
+                ),
+              ),
+            );
+          },
+        );
+      } else if (nextPageModel.brandsPage != null) {
+        final brands = await getBrandsUseCase(nextPageModel.brandsPage!);
+        brands.fold(
+          (l) {
+            debugPrint('brands: $l');
+            emit(
+              state.copyWith(stateType: StateType.failure, message: l.message),
+            );
+          },
+          (brands) {
+            debugPrint('brands: ${brands.brands.length}');
+            emit(
+              state.copyWith(
+                stateType: StateType.success,
+                brands: BrandsListEntity(
+                  brands: [...state.brands.brands, ...brands.brands],
+                  nextPageUrl: brands.nextPageUrl,
+                ),
+              ),
+            );
+          },
+        );
+      } else if (nextPageModel.itemsPage != null) {
+        final items = await filterItemsUseCase(
+          FilterParams(
+            category: state.filter?.category,
+            company: state.filter?.company,
+            brand: state.filter?.brand,
+          ),
+        );
+        items.fold(
+          (l) {
+            debugPrint('items: $l');
+            emit(
+              state.copyWith(stateType: StateType.failure, message: l.message),
+            );
+          },
+          (items) {
+            debugPrint('items: ${items.items.length}');
+            emit(
+              state.copyWith(
+                stateType: StateType.success,
+                items: ItemsListEntity(
+                  items: [...state.items.items, ...items.items],
+                  nextPageUrl: items.nextPageUrl,
+                ),
+              ),
+            );
+          },
+        );
+      }
     } catch (e) {
       emit(state.copyWith(stateType: StateType.failure, message: e.toString()));
     }

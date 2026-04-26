@@ -7,7 +7,7 @@ class GetCategoriesUseCase {
   final HomeRepo homeRepo;
   GetCategoriesUseCase({required this.homeRepo});
 
-  Future<Either<Failure, CategoriesListEntity>> call() async {
-    return await homeRepo.getCategories();
+  Future<Either<Failure, CategoriesListEntity>> call(int page) async {
+    return await homeRepo.getCategories(page);
   }
 }

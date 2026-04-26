@@ -23,9 +23,9 @@ class HomeDataSourceImpl implements HomeDataSource {
     required this.tokenBox,
     required this.userBox,
   });
-  
+
   @override
-  Future<CompaniesListModel> getCompanies() async {
+  Future<CompaniesListModel> getCompanies(int page) async {
     try {
       final response = await dio.get(
         Endpoints.companies,
@@ -49,7 +49,7 @@ class HomeDataSourceImpl implements HomeDataSource {
   }
 
   @override
-  Future<CategoriesListModel> getCategories() async {
+  Future<CategoriesListModel> getCategories(int page) async {
     try {
       final response = await dio.get(
         Endpoints.categories,
@@ -58,8 +58,8 @@ class HomeDataSourceImpl implements HomeDataSource {
           'Accept': 'application/json',
           'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
         },
+        data: {'page': page, 'per_page': 20},
       );
-      debugPrint(response.data.toString());
       return CategoriesListModel.fromJson(response.data);
     } on DioException catch (e) {
       throw ServerFailure(
@@ -73,7 +73,7 @@ class HomeDataSourceImpl implements HomeDataSource {
   }
 
   @override
-  Future<BrandsListModel> getBrands() async {
+  Future<BrandsListModel> getBrands(int page) async {
     try {
       final response = await dio.get(
         Endpoints.brands,
@@ -82,9 +82,8 @@ class HomeDataSourceImpl implements HomeDataSource {
           'Accept': 'application/json',
           'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
         },
-        data: {'page': 1, 'per_page': 100},
+        data: {'page': page, 'per_page': 20},
       );
-      debugPrint(response.data.toString());
       return BrandsListModel.fromJson(response.data);
     } on DioException catch (e) {
       throw ServerFailure(
@@ -98,22 +97,27 @@ class HomeDataSourceImpl implements HomeDataSource {
   }
 
   @override
-  Future<ItemsListModel> filterItems({int? category, int? company, int? brand, String? search}) async {
+  Future<ItemsListModel> filterItems({
+    int? category,
+    int? company,
+    int? brand,
+    String? search,
+  }) async {
     try {
       final response = await dio.get(
-        category != null ? '${Endpoints.categories}/$category/items' : 
-        company != null ? '${Endpoints.companies}/$company/items' : 
-        brand != null ? '${Endpoints.brands}/$brand/items' : 
-        Endpoints.products,
+        category != null
+            ? '${Endpoints.categories}/$category/items'
+            : company != null
+            ? '${Endpoints.companies}/$company/items'
+            : brand != null
+            ? '${Endpoints.brands}/$brand/items'
+            : Endpoints.products,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
         },
-        data: {
-          'page': 1,
-          'per_page': 100,
-        },
+        data: {'page': 1, 'per_page': 20},
       );
       return ItemsListModel.fromJson(response.data);
     } on DioException catch (e) {

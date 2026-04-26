@@ -29,6 +29,25 @@ class CartScreen extends StatelessWidget {
           );
           context.read<CartCubit>().clearCart();
         }
+        if (state.status == CartStatus.failure) {
+          showDialog(
+            context: context,
+            builder: (context) => Directionality(
+              textDirection: TextDirection.rtl,
+              child: AlertDialog(
+                backgroundColor: AppColors.white,
+                title: Text("خطأ"),
+                content: Text(state.errorMessage, textAlign: TextAlign.center),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("حسنا"),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
         if (state.status == CartStatus.addToCart) {
           ScaffoldMessenger.of(
             context,
@@ -44,17 +63,10 @@ class CartScreen extends StatelessWidget {
         if (state.status == CartStatus.loading) {
           return Center(child: CircularProgressIndicator());
         }
-        if (state.status == CartStatus.failure) {
-          return Center(
-            child: Text(
-              state.errorMessage,
-              style: TextStyle(color: Colors.red),
-            ),
-          );
-        }
         if (state.status == CartStatus.success ||
             state.status == CartStatus.addToCart ||
             state.status == CartStatus.removeFromCart ||
+            state.status == CartStatus.failure ||
             state.status == CartStatus.clearCart) {
           debugPrint("cart: ${state.cart?.products.length}");
           if (state.cart?.products.isEmpty ?? true) {

@@ -4,9 +4,9 @@ import 'package:wasl_market_app/features/home/data_layer/models/companies_list_m
 import 'package:wasl_market_app/features/home/data_layer/models/items_list_model.dart';
 
 abstract class HomeDataSource {
-  Future<CompaniesListModel> getCompanies();
-  Future<CategoriesListModel> getCategories();
-  Future<BrandsListModel> getBrands();
+  Future<CompaniesListModel> getCompanies(int page);
+  Future<CategoriesListModel> getCategories(int page);
+  Future<BrandsListModel> getBrands(int page);
   Future<ItemsListModel> filterItems({
     int? category,
     int? company,

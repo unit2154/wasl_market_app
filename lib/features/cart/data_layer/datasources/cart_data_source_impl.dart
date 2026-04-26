@@ -24,6 +24,7 @@ class CartDataSourceImpl implements CartDataSource {
   });
   @override
   Future<void> createNewOrder(NewOrderEntity order) async {
+    debugPrint(order.items.first.itemId.toString());
     try {
       var res = await apiService.post(
         Endpoints.createNewOrder,

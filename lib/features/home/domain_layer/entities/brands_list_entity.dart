@@ -2,6 +2,6 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities
 
 class BrandsListEntity {
   final List<BrandEntity> brands;
-  final String? nextPage;
-  BrandsListEntity({required this.brands, this.nextPage});
+  final String? nextPageUrl;
+  BrandsListEntity({required this.brands, this.nextPageUrl});
 }

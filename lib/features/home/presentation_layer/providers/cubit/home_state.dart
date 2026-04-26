@@ -7,6 +7,13 @@ class FilterModel {
   FilterModel({this.category, this.company, this.brand});
 }
 
+class NextPageModel {
+  final int? companiesPage;
+  final int? brandsPage;
+  final int? itemsPage;
+  NextPageModel({this.companiesPage, this.brandsPage, this.itemsPage});
+}
+
 enum StateType { initial, loading, success, failure }
 
 class HomeState {

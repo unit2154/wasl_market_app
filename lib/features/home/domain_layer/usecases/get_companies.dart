@@ -6,7 +6,7 @@ import 'package:wasl_market_app/features/home/domain_layer/repository/home_repo.
 class GetCompaniesUseCase {
   final HomeRepo homeRepo;
   GetCompaniesUseCase({required this.homeRepo});
-  Future<Either<Failure, CompaniesListEntity>> call() async {
-    return await homeRepo.getCompanies();
+  Future<Either<Failure, CompaniesListEntity>> call(int page) async {
+    return await homeRepo.getCompanies(page);
   }
 }

@@ -6,9 +6,9 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/companies_li
 import 'package:wasl_market_app/features/home/domain_layer/entities/items_list_entity.dart';
 
 abstract class HomeRepo {
-  Future<Either<Failure, CompaniesListEntity>> getCompanies();
-  Future<Either<Failure, CategoriesListEntity>> getCategories();
-  Future<Either<Failure, BrandsListEntity>> getBrands();
+  Future<Either<Failure, CompaniesListEntity>> getCompanies(int page);
+  Future<Either<Failure, CategoriesListEntity>> getCategories(int page);
+  Future<Either<Failure, BrandsListEntity>> getBrands(int page);
   Future<Either<Failure, ItemsListEntity>> filterItems({
     int? category,
     int? company,

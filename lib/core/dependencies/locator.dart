@@ -18,7 +18,6 @@ import 'package:wasl_market_app/features/home/data_layer/data_sources/home_data_
 import 'package:wasl_market_app/features/home/data_layer/data_sources/home_data_source_impl.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/sub_models/brand_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/sub_models/catalog_item_model.dart';
-import 'package:wasl_market_app/features/home/data_layer/models/sub_models/category_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/sub_models/company_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/sub_models/item_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/repository/home_reop_impl.dart';

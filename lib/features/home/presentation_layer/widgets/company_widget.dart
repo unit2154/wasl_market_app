@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
+import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
+import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/company_entity.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
+import 'package:wasl_market_app/features/home/presentation_layer/screens/company_products_screen.dart';
 
 class CompanyWidget extends StatelessWidget {
   const CompanyWidget({super.key, required this.height, required this.company});
@@ -18,10 +21,25 @@ class CompanyWidget extends StatelessWidget {
     //     ? 'https://vorhex.com${company.image!}'
     //     : '';
     return InkWell(
-      onTap: () {
-        context.read<HomeCubit>().filterProducts(
+      onTap: () async {
+        await context.read<HomeCubit>().filterProducts(
           filter: FilterModel(category: null, company: company.id, brand: null),
         );
+        if (context.mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(value: context.read<HomeCubit>()),
+                  BlocProvider.value(value: context.read<CartCubit>()),
+                  BlocProvider.value(value: context.read<DashboardCubit>()),
+                ],
+                child: CompanyProductsScreen(company: company),
+              ),
+            ),
+          );
+        }
       },
       child: Container(
         width: 130,
