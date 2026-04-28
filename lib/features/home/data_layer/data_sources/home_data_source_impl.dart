@@ -13,6 +13,7 @@ import 'package:wasl_market_app/features/home/data_layer/models/brands_list_mode
 import 'package:wasl_market_app/features/home/data_layer/models/categories_list_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/companies_list_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/items_list_model.dart';
+import 'package:wasl_market_app/features/home/data_layer/models/search_suggest_model.dart';
 
 class HomeDataSourceImpl implements HomeDataSource {
   final DioApiConsumer dio;
@@ -120,6 +121,33 @@ class HomeDataSourceImpl implements HomeDataSource {
         data: {'page': 1, 'per_page': 20},
       );
       return ItemsListModel.fromJson(response.data);
+    } on DioException catch (e) {
+      debugPrint(e.response?.data.toString());
+      throw ServerFailure(
+        message:
+            e.response?.data['message'] ??
+            e.response?.data['error'] ??
+            e.response?.data.toString() ??
+            e.toString(),
+      );
+    }
+  }
+
+  @override
+  Future<List<SearchSuggestModel>> searchSuggest({String? search}) async {
+    try {
+      final response = await dio.get(
+        Endpoints.searchSuggestions,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
+        },
+        data: {'q': search, 'limit': '10'},
+      );
+      return (response.data['suggestions'] as List<dynamic>)
+          .map((x) => SearchSuggestModel.fromJson(x))
+          .toList();
     } on DioException catch (e) {
       debugPrint(e.response?.data.toString());
       throw ServerFailure(

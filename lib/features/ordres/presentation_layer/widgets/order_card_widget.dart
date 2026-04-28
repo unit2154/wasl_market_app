@@ -169,7 +169,7 @@ class OrderCard extends StatelessWidget {
                           SizedBox(
                             width: width * .5,
                             child: Text(
-                              order.mainCustomer?.name ?? "",
+                              order.company?.name ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textDirection: TextDirection.rtl,

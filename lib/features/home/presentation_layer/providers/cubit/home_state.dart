@@ -14,7 +14,7 @@ class NextPageModel {
   NextPageModel({this.companiesPage, this.brandsPage, this.itemsPage});
 }
 
-enum StateType { initial, loading, success, failure }
+enum StateType { initial, loading, success, searchSuggest, failure }
 
 class HomeState {
   final StateType stateType;
@@ -23,6 +23,7 @@ class HomeState {
   final CompaniesListEntity companies;
   final CategoriesListEntity categories;
   final BrandsListEntity brands;
+  final List<SearchSuggestEntity>? searchSuggests;
   final String? message;
   HomeState({
     this.stateType = StateType.initial,
@@ -31,6 +32,7 @@ class HomeState {
     required this.companies,
     required this.categories,
     required this.brands,
+    this.searchSuggests,
     this.message,
   });
 
@@ -41,6 +43,7 @@ class HomeState {
     CompaniesListEntity? companies,
     CategoriesListEntity? categories,
     BrandsListEntity? brands,
+    List<SearchSuggestEntity>? searchSuggests,
     String? message,
   }) {
     return HomeState(
@@ -50,6 +53,7 @@ class HomeState {
       companies: companies ?? this.companies,
       categories: categories ?? this.categories,
       brands: brands ?? this.brands,
+      searchSuggests: searchSuggests ?? this.searchSuggests,
       message: message ?? this.message,
     );
   }

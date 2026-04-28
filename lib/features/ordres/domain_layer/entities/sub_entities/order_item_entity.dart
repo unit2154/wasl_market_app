@@ -3,7 +3,7 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities
 class OrderItemEntity {
   int id;
   int orderId;
-  int itemId;
+  int? itemId;
   int orderedQuantity;
   int confirmedQuantity;
   String unitPrice;
@@ -16,7 +16,7 @@ class OrderItemEntity {
   OrderItemEntity({
     required this.id,
     required this.orderId,
-    required this.itemId,
+    this.itemId,
     required this.orderedQuantity,
     required this.confirmedQuantity,
     required this.unitPrice,

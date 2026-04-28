@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/dependencies/locator.dart';
-import 'package:wasl_market_app/features/cart/domain_layer/entities/sub_entity/cart_item_entity.dart';
-import 'package:wasl_market_app/features/cart/presentation_layer/widgets/cart_item_widget.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/screens/categories_screen.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/category_widget.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/brand_widget.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/company_widget.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/widgets/product_widget.dart';
+import 'package:wasl_market_app/features/home/presentation_layer/widgets/search_suggest_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -44,6 +43,14 @@ class HomeScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          var searchController = SearchController();
+          searchController.addListener(() {
+            if (searchController.text.length > 1) {
+              context.read<HomeCubit>().searchSuggest(
+                query: searchController.text,
+              );
+            }
+          });
           debugPrint("items: ${state.items.items.length}");
           companiesScrollController.addListener(() {
             if (companiesScrollController.position.pixels ==
@@ -91,6 +98,7 @@ class HomeScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: SearchAnchor.bar(
+                              searchController: searchController,
                               barHintText: "ابحث",
                               barElevation: WidgetStatePropertyAll(0),
                               barBackgroundColor: WidgetStatePropertyAll(
@@ -105,16 +113,15 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                               suggestionsBuilder: (context, controller) {
-                                return List.generate(
-                                  state.items.items.length,
-                                  (index) => CartItem(
-                                    item: CartItemEntity(
-                                      product: state.items.items[index],
-                                      quantity: 1,
-                                    ),
-                                    searchItem: true,
-                                  ),
-                                );
+                                return state.stateType ==
+                                        StateType.searchSuggest
+                                    ? List.generate(
+                                        state.searchSuggests!.length,
+                                        (index) => SearchSuggestWidget(
+                                          item: state.searchSuggests![index],
+                                        ),
+                                      )
+                                    : [];
                               },
                             ),
                           ),

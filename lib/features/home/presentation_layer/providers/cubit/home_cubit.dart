@@ -4,10 +4,12 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/brands_list_
 import 'package:wasl_market_app/features/home/domain_layer/entities/categories_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/companies_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/items_list_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/search_suggest_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/filter_items.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_brands.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_categories.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_companies.dart';
+import 'package:wasl_market_app/features/home/domain_layer/usecases/search_suggest.dart';
 
 part 'home_state.dart';
 
@@ -16,11 +18,13 @@ class HomeCubit extends Cubit<HomeState> {
   final GetCategoriesUseCase getCategoriesUseCase;
   final GetBrandsUseCase getBrandsUseCase;
   final FilterItemsUseCase filterItemsUseCase;
+  final SearchSuggestUseCase searchSuggestUseCase;
   HomeCubit({
     required this.getCompaniesUseCase,
     required this.getCategoriesUseCase,
     required this.getBrandsUseCase,
     required this.filterItemsUseCase,
+    required this.searchSuggestUseCase,
   }) : super(
          HomeState(
            items: ItemsListEntity(items: []),
@@ -203,6 +207,28 @@ class HomeCubit extends Cubit<HomeState> {
           },
         );
       }
+    } catch (e) {
+      emit(state.copyWith(stateType: StateType.failure, message: e.toString()));
+    }
+  }
+
+  Future<void> searchSuggest({required String query}) async {
+    try {
+      final searchSuggests = await searchSuggestUseCase(query);
+      searchSuggests.fold(
+        (l) {
+          debugPrint('searchSuggests: $l');
+        },
+        (searchSuggests) {
+          debugPrint('searchSuggests: ${searchSuggests.length}');
+          emit(
+            state.copyWith(
+              stateType: StateType.searchSuggest,
+              searchSuggests: searchSuggests,
+            ),
+          );
+        },
+      );
     } catch (e) {
       emit(state.copyWith(stateType: StateType.failure, message: e.toString()));
     }

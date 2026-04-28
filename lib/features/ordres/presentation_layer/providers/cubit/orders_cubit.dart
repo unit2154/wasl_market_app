@@ -65,9 +65,7 @@ class OrdersCubit extends Cubit<OrdersState> {
                   .last
                   .toLowerCase()
                   .contains(query.toLowerCase()) ||
-              order.mainCustomer!.name.toLowerCase().contains(
-                query.toLowerCase(),
-              ),
+              order.company!.name.toLowerCase().contains(query.toLowerCase()),
         )
         .toList();
     emit(OrdersLoaded(orderList: filteredOrdersList));

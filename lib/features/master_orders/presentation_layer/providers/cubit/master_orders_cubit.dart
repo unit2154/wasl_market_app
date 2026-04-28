@@ -46,7 +46,7 @@ class MasterOrdersCubit extends Cubit<MasterOrdersState> {
                   .toLowerCase()
                   .contains(query.toLowerCase()) ||
               order.companyOrders.any(
-                (order) => order.mainCustomer!.name.toLowerCase().contains(
+                (order) => order.company!.name.toLowerCase().contains(
                   query.toLowerCase(),
                 ),
               ),

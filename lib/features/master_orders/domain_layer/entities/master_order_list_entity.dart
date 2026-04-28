@@ -1,4 +1,3 @@
-import 'package:wasl_market_app/core/entites/link_entity.dart';
 import 'package:wasl_market_app/features/master_orders/domain_layer/entities/master_order_entity.dart';
 
 class MasterOrdersListEntity {
@@ -8,7 +7,6 @@ class MasterOrdersListEntity {
   final int? from;
   final int lastPage;
   final String lastPageUrl;
-  final List<LinkEntity>? links;
   final String? nextPageUrl;
   final String path;
   final int perPage;
@@ -23,7 +21,6 @@ class MasterOrdersListEntity {
     required this.from,
     required this.lastPage,
     required this.lastPageUrl,
-    this.links,
     required this.nextPageUrl,
     required this.path,
     required this.perPage,

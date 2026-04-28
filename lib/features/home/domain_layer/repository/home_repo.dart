@@ -4,6 +4,7 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/brands_list_
 import 'package:wasl_market_app/features/home/domain_layer/entities/categories_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/companies_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/items_list_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/search_suggest_entity.dart';
 
 abstract class HomeRepo {
   Future<Either<Failure, CompaniesListEntity>> getCompanies(int page);
@@ -13,6 +14,9 @@ abstract class HomeRepo {
     int? category,
     int? company,
     int? brand,
+    String? search,
+  });
+  Future<Either<Failure, List<SearchSuggestEntity>>> searchSuggest({
     String? search,
   });
 }

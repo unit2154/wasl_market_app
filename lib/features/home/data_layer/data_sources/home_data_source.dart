@@ -2,6 +2,7 @@ import 'package:wasl_market_app/features/home/data_layer/models/brands_list_mode
 import 'package:wasl_market_app/features/home/data_layer/models/categories_list_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/companies_list_model.dart';
 import 'package:wasl_market_app/features/home/data_layer/models/items_list_model.dart';
+import 'package:wasl_market_app/features/home/data_layer/models/search_suggest_model.dart';
 
 abstract class HomeDataSource {
   Future<CompaniesListModel> getCompanies(int page);
@@ -13,4 +14,5 @@ abstract class HomeDataSource {
     int? brand,
     String? search,
   });
+  Future<List<SearchSuggestModel>> searchSuggest({String? search});
 }

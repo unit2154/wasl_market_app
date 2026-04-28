@@ -7,6 +7,7 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/brands_list_
 import 'package:wasl_market_app/features/home/domain_layer/entities/categories_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/companies_list_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/items_list_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/search_suggest_entity.dart';
 import 'package:wasl_market_app/features/home/domain_layer/repository/home_repo.dart';
 
 class HomeRepoImpl implements HomeRepo {
@@ -65,6 +66,19 @@ class HomeRepoImpl implements HomeRepo {
         search: search,
       );
       return Right(items);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<SearchSuggestEntity>>> searchSuggest({
+    String? search,
+  }) async {
+    try {
+      final suggestions = await homeDataSource.searchSuggest(search: search);
+      return Right(suggestions);
     } catch (e) {
       debugPrint(e.toString());
       return Left(ServerFailure(message: e.toString()));

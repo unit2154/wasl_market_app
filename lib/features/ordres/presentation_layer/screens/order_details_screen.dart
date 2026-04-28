@@ -44,7 +44,7 @@ class OrderDetailsScreen extends StatelessWidget {
 
     final height = MediaQuery.of(context).size.height * 0.89;
     final width = MediaQuery.of(context).size.width;
-
+    debugPrint("orderItems: ${order.orderItems![0].id}");
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -74,7 +74,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       spacing: height * 0.01,
                       mainAxisAlignment: .spaceBetween,
                       children: [
-                        //? status and order number
+                        //? status and date
                         Row(
                           mainAxisAlignment: .spaceBetween,
                           children: [
@@ -149,7 +149,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               SizedBox(
                                 width: width * .5,
                                 child: Text(
-                                  order.mainCustomer!.name,
+                                  order.company!.name,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textDirection: TextDirection.rtl,
@@ -216,8 +216,8 @@ class OrderDetailsScreen extends StatelessWidget {
                               if (element.item == null) {
                                 continue;
                               }
-                              totalAmount += element.item!.price *
-                                  element.orderedQuantity;
+                              totalAmount +=
+                                  element.item!.price * element.orderedQuantity;
                             }
                             return Column(
                               children: [
