@@ -19,4 +19,5 @@ abstract class HomeRepo {
   Future<Either<Failure, List<SearchSuggestEntity>>> searchSuggest({
     String? search,
   });
+  Future<Either<Failure, ItemsListEntity>> search(String search);
 }

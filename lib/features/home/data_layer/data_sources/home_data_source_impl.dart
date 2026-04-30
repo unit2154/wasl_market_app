@@ -159,4 +159,30 @@ class HomeDataSourceImpl implements HomeDataSource {
       );
     }
   }
+
+  @override
+  Future<ItemsListModel> search({required String search}) async {
+    try {
+      final response = await dio.get(
+        Endpoints.search,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
+        },
+        data: {'q': search, 'per_page': 20, 'entity_type[]': 'item_assignment'},
+      );
+      debugPrint("data source - search : \n\n\n ${response.data['data']}");
+      return ItemsListModel.fromJson(response.data);
+    } on DioException catch (e) {
+      debugPrint("data source - search error : ${e.response?.data.toString()}");
+      throw ServerFailure(
+        message:
+            e.response?.data['message'] ??
+            e.response?.data['error'] ??
+            e.response?.data.toString() ??
+            e.toString(),
+      );
+    }
+  }
 }

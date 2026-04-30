@@ -77,8 +77,19 @@ class HomeRepoImpl implements HomeRepo {
     String? search,
   }) async {
     try {
-      final suggestions = await homeDataSource.searchSuggest(search: search);
+      final suggestions = await homeDataSource.searchSuggest(search: search!);
       return Right(suggestions);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemsListEntity>> search(String search) async {
+    try {
+      final items = await homeDataSource.search(search: search);
+      return Right(items);
     } catch (e) {
       debugPrint(e.toString());
       return Left(ServerFailure(message: e.toString()));

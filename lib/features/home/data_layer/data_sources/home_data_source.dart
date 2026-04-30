@@ -14,5 +14,6 @@ abstract class HomeDataSource {
     int? brand,
     String? search,
   });
-  Future<List<SearchSuggestModel>> searchSuggest({String? search});
+  Future<List<SearchSuggestModel>> searchSuggest({required String search});
+  Future<ItemsListModel> search({required String search});
 }
