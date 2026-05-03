@@ -266,13 +266,32 @@ class HomeCubit extends Cubit<HomeState> {
   //   }
   // }
 
-  void loadNextPage() {
+  void loadNextPage(NextPageModel nextPage) {
     debugPrint("loading next page: ${state.items.nextPageUrl}");
-    int page = state.items.nextPageUrl != null
-        ? int.parse(state.items.nextPageUrl!.split("page=")[1])
-        : 0;
-    if (page != 0) {
-      getNextPage(nextPageModel: NextPageModel(itemsPage: page));
+    if (nextPage.companiesPage != null) {
+      int page = state.companies.nextPageUrl != null
+          ? int.parse(state.companies.nextPageUrl!.split("page=")[1])
+          : 0;
+      if (page != 0) {
+        getNextPage(nextPageModel: NextPageModel(companiesPage: page));
+      }
+      ;
+    } else if (nextPage.brandsPage != null) {
+      int page = state.brands.nextPageUrl != null
+          ? int.parse(state.brands.nextPageUrl!.split("page=")[1])
+          : 0;
+      if (page != 0) {
+        getNextPage(nextPageModel: NextPageModel(brandsPage: page));
+      }
+      ;
+    } else if (nextPage.itemsPage != null) {
+      int page = state.items.nextPageUrl != null
+          ? int.parse(state.items.nextPageUrl!.split("page=")[1])
+          : 0;
+      if (page != 0) {
+        getNextPage(nextPageModel: NextPageModel(itemsPage: page));
+      }
+      ;
     }
   }
 }

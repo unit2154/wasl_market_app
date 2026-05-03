@@ -32,7 +32,6 @@ class OrderModel extends OrderEntity {
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
-    // json.forEach((key, value) => print(value));
     return OrderModel(
       id: json['id'],
       masterOrderId: json['master_order_id'],

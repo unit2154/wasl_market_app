@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:wasl_market_app/features/home/data_layer/models/sub_models/catalog_item_model.dart';
 import 'package:wasl_market_app/features/ordres/domain_layer/entities/sub_entities/order_item_entity.dart';
-import 'package:wasl_market_app/features/home/data_layer/models/sub_models/item_model.dart';
 
 class OrderItemModel extends OrderItemEntity {
   OrderItemModel({
@@ -21,16 +21,18 @@ class OrderItemModel extends OrderItemEntity {
     try {
       return OrderItemModel(
         id: json['id'],
-        orderId: json['order_id'],
-        itemId: json['item_id'],
+        orderId: json['order_id'] ?? 0,
+        itemId: json['item_id'] ?? 0,
         orderedQuantity: json['ordered_quantity'],
-        confirmedQuantity: json['confirmed_quantity'],
+        confirmedQuantity: json['confirmed_quantity'] ?? 0,
         unitPrice: json['unit_price'],
         subtotal: json['subtotal'],
         notes: json['notes'] ?? "",
         createdAt: json['created_at'],
         updatedAt: json['updated_at'],
-        item: json['item'] != null ? ItemModel.fromJson(json['item']) : null,
+        item: json['catalog_item'] != null
+            ? CatalogItemModel.fromJson(json['catalog_item'])
+            : null,
       );
     } on Exception catch (e) {
       debugPrint("OrderItemModel.fromJson error: ${e.toString()}");

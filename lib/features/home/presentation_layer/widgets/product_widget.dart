@@ -58,8 +58,9 @@ class Product extends StatelessWidget {
                           child: Center(
                             child: CachedNetworkImage(
                               imageUrl: product.catalogItem.image,
-                              placeholder: (context, url) =>
-                                  const Center(child: CircularProgressIndicator()),
+                              placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
                               errorWidget: (context, url, error) =>
                                   const Icon(Icons.error),
                             ),
@@ -103,7 +104,7 @@ class Product extends StatelessWidget {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // item name
                         Text(
@@ -117,10 +118,10 @@ class Product extends StatelessWidget {
                             height: cardHeight * 0.007,
                           ),
                         ),
-                        SizedBox(height: cardHeight * 0.005),
-                        // item description
+
+                        // item company name
                         Text(
-                          product.catalogItem.description,
+                          product.company.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -130,27 +131,11 @@ class Product extends StatelessWidget {
                             height: cardHeight * 0.007,
                           ),
                         ),
-                        SizedBox(height: cardHeight * 0.005),
                         // item price
                         Text(
                           "${product.price} IQD",
-                          style: TextStyle(
-                            color: AppColors.primaryColor,
-                          ),
+                          style: TextStyle(color: AppColors.primaryColor),
                         ),
-                        // SizedBox(height: cardHeight * 0.005),
-                        // Text(
-                        //         (product.price -
-                        //                 (product.price * (20 / 100)))
-                        //             .ceil()
-                        //             .toString(),
-                        //         style: TextStyle(
-                        //           color: const Color(0xFFFF0000),
-                        //           fontSize: (cardHeight / 208) * 14,
-                        //           fontWeight: FontWeight.w500,
-                        //           height: cardHeight * 0.007,
-                        //         ),
-                        //       )
                       ],
                     ),
                   ),

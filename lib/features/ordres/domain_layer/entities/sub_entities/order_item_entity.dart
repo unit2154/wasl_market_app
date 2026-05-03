@@ -1,4 +1,4 @@
-import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/item_entity.dart';
+import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/catalog_item_entity.dart';
 
 class OrderItemEntity {
   int id;
@@ -11,7 +11,7 @@ class OrderItemEntity {
   String? notes;
   String createdAt;
   String updatedAt;
-  ItemEntity? item;
+  CatalogItemEntity? item;
 
   OrderItemEntity({
     required this.id,

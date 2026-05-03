@@ -29,6 +29,7 @@ class Product extends StatelessWidget {
           ),
           child: Column(
             children: [
+              // Product Image
               ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
@@ -45,8 +46,9 @@ class Product extends StatelessWidget {
                         child: Center(
                           child: CachedNetworkImage(
                             imageUrl: product.catalogItem.image,
-                            placeholder: (context, url) =>
-                                const Center(child: CircularProgressIndicator()),
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
                             errorWidget: (context, url, error) =>
                                 const Icon(Icons.error),
                           ),
@@ -92,6 +94,7 @@ class Product extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // Product Name
                       Text(
                         product.catalogItem.name,
                         maxLines: 1,
@@ -104,8 +107,9 @@ class Product extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: cardHeight * 0.005),
+                      // Product Company Name
                       Text(
-                        product.catalogItem.description,
+                        product.company.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -118,11 +122,7 @@ class Product extends StatelessWidget {
                       SizedBox(height: cardHeight * 0.005),
                       Text(
                         "${product.price} IQD",
-                        style: TextStyle(
-                          color: product.availabilityStatus == "discontinued"
-                              ? Colors.red
-                              : AppColors.primaryColor,
-                        ),
+                        style: TextStyle(color: AppColors.primaryColor),
                       ),
                       SizedBox(height: cardHeight * 0.005),
                     ],

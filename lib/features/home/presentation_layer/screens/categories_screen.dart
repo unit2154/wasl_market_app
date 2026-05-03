@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities/category_entity.dart';
-import 'package:wasl_market_app/features/home/presentation_layer/widgets/category_widget.dart';
+import 'package:wasl_market_app/features/home/presentation_layer/widgets/category_sreen_widget.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key, required this.categories});
@@ -9,9 +9,11 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(title: Text("الاصناف")),
       body: GridView.builder(
+        padding: const EdgeInsets.all(8),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           mainAxisSpacing: 10,
@@ -20,8 +22,10 @@ class CategoriesScreen extends StatelessWidget {
         ),
         itemCount: categories.length,
         itemBuilder: (context, index) {
-          final height = MediaQuery.of(context).size.height;
-          return CategoryWidget(category: categories[index], height: height);
+          return CategorySreenWidget(
+            category: categories[index],
+            height: height,
+          );
         },
       ),
     );

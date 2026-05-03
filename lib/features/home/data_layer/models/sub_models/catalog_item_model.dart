@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:wasl_market_app/core/database/db_type_id.dart';
@@ -20,23 +19,24 @@ class CatalogItemModel extends CatalogItemEntity {
   });
 
   factory CatalogItemModel.fromJson(Map<String, dynamic> json) {
+    print("json: ${json['id']}");
     try {
       return CatalogItemModel(
         id: json['id'],
-        name: json['name']['ar'],
+        name: json['name']['ar'] ?? '',
         description: (json['description'] as List).isNotEmpty
             ? json['description']['ar']
             : '',
-      sku: json['sku'],
-      searchSynonyms: [],
-      image: json['image'],
-      // brand: BrandModel.fromJson(json['brand']),
-      // categories: json['categories']
-      //     .map((x) => CategoryModel.fromJson(x))
-      //     .toList(),
-    );
+        sku: json['sku'] ?? '',
+        searchSynonyms: [],
+        image: json['image'] ?? '',
+        // brand: BrandModel.fromJson(json['brand']),
+        // categories: json['categories']
+        //     .map((x) => CategoryModel.fromJson(x))
+        //     .toList(),
+      );
     } catch (e) {
-      debugPrint('CatalogItemModel: $e');
+      debugPrint('CatalogItemModel.fromJson: $e');
       rethrow;
     }
   }

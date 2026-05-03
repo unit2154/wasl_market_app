@@ -44,7 +44,7 @@ class OrderItemWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("المنتج:  ${order.item!.catalogItem.name}"),
+                        Text("المنتج:  ${order.item!.name}"),
                         SizedBox(height: height * .01),
                         Text("الكمية"),
                         TextInput(
@@ -92,7 +92,7 @@ class OrderItemWidget extends StatelessWidget {
             height: height * .13,
           ),
           title: Text(
-            order.item!.catalogItem.name,
+            order.item!.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textDirection: TextDirection.rtl,
@@ -103,7 +103,7 @@ class OrderItemWidget extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            order.item!.price.toString(),
+            order.unitPrice.toString(),
             style: TextStyle(
               color: AppColors.textPrimary,
               fontSize: 12 * (height / 650),

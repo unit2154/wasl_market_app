@@ -19,7 +19,7 @@ class CompanyProductsScreen extends StatelessWidget {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        context.read<HomeCubit>().loadNextPage();
+        context.read<HomeCubit>().loadNextPage(NextPageModel(itemsPage: 1));
       }
     });
     return BlocBuilder<HomeCubit, HomeState>(
@@ -33,6 +33,7 @@ class CompanyProductsScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: SizedBox(height: MediaQuery.of(context).padding.top),
                 ),
+                // company info
                 SliverAppBar(
                   expandedHeight: height * 0.35,
                   pinned: false,
@@ -62,9 +63,8 @@ class CompanyProductsScreen extends StatelessWidget {
                                 fit: BoxFit.contain,
                                 width: double.infinity,
                                 height: double.infinity,
-                                placeholder: (context, url) => Container(
-                                  color: AppColors.cardBorder,
-                                ),
+                                placeholder: (context, url) =>
+                                    Container(color: AppColors.cardBorder),
                                 errorWidget: (context, url, error) =>
                                     Image.asset(
                                       AppImages.company,

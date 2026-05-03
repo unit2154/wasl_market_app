@@ -213,11 +213,9 @@ class OrderDetailsScreen extends StatelessWidget {
                           builder: (context, state) {
                             double totalAmount = 0;
                             for (var element in order.orderItems!) {
-                              if (element.item == null) {
-                                continue;
-                              }
                               totalAmount +=
-                                  element.item!.price * element.orderedQuantity;
+                                  double.parse(element.unitPrice) *
+                                  element.orderedQuantity;
                             }
                             return Column(
                               children: [

@@ -17,6 +17,7 @@ class HomeScreen extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height * 0.808799;
     final companiesScrollController = ScrollController();
+    final brandsScrollController = ScrollController();
     final itemsScrollController = ScrollController();
     var searchController = SearchController();
     searchController.addListener(() async {
@@ -33,7 +34,19 @@ class HomeScreen extends StatelessWidget {
     itemsScrollController.addListener(() async {
       if (itemsScrollController.position.pixels ==
           itemsScrollController.position.maxScrollExtent) {
-        context.read<HomeCubit>().loadNextPage();
+        context.read<HomeCubit>().loadNextPage(NextPageModel(itemsPage: 1));
+      }
+    });
+    companiesScrollController.addListener(() {
+      if (companiesScrollController.position.pixels ==
+          companiesScrollController.position.maxScrollExtent) {
+        context.read<HomeCubit>().loadNextPage(NextPageModel(companiesPage: 1));
+      }
+    });
+    brandsScrollController.addListener(() {
+      if (brandsScrollController.position.pixels ==
+          brandsScrollController.position.maxScrollExtent) {
+        context.read<HomeCubit>().loadNextPage(NextPageModel(brandsPage: 1));
       }
     });
     return BlocConsumer<HomeCubit, HomeState>(
@@ -69,19 +82,6 @@ class HomeScreen extends StatelessWidget {
       },
       builder: (context, state) {
         debugPrint("items: ${state.items.items.length}");
-        companiesScrollController.addListener(() {
-          if (companiesScrollController.position.pixels ==
-              companiesScrollController.position.maxScrollExtent) {
-            int page = state.companies.nextPageUrl != null
-                ? int.parse(state.companies.nextPageUrl!.split("page=")[1])
-                : 0;
-            if (page != 0) {
-              context.read<HomeCubit>().getNextPage(
-                nextPageModel: NextPageModel(companiesPage: page),
-              );
-            }
-          }
-        });
         return Stack(
           children: [
             CustomScrollView(
@@ -137,12 +137,21 @@ class HomeScreen extends StatelessWidget {
                                                 searchController.text = state
                                                     .searchSuggests![index]
                                                     .name;
-                                                context.read<HomeCubit>().filterProducts(filter: 
-                                                  FilterModel(search: searchController.text,page: 1),
+                                                context
+                                                    .read<HomeCubit>()
+                                                    .filterProducts(
+                                                      filter: FilterModel(
+                                                        search: searchController
+                                                            .text,
+                                                        page: 1,
+                                                      ),
+                                                    );
+                                                searchController.closeView(
+                                                  null,
                                                 );
-                                                searchController.closeView(null);
                                               },
-                                              item: state.searchSuggests![index],
+                                              item:
+                                                  state.searchSuggests![index],
                                             ),
                                           ),
                                         );
@@ -304,6 +313,7 @@ class HomeScreen extends StatelessWidget {
                           width: width,
                           height: height * 0.13,
                           child: ListView.builder(
+                            controller: brandsScrollController,
                             scrollDirection: Axis.horizontal,
                             itemCount: state.brands.brands.length,
                             itemBuilder: (context, index) {

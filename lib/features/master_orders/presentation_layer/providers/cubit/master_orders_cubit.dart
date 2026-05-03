@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 import 'package:wasl_market_app/features/master_orders/domain_layer/entities/master_order_entity.dart';
 import 'package:wasl_market_app/features/master_orders/domain_layer/usecases/get_master_orders.dart';
 
