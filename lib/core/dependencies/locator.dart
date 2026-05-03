@@ -26,7 +26,6 @@ import 'package:wasl_market_app/features/home/domain_layer/usecases/filter_items
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_brands.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_categories.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_companies.dart';
-import 'package:wasl_market_app/features/home/domain_layer/usecases/search.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/search_suggest.dart';
 import 'package:wasl_market_app/features/home/presentation_layer/providers/cubit/home_cubit.dart';
 import 'package:wasl_market_app/features/master_orders/data_layer/datasources/orders_data_source.dart';

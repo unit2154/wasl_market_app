@@ -9,7 +9,6 @@ import 'package:wasl_market_app/features/home/domain_layer/usecases/filter_items
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_brands.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_categories.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/get_companies.dart';
-import 'package:wasl_market_app/features/home/domain_layer/usecases/search.dart';
 import 'package:wasl_market_app/features/home/domain_layer/usecases/search_suggest.dart';
 
 part 'home_state.dart';
@@ -20,14 +19,12 @@ class HomeCubit extends Cubit<HomeState> {
   final GetBrandsUseCase getBrandsUseCase;
   final FilterItemsUseCase filterItemsUseCase;
   final SearchSuggestUseCase searchSuggestUseCase;
-  final SearchUsecase searchUseCase;
   HomeCubit({
     required this.getCompaniesUseCase,
     required this.getCategoriesUseCase,
     required this.getBrandsUseCase,
     required this.filterItemsUseCase,
     required this.searchSuggestUseCase,
-    required this.searchUseCase,
   }) : super(
          HomeState(
            items: ItemsListEntity(items: []),
@@ -105,6 +102,8 @@ class HomeCubit extends Cubit<HomeState> {
           category: filter.category,
           company: filter.company,
           brand: filter.brand,
+          search: filter.search,
+          page: filter.page,
         ),
       );
       items.fold(
@@ -131,6 +130,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> getNextPage({required NextPageModel nextPageModel}) async {
+    debugPrint("getting page no: ${nextPageModel.itemsPage}");
     emit(state.copyWith(stateType: StateType.loading));
     try {
       if (nextPageModel.companiesPage != null) {
@@ -187,6 +187,8 @@ class HomeCubit extends Cubit<HomeState> {
             category: state.filter?.category,
             company: state.filter?.company,
             brand: state.filter?.brand,
+            search: state.filter?.search,
+            page: nextPageModel.itemsPage,
           ),
         );
         items.fold(
@@ -241,24 +243,36 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(stateType: StateType.success, searchSuggests: []));
   }
 
-  Future<void> search({required String search}) async {
-    emit(state.copyWith(stateType: StateType.loading));
-    try {
-      final items = await searchUseCase(search);
-      items.fold(
-        (l) {
-          debugPrint('items: $l');
-          emit(
-            state.copyWith(stateType: StateType.failure, message: l.message),
-          );
-        },
-        (items) {
-          debugPrint('items: ${items.items.length}');
-          emit(state.copyWith(stateType: StateType.success, items: items));
-        },
-      );
-    } catch (e) {
-      emit(state.copyWith(stateType: StateType.failure, message: e.toString()));
+  // Future<void> search({required String search, int? page}) async {
+  //   emit(state.copyWith(stateType: StateType.loading));
+  //   try {
+  //     final items = await filterItemsUseCase(
+  //       FilterParams(search: search, page: page),
+  //     );
+  //     items.fold(
+  //       (l) {
+  //         debugPrint('items: $l');
+  //         emit(
+  //           state.copyWith(stateType: StateType.failure, message: l.message),
+  //         );
+  //       },
+  //       (items) {
+  //         debugPrint('items: ${items.items.length}');
+  //         emit(state.copyWith(stateType: StateType.success, items: items));
+  //       },
+  //     );
+  //   } catch (e) {
+  //     emit(state.copyWith(stateType: StateType.failure, message: e.toString()));
+  //   }
+  // }
+
+  void loadNextPage() {
+    debugPrint("loading next page: ${state.items.nextPageUrl}");
+    int page = state.items.nextPageUrl != null
+        ? int.parse(state.items.nextPageUrl!.split("page=")[1])
+        : 0;
+    if (page != 0) {
+      getNextPage(nextPageModel: NextPageModel(itemsPage: page));
     }
   }
 }

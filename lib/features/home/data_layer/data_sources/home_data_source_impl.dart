@@ -103,6 +103,7 @@ class HomeDataSourceImpl implements HomeDataSource {
     int? company,
     int? brand,
     String? search,
+    int? page,
   }) async {
     try {
       final response = await dio.get(
@@ -112,13 +113,17 @@ class HomeDataSourceImpl implements HomeDataSource {
             ? '${Endpoints.companies}/$company/items'
             : brand != null
             ? '${Endpoints.brands}/$brand/items'
+            : search != null
+            ? Endpoints.search
             : Endpoints.products,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
         },
-        data: {'page': 1, 'per_page': 20},
+        data: search != null
+            ? {'q': search, 'per_page': 20, 'entity_type[]': 'item_assignment', 'page': page ?? 1}
+            : {'page': page ?? 1, 'per_page': 20},
       );
       return ItemsListModel.fromJson(response.data);
     } on DioException catch (e) {
@@ -160,29 +165,4 @@ class HomeDataSourceImpl implements HomeDataSource {
     }
   }
 
-  @override
-  Future<ItemsListModel> search({required String search}) async {
-    try {
-      final response = await dio.get(
-        Endpoints.search,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ${tokenBox.getAt(0)?.token}',
-        },
-        data: {'q': search, 'per_page': 20, 'entity_type[]': 'item_assignment'},
-      );
-      debugPrint("data source - search : \n\n\n ${response.data['data']}");
-      return ItemsListModel.fromJson(response.data);
-    } on DioException catch (e) {
-      debugPrint("data source - search error : ${e.response?.data.toString()}");
-      throw ServerFailure(
-        message:
-            e.response?.data['message'] ??
-            e.response?.data['error'] ??
-            e.response?.data.toString() ??
-            e.toString(),
-      );
-    }
-  }
 }

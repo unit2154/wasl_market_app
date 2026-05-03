@@ -14,6 +14,7 @@ class FilterItemsUseCase {
       company: params.company,
       brand: params.brand,
       search: params.search,
+      page: params.page,
     );
   }
 }
@@ -23,6 +24,13 @@ class FilterParams {
   final int? company;
   final int? brand;
   final String? search;
+  final int? page;
 
-  FilterParams({this.category, this.company, this.brand, this.search});
+  FilterParams({
+    this.category,
+    this.company,
+    this.brand,
+    this.search,
+    this.page,
+  });
 }

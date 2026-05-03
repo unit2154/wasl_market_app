@@ -57,6 +57,7 @@ class HomeRepoImpl implements HomeRepo {
     int? company,
     int? brand,
     String? search,
+    int? page,
   }) async {
     try {
       final items = await homeDataSource.filterItems(
@@ -64,6 +65,7 @@ class HomeRepoImpl implements HomeRepo {
         company: company,
         brand: brand,
         search: search,
+        page: page,
       );
       return Right(items);
     } catch (e) {
@@ -85,14 +87,14 @@ class HomeRepoImpl implements HomeRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, ItemsListEntity>> search(String search) async {
-    try {
-      final items = await homeDataSource.search(search: search);
-      return Right(items);
-    } catch (e) {
-      debugPrint(e.toString());
-      return Left(ServerFailure(message: e.toString()));
-    }
-  }
+  // @override
+  // Future<Either<Failure, ItemsListEntity>> search(String search, int? page) async {
+  //   try {
+  //     final items = await homeDataSource.search(search: search,page: page);
+  //     return Right(items);
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //     return Left(ServerFailure(message: e.toString()));
+  //   }
+  // }
 }

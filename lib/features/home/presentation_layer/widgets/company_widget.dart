@@ -66,7 +66,7 @@ class CompanyWidget extends StatelessWidget {
               ),
             ),
             Container(
-              height: height * .0471,
+              height: height * .047,
               width: 130,
               decoration: BoxDecoration(
                 border: Border(top: BorderSide(color: AppColors.primaryColor)),

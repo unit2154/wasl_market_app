@@ -8,7 +8,6 @@ Future<void> homeDependencies() async {
       getBrandsUseCase: getIt<GetBrandsUseCase>(),
       filterItemsUseCase: getIt<FilterItemsUseCase>(),
       searchSuggestUseCase: getIt<SearchSuggestUseCase>(),
-      searchUseCase: getIt<SearchUsecase>(),
     ),
   );
   getIt.registerLazySingleton<GetCompaniesUseCase>(
@@ -25,9 +24,6 @@ Future<void> homeDependencies() async {
   );
   getIt.registerLazySingleton<SearchSuggestUseCase>(
     () => SearchSuggestUseCase(homeRepo: getIt<HomeRepo>()),
-  );
-  getIt.registerLazySingleton<SearchUsecase>(
-    () => SearchUsecase(homeRepo: getIt<HomeRepo>()),
   );
   getIt.registerLazySingleton<HomeRepo>(
     () => HomeRepoImpl(

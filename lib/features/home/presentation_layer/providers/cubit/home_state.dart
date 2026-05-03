@@ -4,7 +4,9 @@ class FilterModel {
   final int? category;
   final int? company;
   final int? brand;
-  FilterModel({this.category, this.company, this.brand});
+  final String? search;
+  final int? page;
+  FilterModel({this.category, this.company, this.brand, this.search, this.page});
 }
 
 class NextPageModel {

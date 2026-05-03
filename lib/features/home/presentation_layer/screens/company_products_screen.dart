@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
@@ -15,21 +16,14 @@ class CompanyProductsScreen extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final scrollController = ScrollController();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        context.read<HomeCubit>().loadNextPage();
+      }
+    });
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        scrollController.addListener(() {
-          if (scrollController.position.pixels ==
-              scrollController.position.maxScrollExtent) {
-            int page = state.items.nextPageUrl != null
-                ? int.parse(state.items.nextPageUrl!.split("page=")[1])
-                : 0;
-            if (page != 0) {
-              context.read<HomeCubit>().getNextPage(
-                nextPageModel: NextPageModel(itemsPage: page),
-              );
-            }
-          }
-        });
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
@@ -63,11 +57,21 @@ class CompanyProductsScreen extends StatelessWidget {
                           children: [
                             SizedBox(
                               height: height * 0.24,
-                              child: Image.asset(
-                                AppImages.company,
-                                fit: BoxFit.cover,
+                              child: CachedNetworkImage(
+                                imageUrl: company.image!,
+                                fit: BoxFit.contain,
                                 width: double.infinity,
                                 height: double.infinity,
+                                placeholder: (context, url) => Container(
+                                  color: AppColors.cardBorder,
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                      AppImages.company,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
                               ),
                             ),
                             Container(
@@ -88,7 +92,7 @@ class CompanyProductsScreen extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
-                                  color: AppColors.white,
+                                  color: AppColors.inputBorder,
                                 ),
                                 borderRadius: BorderRadius.circular(10),
                               ),

@@ -13,7 +13,7 @@ abstract class HomeDataSource {
     int? company,
     int? brand,
     String? search,
+    int? page,
   });
   Future<List<SearchSuggestModel>> searchSuggest({required String search});
-  Future<ItemsListModel> search({required String search});
 }

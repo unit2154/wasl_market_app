@@ -30,6 +30,12 @@ class HomeScreen extends StatelessWidget {
         );
       }
     });
+    itemsScrollController.addListener(() async {
+      if (itemsScrollController.position.pixels ==
+          itemsScrollController.position.maxScrollExtent) {
+        context.read<HomeCubit>().loadNextPage();
+      }
+    });
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) async {
         if (state.stateType == StateType.failure) {
@@ -76,19 +82,6 @@ class HomeScreen extends StatelessWidget {
             }
           }
         });
-        itemsScrollController.addListener(() async {
-          if (itemsScrollController.position.pixels ==
-              itemsScrollController.position.maxScrollExtent) {
-            int page = state.items.nextPageUrl != null
-                ? int.parse(state.items.nextPageUrl!.split("page=")[1])
-                : 0;
-            if (page != 0) {
-              await context.read<HomeCubit>().getNextPage(
-                nextPageModel: NextPageModel(itemsPage: page),
-              );
-            }
-          }
-        });
         return Stack(
           children: [
             CustomScrollView(
@@ -106,58 +99,63 @@ class HomeScreen extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                     background: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: SearchAnchor.bar(
-                            searchController: searchController,
-                            barHintText: "ابحث",
-                            barElevation: WidgetStatePropertyAll(0),
-                            barBackgroundColor: WidgetStatePropertyAll(
-                              AppColors.white,
-                            ),
-                            barSide: WidgetStatePropertyAll(
-                              BorderSide(color: AppColors.cardBorder),
-                            ),
-                            barShape: WidgetStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                        // search bar
+                        SizedBox(
+                          height: height * .09,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: SearchAnchor.bar(
+                              searchController: searchController,
+                              barHintText: "ابحث",
+                              barElevation: WidgetStatePropertyAll(0),
+                              barBackgroundColor: WidgetStatePropertyAll(
+                                AppColors.white,
                               ),
-                            ),
-                            suggestionsBuilder: (_, searchController) {
-                              debugPrint("search ${searchController.text}");
-                              return [
-                                BlocProvider.value(
-                                  value: context.read<HomeCubit>(),
-                                  child: BlocBuilder<HomeCubit, HomeState>(
-                                    builder: (context, state) {
-                                      if (state.searchSuggests == null) {
-                                        return const SizedBox.shrink();
-                                      }
-                                      return Column(
-                                        children: List.generate(
-                                          state.searchSuggests!.length,
-                                          (index) => SearchSuggestWidget(
-                                            onTap: () {
-                                              searchController.closeView(null);
-                                              searchController.text = state
-                                                  .searchSuggests![index]
-                                                  .name;
-                                              context.read<HomeCubit>().search(
-                                                search: searchController.text,
-                                              );
-                                            },
-                                            item: state.searchSuggests![index],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
+                              barSide: WidgetStatePropertyAll(
+                                BorderSide(color: AppColors.cardBorder),
+                              ),
+                              barShape: WidgetStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                              ];
-                            },
+                              ),
+                              suggestionsBuilder: (_, searchController) {
+                                debugPrint("search ${searchController.text}");
+                                return [
+                                  BlocProvider.value(
+                                    value: context.read<HomeCubit>(),
+                                    child: BlocBuilder<HomeCubit, HomeState>(
+                                      builder: (context, state) {
+                                        if (state.searchSuggests == null) {
+                                          return const SizedBox.shrink();
+                                        }
+                                        return Column(
+                                          children: List.generate(
+                                            state.searchSuggests!.length,
+                                            (index) => SearchSuggestWidget(
+                                              onTap: () {
+                                                searchController.text = state
+                                                    .searchSuggests![index]
+                                                    .name;
+                                                context.read<HomeCubit>().filterProducts(filter: 
+                                                  FilterModel(search: searchController.text,page: 1),
+                                                );
+                                                searchController.closeView(null);
+                                              },
+                                              item: state.searchSuggests![index],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ];
+                              },
+                            ),
                           ),
                         ),
                         SizedBox(height: 5),
+                        // categories title
                         SizedBox(
                           width: width,
                           height: height * 0.05,
@@ -192,6 +190,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                        // categories scroll view
                         SizedBox(
                           width: width,
                           height: height * 0.18,
@@ -212,9 +211,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 // companies
                 SliverAppBar(
-                  // pinned: true,
                   floating: true,
-                  // snap: true,
                   surfaceTintColor: AppColors.cardBackground,
                   backgroundColor: AppColors.white,
                   automaticallyImplyLeading: false,
@@ -223,6 +220,7 @@ class HomeScreen extends StatelessWidget {
                     background: Column(
                       children: [
                         SizedBox(height: 20),
+                        // companies title
                         SizedBox(
                           width: width,
                           height: 40,
@@ -244,6 +242,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                        // companies scroll view
                         SizedBox(
                           width: width,
                           height: height * 0.25,
@@ -270,9 +269,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 // brands
                 SliverAppBar(
-                  // pinned: true,
-                  // floating: true,
-                  // snap: true,
                   surfaceTintColor: AppColors.cardBackground,
                   backgroundColor: AppColors.white,
                   automaticallyImplyLeading: false,
@@ -281,6 +277,7 @@ class HomeScreen extends StatelessWidget {
                     background: Column(
                       children: [
                         SizedBox(height: 20),
+                        // brands title
                         SizedBox(
                           width: width,
                           height: 40,
@@ -302,6 +299,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                        // brands scroll view
                         SizedBox(
                           width: width,
                           height: height * 0.13,
@@ -319,7 +317,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // items
+                // items title
                 SliverToBoxAdapter(
                   child: SizedBox(
                     width: width,
@@ -335,6 +333,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                // items grid
                 SliverPadding(
                   padding: const EdgeInsets.only(
                     top: 8.0,
