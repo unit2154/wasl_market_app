@@ -1,6 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wasl_market_app/core/network/dio_api_consumer.dart';
+import 'package:wasl_market_app/features/addresses/data_layer/datasources/addresses_data_source.dart';
+import 'package:wasl_market_app/features/addresses/data_layer/datasources/addresses_data_source_impl.dart';
+import 'package:wasl_market_app/features/addresses/data_layer/repositories/addresses_repo_impl.dart';
+import 'package:wasl_market_app/features/addresses/domain_layer/repositories/addresses_repo.dart';
+import 'package:wasl_market_app/features/addresses/domain_layer/usecases/add_address.dart';
+import 'package:wasl_market_app/features/addresses/domain_layer/usecases/delete_address.dart';
+import 'package:wasl_market_app/features/addresses/domain_layer/usecases/get_addresses.dart';
+import 'package:wasl_market_app/features/addresses/domain_layer/usecases/update_address.dart';
+import 'package:wasl_market_app/features/addresses/presentation_layer/providers/cubit/address_cubit.dart';
 import 'package:wasl_market_app/features/auth/domain_layer/use_cases/get_user.dart';
 import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source.dart';
 import 'package:wasl_market_app/features/cart/data_layer/datasources/cart_data_source_impl.dart';
@@ -67,6 +76,7 @@ part 'home_dependencies.dart';
 part 'cart_dependencies.dart';
 part 'products_dependencies.dart';
 part 'master_orders_dependencies.dart';
+part 'address_dependencies.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -78,4 +88,5 @@ Future<void> setup() async {
   await masterOrdersDependencies();
   await productsDependencies();
   cartDependencies();
+  setupAddressDependencies();
 }

@@ -13,4 +13,5 @@ class Endpoints {
   static const String brands = '/customer/brands';
   static const String search = '/customer/search';
   static const String searchSuggestions = '/customer/search/suggest';
+  static const String addresses = '/customer/addresses';
 }

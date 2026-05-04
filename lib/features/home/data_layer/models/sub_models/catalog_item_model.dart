@@ -19,7 +19,6 @@ class CatalogItemModel extends CatalogItemEntity {
   });
 
   factory CatalogItemModel.fromJson(Map<String, dynamic> json) {
-    print("json: ${json['id']}");
     try {
       return CatalogItemModel(
         id: json['id'],

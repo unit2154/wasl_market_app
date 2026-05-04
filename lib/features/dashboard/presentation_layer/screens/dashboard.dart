@@ -4,6 +4,7 @@ import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/core/dependencies/locator.dart';
 import 'package:wasl_market_app/core/widgets/side_menu.dart';
+import 'package:wasl_market_app/features/addresses/presentation_layer/providers/cubit/address_cubit.dart';
 import 'package:wasl_market_app/features/auth/presentation_layer/providers/cubit/auth_cubit.dart';
 import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
 import 'package:wasl_market_app/features/cart/presentation_layer/screens/cart_screen.dart';
@@ -38,6 +39,9 @@ class DashboardScreen extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 getIt<HomeCubit>()..getCategoriesAndCompanies(),
+          ),
+          BlocProvider(
+            create: (context) => getIt<AddressCubit>()..getAddresses(),
           ),
         ],
         child: BlocBuilder<DashboardCubit, DashboardInitial>(
