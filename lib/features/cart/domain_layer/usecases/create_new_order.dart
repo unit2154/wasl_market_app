@@ -9,33 +9,29 @@ class CreateNewOrder {
   final CartRepo cartRepo;
 
   CreateNewOrder({required this.cartRepo});
-  Future<Either<Failure, void>> call(CartEntity cart) async {
+  Future<Either<Failure, void>> call(
+    CartEntity cart,
+    int? addressId,
+    String? paymentType,
+    String? notes,
+  ) async {
     var products = cart.products;
-    var companies = {
-      for (var product in products)
-        {product.product.company.id: product}.values.toList(),
-    };
-
-    String mainCustomerId = '';
     List<NewOrderItemEntity> items = [];
-
-    for (var company in companies) {
-      mainCustomerId = company.first.product.company.id.toString();
-      for (var product in company) {
-        items.add(
+    for (var product in products) {
+      items.add(
           NewOrderItemEntity(
             itemId: product.product.id.toString(),
             quantity: product.quantity,
           ),
         );
       }
-    }
+    
     return await cartRepo.createNewOrder(
       NewOrderEntity(
-        mainCustomerId: mainCustomerId,
+        addressId: addressId??0,
+        paymentType: paymentType??"",
         items: items,
-        shippingAddress: '123 Main Street, Baghdad',
-        notes: 'Please handle with care',
+        notes: notes??"",
       ),
     );
   }

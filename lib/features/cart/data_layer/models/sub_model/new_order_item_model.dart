@@ -8,6 +8,6 @@ class NewOrderItemModel extends NewOrderItemEntity {
   }
 
   Map<String, dynamic> toJson() {
-    return {'item_id': itemId, 'quantity': quantity};
+    return {'assignment_id': itemId, 'quantity': quantity};
   }
 }

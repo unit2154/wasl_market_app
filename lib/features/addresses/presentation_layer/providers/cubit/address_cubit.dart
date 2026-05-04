@@ -35,6 +35,16 @@ class AddressCubit extends Cubit<AddressState> {
     );
   }
 
+  void selectAddress(int id) {
+    debugPrint("Address cubit: selectAddress $id");
+    emit(
+      state.copyWith(
+        status: AddressStatus.loaded,
+        selectedAddressId: id,
+      ),
+    );
+  }
+
   Future<void> getAddresses() async {
     debugPrint("Address cubit: getAddresses");
     emit(state.copyWith(status: AddressStatus.loading));

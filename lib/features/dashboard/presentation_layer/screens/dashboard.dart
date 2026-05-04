@@ -41,6 +41,7 @@ class DashboardScreen extends StatelessWidget {
                 getIt<HomeCubit>()..getCategoriesAndCompanies(),
           ),
           BlocProvider(
+            lazy: false,
             create: (context) => getIt<AddressCubit>()..getAddresses(),
           ),
         ],

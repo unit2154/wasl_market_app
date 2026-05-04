@@ -17,20 +17,24 @@ class MasterOrderModel extends MasterOrderEntity {
   });
 
   factory MasterOrderModel.fromJson(Map<String, dynamic> json) {
+    final ordersList = json['company_orders'] as List;
+    final orders = ordersList.map((e) {
+      e['created_at'] = json['created_at'] ?? "";
+      e['updated_at'] = json['updated_at'] ?? "";
+      return OrderModel.fromJson(e);
+    }).toList();
     try {
       return MasterOrderModel(
         id: json['id'],
         totalAmount: json['total_amount'],
         status: json['status'],
-        createdAt: json['created_at'],
-        updatedAt: json['updated_at'],
+        createdAt: json['created_at']??"",
+        updatedAt: json['updated_at']??"",
         masterOrderNumber: json['master_order_number'],
-        paymentType: json['payment_type'],
+        paymentType: json['payment_type']??"",
         subtotal: json['subtotal'],
         notes: json['notes'],
-        companyOrders: (json['company_orders'] as List)
-            .map((e) => OrderModel.fromJson(e))
-            .toList(),
+        companyOrders: orders,
       );
     } on Exception catch (e) {
       debugPrint("MasterOrderModel error: $e");

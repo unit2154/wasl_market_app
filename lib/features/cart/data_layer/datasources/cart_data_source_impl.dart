@@ -27,7 +27,7 @@ class CartDataSourceImpl implements CartDataSource {
     debugPrint(order.items.first.itemId.toString());
     try {
       var res = await apiService.post(
-        Endpoints.createNewOrder,
+        Endpoints.masterOrders,
         headers: {
           "Authorization": "Bearer ${tokenBox.getAt(0)?.token}",
           "Content-Type": "application/json",

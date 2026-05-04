@@ -1,15 +1,15 @@
 import 'package:wasl_market_app/features/cart/domain_layer/entities/sub_entity/new_order_item_entity.dart';
 
 class NewOrderEntity {
-  final String mainCustomerId;
+  final int addressId;
   final List<NewOrderItemEntity> items;
-  final String shippingAddress;
+  final String paymentType;
   final String notes;
 
   NewOrderEntity({
-    required this.mainCustomerId,
+    required this.addressId,
     required this.items,
-    required this.shippingAddress,
+    required this.paymentType,
     required this.notes,
   });
 }

@@ -28,8 +28,8 @@ class OrderItemModel extends OrderItemEntity {
         unitPrice: json['unit_price'],
         subtotal: json['subtotal'],
         notes: json['notes'] ?? "",
-        createdAt: json['created_at'],
-        updatedAt: json['updated_at'],
+        createdAt: json['created_at'] ?? "",
+        updatedAt: json['updated_at'] ?? "",
         item: json['catalog_item'] != null
             ? CatalogItemModel.fromJson(json['catalog_item'])
             : null,

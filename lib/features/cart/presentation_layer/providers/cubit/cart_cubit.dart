@@ -85,10 +85,10 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
-  Future<void> createNewOrder(CartEntity cart) async {
+  Future<void> createNewOrder(CartEntity cart, int? addressId, String? paymentType,String? notes) async {
     checkMasterOrder();
     emit(state.copyWith(status: CartStatus.loading));
-    final result = await createNewOrderUseCase(cart);
+    final result = await createNewOrderUseCase(cart,addressId, paymentType, notes);
     result.fold(
       (failure) => emit(
         state.copyWith(

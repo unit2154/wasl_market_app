@@ -10,12 +10,12 @@ class CompanyModel extends CompanyEntity {
   CompanyModel({
     @HiveField(0) required super.id,
     @HiveField(1) required super.name,
-    @HiveField(2) required super.description,
-    @HiveField(3) required super.city,
-    @HiveField(4) required super.country,
-    @HiveField(5) required super.image,
-    @HiveField(6) required super.isActive,
-    @HiveField(7) required super.type,
+    @HiveField(2) super.description,
+    @HiveField(3) super.city,
+    @HiveField(4) super.country,
+    @HiveField(5) super.image,
+    @HiveField(6) super.isActive,
+    @HiveField(7) super.type,
   });
   factory CompanyModel.fromJson(Map<String, dynamic> json) {
     try {

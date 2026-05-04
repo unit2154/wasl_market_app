@@ -9,6 +9,7 @@ class AddressState {
   final LatLng? selectedLocation;
   final List<AddressEntity>? addresses;
   final String? errorMessage;
+  final int? selectedAddressId;
 
   const AddressState({
     this.markers,
@@ -16,6 +17,7 @@ class AddressState {
     this.addresses,
     this.status = AddressStatus.initial,
     this.errorMessage,
+    this.selectedAddressId,
   });
 
   AddressState copyWith({
@@ -24,6 +26,7 @@ class AddressState {
     List<AddressEntity>? addresses,
     AddressStatus? status,
     String? errorMessage,
+    int? selectedAddressId,
   }) {
     return AddressState(
       status: status ?? this.status,
@@ -31,6 +34,7 @@ class AddressState {
       selectedLocation: selectedLocation ?? this.selectedLocation,
       addresses: addresses ?? this.addresses,
       markers: markers ?? this.markers,
+      selectedAddressId: selectedAddressId ?? this.selectedAddressId,
     );
   }
 }

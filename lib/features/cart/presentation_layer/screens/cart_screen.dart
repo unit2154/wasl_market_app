@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
 import 'package:wasl_market_app/core/widgets/submit_button.dart';
+import 'package:wasl_market_app/features/addresses/presentation_layer/providers/cubit/address_cubit.dart';
 import 'package:wasl_market_app/features/cart/presentation_layer/providers/cubit/cart_cubit.dart';
 import 'package:wasl_market_app/features/cart/presentation_layer/widgets/cart_item_widget.dart';
 import 'package:wasl_market_app/features/cart/presentation_layer/widgets/cart_total_widget.dart';
@@ -95,8 +96,32 @@ class CartScreen extends StatelessWidget {
                       SubmitButton(
                         text: "اتمام الطلب",
                         onPressed: () {
-                          context.read<CartCubit>().createNewOrder(
-                            context.read<CartCubit>().state.cart!,
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return AlertDialog(
+                                title: Text("اتمام الطلب"),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  spacing: 10,
+                                  children: [
+                                    BlocBuilder<AddressCubit, AddressState>(
+                                      builder: (context, addressState) {
+                                        return DropdownButton(
+                                          hint: Text("اختر العنوان التوصيل"),
+                                          value: addressState.selectedAddressId,
+                                          items: addressState.addresses?.map((address) => DropdownMenuItem(value: address.id, child: Text(address.name,maxLines: 1, overflow: TextOverflow.ellipsis))).toList(),
+                                          onChanged: (value) {
+                                            context.read<AddressCubit>().selectAddress(value!);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                    
+                                  ],
+                                ),
+                              );
+                            },
                           );
                         },
                         constraints: BoxConstraints(
