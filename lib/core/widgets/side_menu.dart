@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wasl_market_app/core/constants/colors.dart';
 import 'package:wasl_market_app/core/constants/images.dart';
-import 'package:wasl_market_app/core/theme/cubit/theme_cubit.dart';
 import 'package:wasl_market_app/features/addresses/presentation_layer/providers/cubit/address_cubit.dart';
 import 'package:wasl_market_app/features/addresses/presentation_layer/screens/addresses_screen.dart';
 import 'package:wasl_market_app/features/auth/presentation_layer/providers/cubit/auth_cubit.dart';
 import 'package:wasl_market_app/features/auth/presentation_layer/screens/user_profile.dart';
-import 'package:wasl_market_app/features/dashboard/presentation_layer/providers/cubit/dashboard_cubit.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
@@ -68,20 +65,21 @@ class SideMenu extends StatelessWidget {
             },
           ),
           Divider(color: AppColors.cardBorder),
-          ListTile(
-            title: Row(
-              children: [
-                SvgPicture.asset(AppIcons.deals),
-                const SizedBox(width: 10),
-                const Text('التعاملات'),
-                Spacer(),
-                Icon(Icons.arrow_forward_ios),
-              ],
-            ),
-            onTap: () {
-              context.read<DashboardCubit>().changeIndex(4);
-            },
-          ),
+          // ListTile(
+          //   title: Row(
+          //     children: [
+          //       SvgPicture.asset(AppIcons.deals),
+          //       const SizedBox(width: 10),
+          //       const Text('التعاملات'),
+          //       Spacer(),
+          //       Icon(Icons.arrow_forward_ios),
+          //     ],
+          //   ),
+          //   onTap: () {
+          //     context.read<DashboardCubit>().changeIndex(4);
+          //   },
+          // ),
+          // addresses
           ListTile(
             title: Row(
               children: [
@@ -104,31 +102,33 @@ class SideMenu extends StatelessWidget {
               );
             },
           ),
-          ListTile(
-            title: Row(
-              children: [
-                Icon(Icons.dark_mode_outlined),
-                const SizedBox(width: 10),
-                const Text('الوضع الليلي'),
-                Spacer(),
-                BlocBuilder<ThemeCubit, ChangedThemeState>(
-                  builder: (context, state) {
-                    return Switch(
-                      value:
-                          context.read<ThemeCubit>().state.themeMode ==
-                          ThemeMode.dark,
-                      onChanged: (value) {
-                        context.read<ThemeCubit>().toggleTheme();
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
+
+          // theme mode
+          // ListTile(
+          //   title: Row(
+          //     children: [
+          //       Icon(Icons.dark_mode_outlined),
+          //       const SizedBox(width: 10),
+          //       const Text('الوضع الليلي'),
+          //       Spacer(),
+          //       BlocBuilder<ThemeCubit, ChangedThemeState>(
+          //         builder: (context, state) {
+          //           return Switch(
+          //             value:
+          //                 context.read<ThemeCubit>().state.themeMode ==
+          //                 ThemeMode.dark,
+          //             onChanged: (value) {
+          //               context.read<ThemeCubit>().toggleTheme();
+          //             },
+          //           );
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //   },
+          // ),
           Divider(color: AppColors.cardBorder),
           ListTile(
             title: Row(

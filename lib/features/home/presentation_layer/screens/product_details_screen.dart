@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -44,7 +45,6 @@ class ProductDetailsScreen extends StatelessWidget {
           title: Row(
             children: [
               // product name
-              
               Spacer(),
               // cart count
               ElevatedButton(
@@ -116,7 +116,15 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: Center(child: Image.asset(AppImages.item)),
+                  child: Center(
+                    child: CachedNetworkImage(
+                      imageUrl: item.catalogItem.image,
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                  ),
                 ),
               ),
               // product details

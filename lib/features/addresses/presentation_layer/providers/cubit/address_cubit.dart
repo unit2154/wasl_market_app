@@ -37,12 +37,7 @@ class AddressCubit extends Cubit<AddressState> {
 
   void selectAddress(int id) {
     debugPrint("Address cubit: selectAddress $id");
-    emit(
-      state.copyWith(
-        status: AddressStatus.loaded,
-        selectedAddressId: id,
-      ),
-    );
+    emit(state.copyWith(status: AddressStatus.loaded, selectedAddressId: id));
   }
 
   Future<void> getAddresses() async {
@@ -62,7 +57,13 @@ class AddressCubit extends Cubit<AddressState> {
         },
         (r) {
           debugPrint("Address cubit loaded: ${r.length}");
-          emit(state.copyWith(status: AddressStatus.loaded, addresses: r));
+          emit(
+            state.copyWith(
+              status: AddressStatus.loaded,
+              addresses: r,
+              selectedAddressId: r.firstOrNull?.id,
+            ),
+          );
         },
       );
     } catch (e) {

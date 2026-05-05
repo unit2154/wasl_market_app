@@ -94,7 +94,7 @@ class OrderDialog extends StatelessWidget {
                                 mainAxisSize: .min,
                                 children: [
                                   Text(
-                                    "يرجى توضيح سبب الرفض :",
+                                    "يرجى توضيح سبب الالغاء :",
                                     style: TextStyle(
                                       color: AppColors.textPrimary,
                                       fontSize: height * 0.02,
@@ -125,7 +125,7 @@ class OrderDialog extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          "ضغط طلبيات مرتفع",
+                                          "لم يصل في الوقت المحدد",
                                           style: TextStyle(
                                             color: AppColors.textPrimary,
                                             fontSize: height * 0.02,
@@ -159,7 +159,7 @@ class OrderDialog extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          "الكميات المطلوبة غير متوفرة",
+                                          "لم أعد بحاجة للطلب",
                                           style: TextStyle(
                                             color: AppColors.textPrimary,
                                             fontSize: height * 0.02,
@@ -193,7 +193,7 @@ class OrderDialog extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          "المتجر مديون",
+                                          "طلب آخر",
                                           style: TextStyle(
                                             color: AppColors.textPrimary,
                                             fontSize: height * 0.02,
@@ -211,7 +211,7 @@ class OrderDialog extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      "رفض الطلب",
+                      "الغاء الطلب",
                       style: TextStyle(
                         color: AppColors.orderStateRejected,
                         fontSize: height * 0.02,

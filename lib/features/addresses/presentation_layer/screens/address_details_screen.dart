@@ -65,7 +65,7 @@ class AddressDetailsScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Container(
-                  height: 200,
+                  height: 350,
                   width: double.infinity,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -75,8 +75,10 @@ class AddressDetailsScreen extends StatelessWidget {
                   child: FlutterMap(
                     mapController: mapController,
                     options: MapOptions(
-                      initialCenter: LatLng(33.3152, 44.3661),
-                      initialZoom: 13.0,
+                      initialCenter: address == null
+                          ? LatLng(33.3152, 44.3661)
+                          : LatLng(address!.latitude, address!.longitude),
+                      initialZoom: 15.5,
                       onTap: (tapPosition, point) {
                         context.read<AddressCubit>().selectLocation(point);
                       },

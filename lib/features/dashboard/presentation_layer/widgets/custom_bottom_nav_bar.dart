@@ -65,6 +65,50 @@ class CustomBottomNavBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: .spaceAround,
                 children: [
+                  // // index 2
+                  GestureDetector(
+                    onTap: () => changeIndex(2),
+                    child: Column(
+                      children: [
+                        SvgPicture.asset(
+                          AppIcons.home,
+                          colorFilter: currentIndex == 2
+                              ? ColorFilter.mode(
+                                  AppColors.white,
+                                  BlendMode.srcATop,
+                                )
+                              : ColorFilter.mode(
+                                  AppColors.white,
+                                  BlendMode.dstIn,
+                                ),
+                          width: MediaQuery.of(context).size.width * 0.025,
+                          height: MediaQuery.of(context).size.height * 0.025,
+                        ),
+                        Text(
+                          'الرئيسية',
+                          style: TextStyle(
+                            fontSize:
+                                11 * (MediaQuery.of(context).size.height / 800),
+                            fontWeight: FontWeight.w700,
+                            color: currentIndex == 2
+                                ? AppColors.white
+                                : AppColors.textSecondary,
+                          ),
+                        ),
+                        currentIndex == 2
+                            ? Container(
+                                margin: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.width * 0.01,
+                                ),
+                                height: 2,
+                                width: MediaQuery.of(context).size.width * 0.11,
+                                color: AppColors.white,
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
+                  ),
+
                   // index 0
                   GestureDetector(
                     onTap: () => changeIndex(0),
@@ -150,51 +194,7 @@ class CustomBottomNavBar extends StatelessWidget {
                   //           : const SizedBox(),
                   //     ],
                   //   ),
-                  // ),
-                  // // index 2
-                  GestureDetector(
-                    onTap: () => changeIndex(2),
-                    child: Column(
-                      children: [
-                        SvgPicture.asset(
-                          AppIcons.home,
-                          colorFilter: currentIndex == 2
-                              ? ColorFilter.mode(
-                                  AppColors.white,
-                                  BlendMode.srcATop,
-                                )
-                              : ColorFilter.mode(
-                                  AppColors.white,
-                                  BlendMode.dstIn,
-                                ),
-                          width: MediaQuery.of(context).size.width * 0.025,
-                          height: MediaQuery.of(context).size.height * 0.025,
-                        ),
-                        Text(
-                          'الرئيسية',
-                          style: TextStyle(
-                            fontSize:
-                                11 * (MediaQuery.of(context).size.height / 800),
-                            fontWeight: FontWeight.w700,
-                            color: currentIndex == 2
-                                ? AppColors.white
-                                : AppColors.textSecondary,
-                          ),
-                        ),
-                        currentIndex == 2
-                            ? Container(
-                                margin: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.width * 0.01,
-                                ),
-                                height: 2,
-                                width: MediaQuery.of(context).size.width * 0.11,
-                                color: AppColors.white,
-                              )
-                            : const SizedBox(),
-                      ],
-                    ),
-                  ),
-                  // index 3
+                  // ),// index 3
                   GestureDetector(
                     onTap: () => changeIndex(3),
                     child: Column(
