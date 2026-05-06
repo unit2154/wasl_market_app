@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasl_market_app/core/database/hive_db.dart';
 import 'package:wasl_market_app/core/dependencies/locator.dart';
+import 'package:wasl_market_app/core/navigator_observer/my_navigator_observer.dart';
 import 'package:wasl_market_app/core/theme/cubit/theme_cubit.dart';
 import 'package:wasl_market_app/features/auth/presentation_layer/providers/cubit/auth_cubit.dart';
 import 'package:wasl_market_app/features/auth/presentation_layer/screens/send_otp.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ChangedThemeState>(
         builder: (context, state) {
           return MaterialApp(
+
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
@@ -48,6 +50,7 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.dark,
             ),
             themeMode: state.themeMode,
+            navigatorObservers: [navigatorObserver],
             home: BlocConsumer<AuthCubit, AuthState>(
               listener: (context, state) {
                 switch (state) {
@@ -91,6 +94,10 @@ class MyApp extends StatelessWidget {
                     : const SendOtpScreen();
               },
             ),
+            routes:{
+              "/dashboard": (context) => DashboardScreen(),
+              
+            }
           );
         },
       ),

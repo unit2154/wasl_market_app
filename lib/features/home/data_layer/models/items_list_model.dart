@@ -11,7 +11,12 @@ class ItemsListModel extends ItemsListEntity {
         items: (json['data'] as List)
             .map((x) => ItemModel.fromJson(x))
             .toList(),
-        nextPageUrl: json['next_page_url'] ??
+        // nextPageUrl: json['next_page_url'] ??
+        //     (json['meta']['last_page'] > json['meta']['current_page']
+        //         ? "?page=${json['meta']['current_page'] + 1}"
+        //         : null),
+        nextPageUrl: json['meta'] == null ?
+            json['next_page_url']:
             (json['meta']['last_page'] > json['meta']['current_page']
                 ? "?page=${json['meta']['current_page'] + 1}"
                 : null),

@@ -209,6 +209,7 @@ class CompanyProductsScreen extends StatelessWidget {
                           maxHeight:
                               MediaQuery.of(context).size.height * 0.807899,
                         ),
+                        fromCompanyPage: true,
                       );
                     },
                   ),

@@ -12,9 +12,10 @@ import 'package:wasl_market_app/features/home/domain_layer/entities/sub_entities
 
 // ignore: must_be_immutable
 class ProductDetailsScreen extends StatelessWidget {
-  ProductDetailsScreen({super.key, required this.item});
+  ProductDetailsScreen({super.key, required this.item, this.fromCompanyPage = false});
 
   final ItemEntity item;
+  final bool fromCompanyPage;
   ValueNotifier<int> quantityNotifier = ValueNotifier<int>(1);
 
   @override
@@ -57,7 +58,12 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   context.read<DashboardCubit>().changeIndex(4);
-                  Navigator.pop(context);
+                  if(fromCompanyPage){
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  }else{
+                    Navigator.pop(context);
+                  }
                 },
                 child: Row(
                   children: [

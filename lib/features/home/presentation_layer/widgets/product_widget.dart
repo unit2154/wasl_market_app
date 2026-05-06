@@ -10,7 +10,8 @@ import 'package:wasl_market_app/features/home/presentation_layer/screens/product
 class Product extends StatelessWidget {
   final ItemEntity product;
   final BoxConstraints constraints;
-  const Product({super.key, required this.product, required this.constraints});
+  final bool fromCompanyPage;
+  const Product({super.key, required this.product, required this.constraints, this.fromCompanyPage = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class Product extends StatelessWidget {
                 BlocProvider.value(value: context.read<CartCubit>()),
                 BlocProvider.value(value: context.read<DashboardCubit>()),
               ],
-              child: ProductDetailsScreen(item: product),
+              child: ProductDetailsScreen(item: product, fromCompanyPage: fromCompanyPage),
             ),
           ),
         );
